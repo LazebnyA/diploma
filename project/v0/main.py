@@ -1,4 +1,6 @@
 import os
+import time
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -200,6 +202,15 @@ class CNN_LSTM_CTC_V0(nn.Module):
 # 5. Main Training Loop
 ##############################################
 
+def evaluate_execution_time(func, *args, **kwargs):
+    start_time = time.time()  # Record start time
+    result = func(*args, **kwargs)  # Execute the function
+    end_time = time.time()  # Record end time
+    execution_time = end_time - start_time  # Calculate execution time
+
+    return result, start_time, end_time, execution_time
+
+
 def main():
     # Path to mapping file
     mapping_file = '../../dataset/word_mappings.txt'
@@ -276,4 +287,6 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    result, start_time, end_time, execution_time = evaluate_execution_time(main)
+    print(f"Time elapsed: {execution_time}")
+    print(f"Start time: {start_time}\nEnd time: {end_time}")

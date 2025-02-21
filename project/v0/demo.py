@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from project.v0.main import LabelConverter, CNN_LSTM_CTC_V0
 
 # Load the trained model
-model_path = "cnn_lstm_ctc_handwritten_v0.pth"
+model_path = "cnn_lstm_ctc_handwritten_v0_100ep.pth"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Define the same model architecture
