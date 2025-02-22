@@ -1,5 +1,7 @@
 import os
+import sys
 import time
+from pathlib import Path
 
 import torch
 import torch.nn as nn
@@ -10,16 +12,38 @@ from torchvision import transforms
 from PIL import Image
 from tqdm import tqdm
 
+from project.v0.logger import logger_decorator
+
 
 ##############################################
 # 1. Label Converter (builds character vocab)
 ##############################################
 
+class ProjectPaths:
+    def __init__(self):
+        # Get the project root directory (assuming this file is in the project)
+        self.PROJECT_ROOT = Path(__file__).parent.parent.parent.resolve()
+
+        # Define common paths relative to project root
+        self.DATASET_DIR = self.PROJECT_ROOT / "dataset"
+        self.IAM_WORDS_DIR = self.DATASET_DIR / "iam_words"
+        self.MAPPINGS_DIR = self.DATASET_DIR / "mappings"
+
+    def get_path(self, relative_path: str) -> Path:
+        """Convert a relative path string to absolute path based on project root"""
+        return (self.PROJECT_ROOT / relative_path).resolve()
+
+
 class LabelConverter:
-    def __init__(self, mapping_file):
+    def __init__(self, mapping_file: str, paths: ProjectPaths):
+        # Convert relative path to absolute using ProjectPaths
+        mapping_path = paths.get_path(mapping_file)
+        if not mapping_path.exists():
+            raise FileNotFoundError(f"Mapping file not found: {mapping_path}")
+
         # Build vocabulary from the labels in the mapping file
         vocab = set()
-        with open(mapping_file, 'r') as f:
+        with mapping_path.open('r') as f:
             for line in f:
                 line = line.strip()
                 if not line:
@@ -29,7 +53,8 @@ class LabelConverter:
                     continue
                 _, text = parts
                 vocab.update(list(text))
-        # sort the vocabulary so that the mapping is consistent
+
+        # Sort the vocabulary so that the mapping is consistent
         self.chars = sorted(list(vocab))
 
         # Reserve index 0 for CTC blank token
@@ -46,7 +71,6 @@ class LabelConverter:
         Decodes a sequence of predictions (indices) into text.
         It collapses repeated characters and removes blanks.
         """
-
         decoded = []
         prev = None
         for idx in preds:
@@ -61,15 +85,22 @@ class LabelConverter:
 ##############################################
 
 class IAMDataset(Dataset):
-    def __init__(self, mapping_file, transform=None, label_converter=None):
+    def __init__(self, mapping_file: str, paths: ProjectPaths, transform=None, label_converter=None):
         """
-        mapping_file: path to the word_mappings.txt file.
-        transform: torchvision transforms for image pre-processing.
-        label_converter: instance of `LabelConverter` class
+        Args:
+            mapping_file (str): relative path from project root to mapping file
+            paths (ProjectPaths): instance of ProjectPaths for path handling
+            transform: torchvision transforms for image pre-processing
+            label_converter: instance of LabelConverter class
         """
+        self.paths = paths
+        self.mapping_path = paths.get_path(mapping_file)
+
+        if not self.mapping_path.exists():
+            raise FileNotFoundError(f"Mapping file not found: {self.mapping_path}")
 
         self.samples = []
-        with open(mapping_file, 'r') as f:
+        with self.mapping_path.open('r') as f:
             for line in f:
                 line = line.strip()
                 if not line:
@@ -79,9 +110,15 @@ class IAMDataset(Dataset):
                 if len(parts) != 2:
                     continue
 
-                img_pth, text = parts
-                img_pth = '../../dataset/iam_words/' + img_pth
-                self.samples.append((img_pth, text))
+                img_path, text = parts
+                # Convert relative path to absolute using ProjectPaths
+                full_img_path = paths.get_path(paths.IAM_WORDS_DIR / img_path)
+
+                if not full_img_path.exists():
+                    print(f"Warning: Image file not found: {full_img_path}")
+                    continue
+
+                self.samples.append((full_img_path, text))
 
         self.transform = transform
         self.label_converter = label_converter
@@ -211,13 +248,15 @@ def evaluate_execution_time(func, *args, **kwargs):
     return result, start_time, end_time, execution_time
 
 
+@logger_decorator
 def main():
-    # Path to mapping file
-    print(f"Workdir: {os.getcwd()}")
-    mapping_file = '../../dataset/word_mappings.txt'
+    # Initialize project paths
+    paths = ProjectPaths()
 
-    # Define a transform that resizes the image to a fixed height (32)
-    # while preserving the aspect ratio
+    # Use relative paths from project root
+    mapping_file = "dataset/word_mappings.txt"
+
+    # Define a transform that resizes the image to a fixed height (32) while preserving aspect ratio.
     def resize_with_aspect(image, target_height=32):
         w, h = image.size
         new_w = int(w * (target_height / h))
@@ -228,19 +267,22 @@ def main():
         transforms.ToTensor()
     ])
 
-    # Initialize the label converter and dataset
-    label_converter = LabelConverter(mapping_file)
-    dataset = IAMDataset(mapping_file,
-                         transform=transform,
-                         label_converter=label_converter)
+    # Initialize converter and dataset
+    label_converter = LabelConverter(mapping_file, paths)
+    dataset = IAMDataset(
+        mapping_file=mapping_file,
+        paths=paths,
+        transform=None,  # your transform here
+        label_converter=label_converter
+    )
 
-    # Create DataLoader with the custom collate_fn
+    # Create DataLoader with the custom collate_fn.
     dataloader = DataLoader(dataset,
                             batch_size=8,
                             shuffle=True,
                             collate_fn=collate_fn)
 
-    # Define model parameters
+    # Define model parameters.
     n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
     model = CNN_LSTM_CTC_V0(
         img_height=32,
@@ -249,44 +291,60 @@ def main():
         n_h=256
     )
 
-    # Device configuration
+    # Device configuration.
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.to(device)
-
     print(f"Device: {device}")
 
-    # Define the CTCLoss and optimizer
+    # Define the CTCLoss and optimizer.
     criterion = nn.CTCLoss(blank=0, zero_infinity=True)
     optimizer = optim.Adam(model.parameters(), lr=0.001)
 
     num_epochs = 75
     model.train()
     avg_loss = 0
-    for epoch in range(num_epochs):
-        epoch_loss = 0
-        desc_line = f"\tEpoch [{epoch + 1}/{num_epochs}], Prev Loss: {avg_loss:.4f}" \
-            if avg_loss != 0 else f"\tEpoch [{epoch + 1}/{num_epochs}]"
-        for images, targets, target_lengths, input_lengths in tqdm(dataloader, desc=desc_line):
-            images, targets = images.to(device), targets.to(device)  # (batch, 1, H, W)
-            target_lengths = target_lengths.to(device)
-            input_lengths = input_lengths.to(device)
+    completed_epochs = 0  # Local counter for completed epochs
 
-            optimizer.zero_grad()
-            outputs = model(images)  # (T, batch, n_classes)
+    try:
+        for epoch in range(num_epochs):
+            completed_epochs = epoch  # Update counter at the start of each epoch.
+            epoch_loss = 0
+            desc_line = (f"Epoch [{epoch + 1}/{num_epochs}], Prev Loss: {avg_loss:.4f}"
+                         if avg_loss != 0 else f"Epoch [{epoch + 1}/{num_epochs}]")
+            # Direct tqdm to write its progress bar to sys.__stdout__ so it's not captured.
+            for images, targets, target_lengths, input_lengths in tqdm(dataloader,
+                                                                       desc=desc_line,
+                                                                       file=sys.__stdout__):
+                images, targets = images.to(device), targets.to(device)  # (batch, 1, H, W)
+                target_lengths = target_lengths.to(device)
+                input_lengths = input_lengths.to(device)
 
-            # Apply log_softmax for CTCloss
-            outputs = F.log_softmax(outputs, dim=2)
+                optimizer.zero_grad()
+                outputs = model(images)  # (T, batch, n_classes)
 
-            # Compute CTC Loss. Note: outputs' time dimension T can be different per sample,
-            # so we pass the precomputed input_lengths (from the CNN down-sampling)
-            loss = criterion(outputs, targets, input_lengths, target_lengths)
-            loss.backward()
+                # Apply log_softmax for CTCLoss.
+                outputs = F.log_softmax(outputs, dim=2)
 
-            optimizer.step()
-            epoch_loss += loss.item()
-        avg_loss = epoch_loss / len(dataloader)
-    # Save the trained model
-    torch.save(model.state_dict(), "cnn_lstm_ctc_handwritten_v0_75ep.pth")
+                # Compute CTC Loss.
+                loss = criterion(outputs, targets, input_lengths, target_lengths)
+                loss.backward()
+                optimizer.step()
+
+                epoch_loss += loss.item()
+
+            avg_loss = epoch_loss / len(dataloader)
+            # Print a single summary line for the epoch.
+            print(f"Epoch {epoch + 1} completed. Average Loss: {avg_loss:.4f}")
+    except KeyboardInterrupt:
+        print("Training interrupted by user.")
+    finally:
+        # Save the model using the number of epochs actually completed.
+        base_filename = f"cnn_lstm_ctc_handwritten_v0_{completed_epochs + 1}ep"
+        model_filename = f"{base_filename}.pth"
+        torch.save(model.state_dict(), model_filename)
+        print(f"Model saved as {model_filename}")
+
+    return {"completed_epochs": completed_epochs}
 
 
 if __name__ == '__main__':
