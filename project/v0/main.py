@@ -213,6 +213,7 @@ def evaluate_execution_time(func, *args, **kwargs):
 
 def main():
     # Path to mapping file
+    print(f"Workdir: {os.getcwd()}")
     mapping_file = '../../dataset/word_mappings.txt'
 
     # Define a transform that resizes the image to a fixed height (32)
@@ -252,11 +253,13 @@ def main():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.to(device)
 
+    print(f"Device: {device}")
+
     # Define the CTCLoss and optimizer
     criterion = nn.CTCLoss(blank=0, zero_infinity=True)
     optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-    num_epochs = 100
+    num_epochs = 75
     model.train()
     avg_loss = 0
     for epoch in range(num_epochs):
@@ -283,7 +286,7 @@ def main():
             epoch_loss += loss.item()
         avg_loss = epoch_loss / len(dataloader)
     # Save the trained model
-    torch.save(model.state_dict(), "cnn_lstm_ctc_handwritten_v0_100ep.pth")
+    torch.save(model.state_dict(), "cnn_lstm_ctc_handwritten_v0_75ep.pth")
 
 
 if __name__ == '__main__':
