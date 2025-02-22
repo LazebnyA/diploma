@@ -1,5 +1,15 @@
 papers/
-dataset/
+iam_forms/
+iam_lines/
+iam_words/
+metadata/
+
+test_lines/
+test_words/
+
+word_mappings.txt
+line_mappings.txt
+form_statistics.txt
 
 .idea/
 .vscode/
