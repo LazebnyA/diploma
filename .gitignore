@@ -13,3 +13,5 @@ form_statistics.txt
 
 .idea/
 .vscode/
+
+__pycache__/
