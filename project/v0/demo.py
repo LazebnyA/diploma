@@ -4,10 +4,11 @@ from torchvision import transforms
 from PIL import Image
 import matplotlib.pyplot as plt
 
-from project.v0.main import LabelConverter, CNN_LSTM_CTC_V0
+from project.v0.main import CNN_LSTM_CTC_V0
+from project.dataset import ProjectPaths, LabelConverter
 
 # Load the trained model
-model_path = "cnn_lstm_ctc_handwritten_v0_100ep.pth"
+model_path = "cnn_lstm_ctc_handwritten_v0_50ep.pth"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Define the same model architecture
@@ -16,8 +17,9 @@ img_height = 32  # Height of input images
 num_channels = 1  # Grayscale images
 
 # Load character mapping
-mapping_file = "../../dataset/word_mappings.txt"
-label_converter = LabelConverter(mapping_file)
+mapping_file = "dataset/word_mappings.txt"
+paths = ProjectPaths()
+label_converter = LabelConverter(mapping_file, paths)
 n_classes = len(label_converter.chars) + 1  # +1 for CTC blank character
 
 model = CNN_LSTM_CTC_V0(img_height, num_channels, n_classes, n_h)
