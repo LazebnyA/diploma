@@ -1,0 +1,195 @@
+(tensor([[[[0.9843, 0.9843, 0.9843,  ..., 0.0000, 0.0000, 0.0000],
+          [0.9843, 0.9843, 0.9843,  ..., 0.0000, 0.0000, 0.0000],
+          [0.9843, 0.9843, 0.9843,  ..., 0.0000, 0.0000, 0.0000],
+          ...,
+          [0.5216, 0.8471, 0.9647,  ..., 0.0000, 0.0000, 0.0000],
+          [0.9373, 0.9725, 0.9804,  ..., 0.0000, 0.0000, 0.0000],
+          [0.9922, 0.9882, 0.9843,  ..., 0.0000, 0.0000, 0.0000]]],
+
+
+        [[[1.0000, 1.0000, 1.0000,  ..., 0.0000, 0.0000, 0.0000],
+          [1.0000, 1.0000, 1.0000,  ..., 0.0000, 0.0000, 0.0000],
+          [1.0000, 1.0000, 1.0000,  ..., 0.0000, 0.0000, 0.0000],
+          ...,
+          [0.4588, 0.3843, 0.3922,  ..., 0.0000, 0.0000, 0.0000],
+          [0.4157, 0.4706, 0.5804,  ..., 0.0000, 0.0000, 0.0000],
+          [0.5059, 0.6392, 0.8078,  ..., 0.0000, 0.0000, 0.0000]]],
+
+
+        [[[1.0000, 1.0000, 1.0000,  ..., 0.0000, 0.0000, 0.0000],
+          [1.0000, 1.0000, 1.0000,  ..., 0.0000, 0.0000, 0.0000],
+          [0.9843, 0.9843, 0.9843,  ..., 0.0000, 0.0000, 0.0000],
+          ...,
+          [0.4314, 0.4000, 0.5373,  ..., 0.0000, 0.0000, 0.0000],
+          [0.6314, 0.5412, 0.7255,  ..., 0.0000, 0.0000, 0.0000],
+          [0.9843, 0.9765, 0.9882,  ..., 0.0000, 0.0000, 0.0000]]],
+
+
+        ...,
+
+
+        [[[1.0000, 1.0000, 1.0000,  ..., 0.7529, 0.5686, 0.8353],
+          [1.0000, 1.0000, 1.0000,  ..., 0.5137, 0.3804, 0.5647],
+          [1.0000, 1.0000, 1.0000,  ..., 0.3961, 0.4000, 0.5725],
+          ...,
+          [0.9961, 0.9451, 0.9569,  ..., 0.9843, 0.9843, 0.9843],
+          [1.0000, 1.0000, 1.0000,  ..., 0.9843, 0.9843, 0.9843],
+          [1.0000, 1.0000, 1.0000,  ..., 0.9843, 0.9843, 0.9843]]],
+
+
+        [[[1.0000, 1.0000, 1.0000,  ..., 0.0000, 0.0000, 0.0000],
+          [1.0000, 1.0000, 1.0000,  ..., 0.0000, 0.0000, 0.0000],
+          [1.0000, 1.0000, 1.0000,  ..., 0.0000, 0.0000, 0.0000],
+          ...,
+          [0.5843, 0.4000, 0.4000,  ..., 0.0000, 0.0000, 0.0000],
+          [0.6980, 0.4039, 0.3922,  ..., 0.0000, 0.0000, 0.0000],
+          [0.8627, 0.5569, 0.4471,  ..., 0.0000, 0.0000, 0.0000]]],
+
+
+        [[[0.9843, 0.9843, 0.9843,  ..., 0.0000, 0.0000, 0.0000],
+          [0.9843, 0.9843, 0.9843,  ..., 0.0000, 0.0000, 0.0000],
+          [0.9843, 0.9843, 0.9843,  ..., 0.0000, 0.0000, 0.0000],
+          ...,
+          [0.5020, 0.4000, 0.4000,  ..., 0.0000, 0.0000, 0.0000],
+          [0.5882, 0.4980, 0.5490,  ..., 0.0000, 0.0000, 0.0000],
+          [0.6392, 0.7176, 0.9059,  ..., 0.0000, 0.0000, 0.0000]]]]), tensor([41, 68, 71, 62, 72, 73, 61, 62, 72, 73, 68, 55, 58, 76, 68, 67, 57, 58,
+        71, 58, 57, 54, 73, 11]), tensor([3, 2, 4, 2, 2, 8, 2, 1]), tensor([11,  8, 16,  6,  8, 35, 10,  6]))
+Device: cuda
+
+Neural Network Architecture:
+CNN_LSTM_CTC_V0(
+  (cnn): Sequential(
+    (0): Conv2d(1, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (5): ReLU(inplace=True)
+    (6): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (7): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (8): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): ReLU(inplace=True)
+    (10): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (11): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (12): ReLU(inplace=True)
+    (13): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (14): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (15): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (16): ReLU(inplace=True)
+    (17): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (18): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (19): ReLU(inplace=True)
+    (20): MaxPool2d(kernel_size=(2, 1), stride=(2, 1), padding=0, dilation=1, ceil_mode=False)
+    (21): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (22): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (23): ReLU(inplace=True)
+    (24): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (25): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (26): ReLU(inplace=True)
+    (27): MaxPool2d(kernel_size=(2, 1), stride=(2, 1), padding=0, dilation=1, ceil_mode=False)
+  )
+  (lstm): LSTM(1024, 256, batch_first=True)
+  (fc): Linear(in_features=256, out_features=80, bias=True)
+)
+
+Hyperparameters:
+img_height: 32
+num_channels: 1
+n_classes: 80
+n_h: 256
+optimizer: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+learning_rate: 0.001
+criterion: CTCLoss()
+num_epochs: 75
+batch_size: 8
+transform: Resize with aspect ratio and ToTensor
+Starting training process: 
+
+Epoch 1 completed. Training Loss: 1.7233, Validation Loss: 0.7579
+Epoch 2 completed. Training Loss: 0.8000, Validation Loss: 0.5850
+Epoch 3 completed. Training Loss: 0.6353, Validation Loss: 0.5126
+Epoch 4 completed. Training Loss: 0.5445, Validation Loss: 0.4351
+Epoch 5 completed. Training Loss: 0.4795, Validation Loss: 0.4538
+Epoch 6 completed. Training Loss: 0.4270, Validation Loss: 0.4126
+Epoch 7 completed. Training Loss: 0.3807, Validation Loss: 0.4126
+Epoch 8 completed. Training Loss: 0.3411, Validation Loss: 0.3982
+Epoch 9 completed. Training Loss: 0.3058, Validation Loss: 0.4065
+Epoch 10 completed. Training Loss: 0.2734, Validation Loss: 0.4238
+Epoch 11 completed. Training Loss: 0.2494, Validation Loss: 0.4207
+Epoch 12 completed. Training Loss: 0.2262, Validation Loss: 0.4258
+Epoch 13 completed. Training Loss: 0.2034, Validation Loss: 0.4464
+Epoch 14 completed. Training Loss: 0.1899, Validation Loss: 0.4719
+Epoch 15 completed. Training Loss: 0.1738, Validation Loss: 0.4407
+Epoch 16 completed. Training Loss: 0.1609, Validation Loss: 0.4837
+Epoch 17 completed. Training Loss: 0.1492, Validation Loss: 0.5370
+Epoch 18 completed. Training Loss: 0.1400, Validation Loss: 0.5000
+Epoch 19 completed. Training Loss: 0.1318, Validation Loss: 0.5349
+Epoch 20 completed. Training Loss: 0.1228, Validation Loss: 0.5332
+Epoch 21 completed. Training Loss: 0.1170, Validation Loss: 0.5327
+Epoch 22 completed. Training Loss: 0.1090, Validation Loss: 0.5392
+Epoch 23 completed. Training Loss: 0.1042, Validation Loss: 0.5686
+Epoch 24 completed. Training Loss: 0.1015, Validation Loss: 0.5679
+Epoch 25 completed. Training Loss: 0.0955, Validation Loss: 0.5910
+Epoch 26 completed. Training Loss: 0.0920, Validation Loss: 0.6329
+Epoch 27 completed. Training Loss: 0.0887, Validation Loss: 0.6052
+Epoch 28 completed. Training Loss: 0.0863, Validation Loss: 0.6657
+Epoch 29 completed. Training Loss: 0.0828, Validation Loss: 0.6301
+Epoch 30 completed. Training Loss: 0.0793, Validation Loss: 0.6406
+Epoch 31 completed. Training Loss: 0.0746, Validation Loss: 0.6687
+Epoch 32 completed. Training Loss: 0.0739, Validation Loss: 0.6700
+Epoch 33 completed. Training Loss: 0.0724, Validation Loss: 0.6408
+Epoch 34 completed. Training Loss: 0.0713, Validation Loss: 0.6675
+Epoch 35 completed. Training Loss: 0.0685, Validation Loss: 0.6541
+Epoch 36 completed. Training Loss: 0.0664, Validation Loss: 0.6441
+Epoch 37 completed. Training Loss: 0.0643, Validation Loss: 0.6927
+Epoch 38 completed. Training Loss: 0.0638, Validation Loss: 0.6904
+Epoch 39 completed. Training Loss: 0.0619, Validation Loss: 0.6909
+Epoch 40 completed. Training Loss: 0.0589, Validation Loss: 0.7080
+Epoch 41 completed. Training Loss: 0.0599, Validation Loss: 0.6984
+Epoch 42 completed. Training Loss: 0.0585, Validation Loss: 0.7494
+Epoch 43 completed. Training Loss: 0.0594, Validation Loss: 0.7621
+Epoch 44 completed. Training Loss: 0.0551, Validation Loss: 0.6689
+Epoch 45 completed. Training Loss: 0.0556, Validation Loss: 0.6974
+Epoch 46 completed. Training Loss: 0.0538, Validation Loss: 0.7382
+Epoch 47 completed. Training Loss: 0.0534, Validation Loss: 0.7712
+Epoch 48 completed. Training Loss: 0.0543, Validation Loss: 0.6840
+Epoch 49 completed. Training Loss: 0.0516, Validation Loss: 0.7885
+Epoch 50 completed. Training Loss: 0.0513, Validation Loss: 0.7963
+Epoch 51 completed. Training Loss: 0.0500, Validation Loss: 0.8075
+Epoch 52 completed. Training Loss: 0.0479, Validation Loss: 0.8002
+Epoch 53 completed. Training Loss: 0.0482, Validation Loss: 0.7907
+Epoch 54 completed. Training Loss: 0.0509, Validation Loss: 0.7873
+Epoch 55 completed. Training Loss: 0.0477, Validation Loss: 0.7512
+Epoch 56 completed. Training Loss: 0.0503, Validation Loss: 0.7838
+Epoch 57 completed. Training Loss: 0.0485, Validation Loss: 0.7704
+Epoch 58 completed. Training Loss: 0.0485, Validation Loss: 0.7876
+Epoch 59 completed. Training Loss: 0.0458, Validation Loss: 0.7880
+Epoch 60 completed. Training Loss: 0.0465, Validation Loss: 0.7417
+Epoch 61 completed. Training Loss: 0.0469, Validation Loss: 0.7590
+Epoch 62 completed. Training Loss: 0.0457, Validation Loss: 0.8040
+Epoch 63 completed. Training Loss: 0.0441, Validation Loss: 0.8269
+Epoch 64 completed. Training Loss: 0.0426, Validation Loss: 0.7956
+Epoch 65 completed. Training Loss: 0.0464, Validation Loss: 0.7270
+Epoch 66 completed. Training Loss: 0.0456, Validation Loss: 0.7822
+Epoch 67 completed. Training Loss: 0.0461, Validation Loss: 0.7394
+Epoch 68 completed. Training Loss: 0.0442, Validation Loss: 0.7685
+Epoch 69 completed. Training Loss: 0.0461, Validation Loss: 0.7596
+Epoch 70 completed. Training Loss: 0.0433, Validation Loss: 0.8166
+Epoch 71 completed. Training Loss: 0.0443, Validation Loss: 0.8445
+Epoch 72 completed. Training Loss: 0.0435, Validation Loss: 0.8718
+Epoch 73 completed. Training Loss: 0.0416, Validation Loss: 0.8527
+Epoch 74 completed. Training Loss: 0.0409, Validation Loss: 0.8010
+Epoch 75 completed. Training Loss: 0.0419, Validation Loss: 0.8281
+Model saved as cnn_lstm_ctc_handwritten_v0_75ep.pth
