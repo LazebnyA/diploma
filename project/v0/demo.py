@@ -8,7 +8,7 @@ from project.v0.main import CNN_LSTM_CTC_V0
 from project.dataset import ProjectPaths, LabelConverter
 
 # Load the trained model
-model_path = "cnn_lstm_ctc_handwritten_v0_50ep.pth"
+model_path = "saved_parameters/cnn_lstm_ctc_handwritten_v0_50ep.pth"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Define the same model architecture
@@ -62,7 +62,7 @@ def predict(image_path):
 
 
 # Test the model on an example image
-image_path = "img.png"  # Change this to your test image path
+image_path = "../v1/img.png"  # Change this to your test image path
 predicted_text = predict(image_path)
 
 # Display the image and prediction

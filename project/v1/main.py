@@ -58,7 +58,7 @@ def collate_fn(batch):
 # 4. The CRNN Model: CNN + BiLSTM + FC (CTC)
 ##############################################
 
-class CNN_LSTM_CTC_V0(nn.Module):
+class CNN_LSTM_CTC_V1(nn.Module):
     def __init__(self, img_height, num_channels, n_classes, n_h):
         """
         img_height: image height (after resize)
@@ -142,13 +142,13 @@ def evaluate_execution_time(func, *args, **kwargs):
     return result, start_time, end_time, execution_time
 
 
-@logger_decorator(version="0")
+@logger_decorator(version="1")
 def main():
     # Initialize project paths
     paths = ProjectPaths()
 
     # Use relative paths from project root
-    mapping_file = "dataset/word_mappings.txt"
+    mapping_file = "dataset/train_word_mappings.txt"
 
     # Define a transform that resizes the image to a fixed height (32) while preserving aspect ratio.
     def resize_with_aspect(image, target_height=32):
@@ -179,7 +179,7 @@ def main():
                             shuffle=True,
                             collate_fn=collate_fn)
 
-    validation_mapping_file = "dataset/test_words/test_words_mappings.txt"
+    validation_mapping_file = "dataset/validation_words_mappings.txt"
 
     validation_dataset = IAMDataset(
         mapping_file=validation_mapping_file,
@@ -195,15 +195,13 @@ def main():
         collate_fn=collate_fn
     )
 
-    print(next(iter(validation_loader)))
-
     # Define model parameters.
     n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
     img_height = 32
     num_channels = 1
     n_h = 256
 
-    model = CNN_LSTM_CTC_V0(
+    model = CNN_LSTM_CTC_V1(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,

@@ -128,7 +128,7 @@ def main():
     paths = ProjectPaths()
 
     # Use relative paths from project root
-    mapping_file = "dataset/word_mappings.txt"
+    mapping_file = "dataset/train_word_mappings.txt"
 
     # Define a transform that resizes the image to a fixed height (32) while preserving aspect ratio.
     def resize_with_aspect(image, target_height=32):
@@ -159,7 +159,7 @@ def main():
                             shuffle=True,
                             collate_fn=collate_fn)
 
-    validation_mapping_file = "dataset/test_words/test_words_mappings.txt"
+    validation_mapping_file = "dataset/validation_words_mappings.txt"
 
     validation_dataset = IAMDataset(
         mapping_file=validation_mapping_file,
