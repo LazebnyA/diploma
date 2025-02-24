@@ -16,7 +16,7 @@ class Tee:
 
 
 # Logger decorator that captures stdout/stderr and writes logs to a file after training
-def logger_decorator(version: str):
+def logger_decorator(version: str, additional: str = None):
     def inner(func):
         def wrapper(*args, **kwargs):
             original_stdout = sys.stdout
@@ -37,7 +37,8 @@ def logger_decorator(version: str):
                 completed_epochs = 0
                 if result is not None and isinstance(result, dict) and "completed_epochs" in result:
                     completed_epochs = result["completed_epochs"]
-                base_filename = f"cnn_lstm_ctc_handwritten_v{version}_{completed_epochs + 1}ep"
+                base_filename = f"cnn_lstm_ctc_handwritten_v{version}_{completed_epochs + 1}ep_{additional}" \
+                    if additional else f"cnn_lstm_ctc_handwritten_v{version}_{completed_epochs + 1}ep"
                 log_filename = f"{base_filename}.txt"
                 with open(log_filename, "w") as f:
                     f.write(log_capture.getvalue())
