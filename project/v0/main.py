@@ -10,7 +10,7 @@ from torchvision import transforms
 from tqdm import tqdm
 
 from project.dataset import ProjectPaths, LabelConverter, IAMDataset
-from project.logger import logger_decorator
+from project.logger import logger_model_training
 
 
 ##############################################
@@ -122,7 +122,7 @@ def evaluate_execution_time(func, *args, **kwargs):
     return result, start_time, end_time, execution_time
 
 
-@logger_decorator(version="0")
+@logger_model_training(version="0")
 def main():
     # Initialize project paths
     paths = ProjectPaths()
