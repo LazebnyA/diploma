@@ -8,7 +8,7 @@ from project.v3.main import CNN_BiLSTM_CTC_V3
 from project.dataset import ProjectPaths, LabelConverter
 
 # Load the trained model
-model_path = "cnn_lstm_ctc_handwritten_v3_75ep.pth"
+model_path = "writer_dependent_training/cnn_lstm_ctc_handwritten_v3_75ep.pth"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Define the same model architecture
