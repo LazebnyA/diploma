@@ -151,13 +151,13 @@ def evaluate_execution_time(func, *args, **kwargs):
     return result, start_time, end_time, execution_time
 
 
-@logger_model_training(version="5", additional="2-Layered-BiLSTM")
+@logger_model_training(version="5", additional="2-Layered-BiLSTM-imgH64")
 def main():
     # Initialize project paths
     paths = ProjectPaths()
 
     # Use relative paths from project root
-    mapping_file = "dataset/train_word_mappings.txt"
+    mapping_file = "dataset/writer_independent_mappings/train_word_mappings.txt"
 
     # Define a transform that resizes the image to a fixed height (32) while preserving aspect ratio.
     def resize_with_aspect(image, target_height=32):
@@ -165,8 +165,10 @@ def main():
         new_w = int(w * (target_height / h))
         return image.resize((new_w, target_height))
 
+    img_height = 64
+
     transform = transforms.Compose([
-        transforms.Lambda(lambda img: resize_with_aspect(img)),
+        transforms.Lambda(lambda img: resize_with_aspect(img, img_height)),
         transforms.ToTensor()
     ])
 
@@ -206,7 +208,7 @@ def main():
 
     # Define model parameters.
     n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
-    img_height = 32
+
     num_channels = 1
     n_h = 256
 

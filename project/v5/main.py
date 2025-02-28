@@ -157,7 +157,7 @@ def main():
     paths = ProjectPaths()
 
     # Use relative paths from project root
-    mapping_file = "dataset/train_word_mappings.txt"
+    mapping_file = "dataset/writer_independent_mappings/train_word_mappings.txt"
 
     # Define a transform that resizes the image to a fixed height (32) while preserving aspect ratio.
     def resize_with_aspect(image, target_height=32):
@@ -229,7 +229,7 @@ def main():
     lr = 0.001
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
-    num_epochs = 75
+    num_epochs = 150
 
     model.train()
 
