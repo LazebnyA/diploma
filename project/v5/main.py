@@ -11,6 +11,7 @@ from tqdm import tqdm
 
 from project.dataset import ProjectPaths, LabelConverter, IAMDataset
 from project.logger import logger_model_training
+from project.transform import get_transform
 
 
 ##############################################
@@ -61,6 +62,7 @@ def collate_fn(batch):
 class CNN_BiLSTM_CTC_V5(nn.Module):
     def __init__(self, img_height, num_channels, n_classes, n_h):
         """
+
         img_height: image height (after resize)
         num_channels: number of input channels (1 for grayscale)
         n_classes: number of output classes (vocab size + 1 for blank)
@@ -142,16 +144,23 @@ class CNN_BiLSTM_CTC_V5(nn.Module):
 # 5. Main Training Loop
 ##############################################
 
-def evaluate_execution_time(func, *args, **kwargs):
-    start_time = time.time()  # Record start time
-    result = func(*args, **kwargs)  # Execute the function
-    end_time = time.time()  # Record end time
-    execution_time = end_time - start_time  # Calculate execution time
+def execution_time_decorator(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        execution_time = end_time - start_time
 
-    return result, start_time, end_time, execution_time
+        print(f"Time elapsed: {execution_time}")
+        print(f"Start time: {start_time}\nEnd time: {end_time}")
+
+        return result
+
+    return wrapper
 
 
 @logger_model_training(version="5", additional="2-Layered-BiLSTM")
+@execution_time_decorator
 def main():
     # Initialize project paths
     paths = ProjectPaths()
@@ -159,24 +168,15 @@ def main():
     # Use relative paths from project root
     mapping_file = "dataset/writer_independent_mappings/train_word_mappings.txt"
 
-    # Define a transform that resizes the image to a fixed height (32) while preserving aspect ratio.
-    def resize_with_aspect(image, target_height=32):
-        w, h = image.size
-        new_w = int(w * (target_height / h))
-        return image.resize((new_w, target_height))
-
-    transform = transforms.Compose([
-        transforms.Lambda(lambda img: resize_with_aspect(img)),
-        transforms.ToTensor()
-    ])
-
     # Initialize converter and dataset
     label_converter = LabelConverter(mapping_file, paths)
+
+    img_height = 32
 
     dataset = IAMDataset(
         mapping_file=mapping_file,
         paths=paths,
-        transform=transform,
+        transform=get_transform(img_height),
         label_converter=label_converter
     )
 
@@ -193,7 +193,7 @@ def main():
     validation_dataset = IAMDataset(
         mapping_file=validation_mapping_file,
         paths=paths,
-        transform=transform,
+        transform=get_transform(img_height),
         label_converter=label_converter
     )
 
@@ -206,7 +206,7 @@ def main():
 
     # Define model parameters.
     n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
-    img_height = 32
+
     num_channels = 1
     n_h = 256
 
@@ -229,7 +229,7 @@ def main():
     lr = 0.001
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
-    num_epochs = 150
+    num_epochs = 75
 
     model.train()
 
@@ -324,6 +324,4 @@ def main():
 
 
 if __name__ == '__main__':
-    result, start_time, end_time, execution_time = evaluate_execution_time(main)
-    print(f"Time elapsed: {execution_time}")
-    print(f"Start time: {start_time}\nEnd time: {end_time}")
+    main()
