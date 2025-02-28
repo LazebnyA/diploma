@@ -324,6 +324,4 @@ def main():
 
 
 if __name__ == '__main__':
-    result, start_time, end_time, execution_time = evaluate_execution_time(main)
-    print(f"Time elapsed: {execution_time}")
-    print(f"Start time: {start_time}\nEnd time: {end_time}")
+    main()
