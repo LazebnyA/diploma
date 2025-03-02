@@ -49,7 +49,6 @@ def get_transform(img_height):
         transforms.Grayscale(num_output_channels=1),
         transforms.RandomRotation(degrees=5),
         transforms.RandomAffine(degrees=0, translate=(0.05, 0.05)),
-        transforms.RandomPerspective(distortion_scale=0.1, p=0.5),
         transforms.ColorJitter(brightness=0.2, contrast=0.2),
         transforms.Lambda(lambda img: random_distortion(img)),
         transforms.ToTensor(),

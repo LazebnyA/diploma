@@ -26,7 +26,7 @@ def logger_model_training(version: str, additional: str = None):
             sys.stderr = Tee(original_stderr, log_capture)
             result = None
             try:
-                result = func(*args, **kwargs)
+                result = func(additional, *args, **kwargs)
             except KeyboardInterrupt:
                 print("Training interrupted by user.")
             finally:
