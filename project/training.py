@@ -10,7 +10,7 @@ from project.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from project.logger import logger_model_training
 from project.transform import get_transform
 from project.utils import execution_time_decorator
-from project.v5.less_conv_blocks.models import CNN_BiLSTM_CTC_V5
+from project.v6.models import CNNBiLSTMResBlocks
 
 
 @logger_model_training(version="5", additional="2-Layered-BiLSTM-3-CNN-Blocks")
@@ -64,7 +64,7 @@ def main(additional):
     num_channels = 1
     n_h = 256
 
-    model = CNN_BiLSTM_CTC_V5(
+    model = CNNBiLSTMResBlocks(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
