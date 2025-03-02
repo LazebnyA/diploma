@@ -229,7 +229,7 @@ def main():
     lr = 0.001
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
-    num_epochs = 75
+    num_epochs = 150
 
     model.train()
 
