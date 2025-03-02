@@ -4,11 +4,16 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from torchvision import transforms
 import matplotlib.pyplot as plt
+import numpy as np
 from tqdm import tqdm
 import sys
+import json
+import os
+from pathlib import Path
 
 from project.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
-from project.v5.main import CNN_BiLSTM_CTC_V5  # Adjust import as needed
+from project.utils import execution_time_decorator
+from project.v5.models import CNN_BiLSTM_CTC_V5
 from project.logger import evaluation_logger  # Assuming you have this decorator defined
 
 
@@ -59,7 +64,137 @@ def levenshtein_distance(seq1, seq2):
     return dp[m][n]
 
 
+def load_training_history(model_path):
+    """
+    Loads the training history from a JSON file if available.
+    The JSON should contain epoch-wise loss values.
+    """
+    history_path = Path(model_path).with_suffix('.json')
+    if not history_path.exists():
+        print(f"Training history not found at {history_path}")
+        return None
+
+    try:
+        with open(history_path, 'r') as f:
+            history = json.load(f)
+        return history
+    except Exception as e:
+        print(f"Error loading training history: {e}")
+        return None
+
+
+def plot_loss_per_epoch(history, save_path):
+    """
+    Plot the training and validation loss per epoch.
+    """
+    if not history or 'train_loss' not in history:
+        print("Training history not available for plotting")
+        return
+
+    plt.figure(figsize=(10, 6))
+    epochs = range(1, len(history['train_loss']) + 1)
+
+    plt.plot(epochs, history['train_loss'], 'b-', label='Training Loss')
+    if 'val_loss' in history:
+        plt.plot(epochs, history['val_loss'], 'r-', label='Validation Loss')
+
+    plt.title('Loss per Epoch', fontsize=14)
+    plt.xlabel('Epochs', fontsize=12)
+    plt.ylabel('Loss', fontsize=12)
+    plt.grid(True, linestyle='--', alpha=0.7)
+    plt.legend(fontsize=12)
+
+    # Add smoothed trend line for training loss
+    if len(history['train_loss']) > 5:
+        from scipy.signal import savgol_filter
+        smooth_loss = savgol_filter(history['train_loss'],
+                                    min(11,
+                                        len(history['train_loss']) - 2 if len(history['train_loss']) % 2 == 0 else len(
+                                            history['train_loss']) - 1),
+                                    3)
+        plt.plot(epochs, smooth_loss, 'g--', label='Smoothed Training Loss', alpha=0.7)
+        plt.legend(fontsize=12)
+
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=300)
+    plt.close()
+    print(f"Saved loss per epoch graph to {save_path}")
+
+
+def plot_error_distributions(cer_list, wer_list, save_path):
+    """
+    Plot improved distribution of CER and WER with better readability.
+    """
+    plt.figure(figsize=(14, 8))
+
+    # Create subplots for separate error rate displays
+    plt.subplot(1, 2, 1)
+    n, bins, _ = plt.hist(cer_list, bins=10, alpha=0.7, color='blue', edgecolor='black')
+    plt.title('Character Error Rate (CER) Distribution', fontsize=14)
+    plt.xlabel('Error Rate', fontsize=12)
+    plt.ylabel('Number of Samples', fontsize=12)
+    plt.grid(True, linestyle='--', alpha=0.7)
+
+    # Add mean line
+    plt.axvline(np.mean(cer_list), color='red', linestyle='dashed', linewidth=2)
+    plt.text(np.mean(cer_list) + 0.01, max(n) / 2,
+             f'Mean: {np.mean(cer_list):.4f}',
+             color='red', fontsize=12)
+
+    plt.subplot(1, 2, 2)
+    n, bins, _ = plt.hist(wer_list, bins=10, alpha=0.7, color='green', edgecolor='black')
+    plt.title('Word Error Rate (WER) Distribution', fontsize=14)
+    plt.xlabel('Error Rate', fontsize=12)
+    plt.ylabel('Number of Samples', fontsize=12)
+    plt.grid(True, linestyle='--', alpha=0.7)
+
+    # Add mean line
+    plt.axvline(np.mean(wer_list), color='red', linestyle='dashed', linewidth=2)
+    plt.text(np.mean(wer_list) + 0.01, max(n) / 2,
+             f'Mean: {np.mean(wer_list):.4f}',
+             color='red', fontsize=12)
+
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=300)
+    plt.close()
+    print(f"Saved improved error rates distribution graph to {save_path}")
+
+
+def plot_error_scatter(cer_list, wer_list, ground_truths, save_path):
+    """
+    Plot scatter of error rates vs text length to analyze if length affects error rates.
+    """
+    text_lengths = [len(gt) for gt in ground_truths]
+
+    plt.figure(figsize=(10, 6))
+    plt.scatter(text_lengths, cer_list, alpha=0.5, label='CER', color='blue')
+    plt.scatter(text_lengths, wer_list, alpha=0.5, label='WER', color='green')
+
+    # Add trend lines
+    from scipy import stats
+    slope_cer, intercept_cer, r_value_cer, p_value_cer, std_err_cer = stats.linregress(text_lengths, cer_list)
+    slope_wer, intercept_wer, r_value_wer, p_value_wer, std_err_wer = stats.linregress(text_lengths, wer_list)
+
+    line_cer = [slope_cer * x + intercept_cer for x in text_lengths]
+    line_wer = [slope_wer * x + intercept_wer for x in text_lengths]
+
+    plt.plot(text_lengths, line_cer, 'b--', alpha=0.7, label=f'CER trend (r={r_value_cer:.2f})')
+    plt.plot(text_lengths, line_wer, 'g--', alpha=0.7, label=f'WER trend (r={r_value_wer:.2f})')
+
+    plt.title('Error Rates vs Text Length', fontsize=14)
+    plt.xlabel('Ground Truth Text Length (chars)', fontsize=12)
+    plt.ylabel('Error Rate', fontsize=12)
+    plt.grid(True, linestyle='--', alpha=0.7)
+    plt.legend(fontsize=12)
+
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=300)
+    plt.close()
+    print(f"Saved error vs text length scatter plot to {save_path}")
+
+
 @evaluation_logger(model_description="cnn_lstm_ctc_handwritten_v5_75ep_2-Layered-BiLSTM")
+@execution_time_decorator
 def evaluate():
     # Device configuration
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -177,43 +312,72 @@ def evaluate():
     for i, (pred, gt) in enumerate(zip(all_predictions[:10], ground_truths[:10])):
         print(f"{i + 1}: Prediction: {pred} | Ground Truth: {gt}")
 
+    # Create output directory for graphs if it doesn't exist
+    output_dir = Path("evaluation_results")
+    output_dir.mkdir(exist_ok=True)
+
     # --- Graph Generation ---
     # Graph 1: CTC Loss per Batch
-    plt.figure()
-    plt.plot(range(1, num_batches + 1), batch_losses, marker='o', linestyle='-')
-    plt.title('CTC Loss per Batch on Test Set')
-    plt.xlabel('Batch Index')
-    plt.ylabel('CTC Loss')
-    plt.grid(True)
-    loss_graph_path = "evaluation_loss_graph.png"
-    plt.savefig(loss_graph_path)
+    batch_loss_graph_path = output_dir / "batch_loss_graph.png"
+    plt.figure(figsize=(10, 6))
+    plt.plot(range(1, num_batches + 1), batch_losses, marker='o', markersize=3, linestyle='-')
+    plt.title('CTC Loss per Batch on Test Set', fontsize=14)
+    plt.xlabel('Batch Index', fontsize=12)
+    plt.ylabel('CTC Loss', fontsize=12)
+    plt.grid(True, linestyle='--', alpha=0.7)
+    plt.tight_layout()
+    plt.savefig(batch_loss_graph_path, dpi=300)
     plt.close()
-    print(f"Saved loss graph to {loss_graph_path}")
+    print(f"Saved batch loss graph to {batch_loss_graph_path}")
 
-    # Graph 2: Distribution of CER and WER
-    plt.figure()
-    plt.hist(cer_list, bins=20, alpha=0.5, label='CER')
-    plt.hist(wer_list, bins=20, alpha=0.5, label='WER')
-    plt.title('Distribution of Error Rates on Test Set')
-    plt.xlabel('Error Rate')
-    plt.ylabel('Frequency')
-    plt.legend()
-    error_graph_path = "error_rates_distribution.png"
-    plt.savefig(error_graph_path)
-    plt.close()
-    print(f"Saved error rates distribution graph to {error_graph_path}")
+    # Graph 2: Improved Distribution of CER and WER
+    error_graph_path = output_dir / "error_rates_distribution.png"
+    plot_error_distributions(cer_list, wer_list, error_graph_path)
+
+    # Graph 3: Error Rates vs Text Length
+    scatter_graph_path = output_dir / "error_vs_length.png"
+    plot_error_scatter(cer_list, wer_list, ground_truths, scatter_graph_path)
+
+    # Graph 4: Loss per Epoch (from training history)
+    training_history = load_training_history(model_path)
+    if training_history:
+        epoch_loss_graph_path = output_dir / "epoch_loss_graph.png"
+        plot_loss_per_epoch(training_history, epoch_loss_graph_path)
+    else:
+        # Create a mock epoch loss graph if history isn't available
+        mock_epoch_loss_graph_path = output_dir / "epoch_loss_graph_mock.png"
+        plt.figure(figsize=(10, 6))
+        plt.title('Loss per Epoch (Mock - No Training History Found)', fontsize=14)
+        plt.text(0.5, 0.5,
+                 'Training history not available.\nCreate a .json file with the same name as your model file\ncontaining "train_loss" and "val_loss" arrays.',
+                 horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes, fontsize=12)
+        plt.tight_layout()
+        plt.savefig(mock_epoch_loss_graph_path, dpi=300)
+        plt.close()
+        print(f"Saved mock epoch loss graph to {mock_epoch_loss_graph_path} (training history not found)")
 
     return {
         "avg_loss": avg_loss,
         "avg_cer": avg_cer,
         "avg_wer": avg_wer,
         "avg_ld": avg_ld,
-        "loss_graph": loss_graph_path,
-        "error_graph": error_graph_path
+        "batch_loss_graph": str(batch_loss_graph_path),
+        "error_graph": str(error_graph_path),
+        "error_vs_length_graph": str(scatter_graph_path),
+        "epoch_loss_graph": str(epoch_loss_graph_path) if training_history else str(mock_epoch_loss_graph_path)
     }
 
 
 if __name__ == "__main__":
     results = evaluate()
+
+    # Save results to JSON
+    output_dir = Path("evaluation_results")
+    output_dir.mkdir(exist_ok=True)
+    results_file = output_dir / "evaluation_results.json"
+
+    with open(results_file, 'w') as f:
+        json.dump(results, f, indent=4)
+
     print("Evaluation completed.")
-    print(f"Results: {results}")
+    print(f"Results saved to {results_file}")

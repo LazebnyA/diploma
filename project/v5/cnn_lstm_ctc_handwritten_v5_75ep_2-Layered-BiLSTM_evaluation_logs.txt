@@ -15,5 +15,10 @@ Sample Predictions vs. Ground Truths:
 8: Prediction: ste | Ground Truth: she
 9: Prediction: successful | Ground Truth: successful
 10: Prediction: the | Ground Truth: the
-Saved loss graph to evaluation_loss_graph.png
-Saved error rates distribution graph to error_rates_distribution.png
+Saved batch loss graph to evaluation_results\batch_loss_graph.png
+Saved improved error rates distribution graph to evaluation_results\error_rates_distribution.png
+Saved error vs text length scatter plot to evaluation_results\error_vs_length.png
+Saved loss per epoch graph to evaluation_results\epoch_loss_graph.png
+Time elapsed: 36.51839518547058
+Start time: 1740840470.4541204
+End time: 1740840506.9725156
