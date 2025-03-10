@@ -68,20 +68,28 @@ class Transition(nn.Module):
     Transition layer for reducing feature map size between dense blocks
     """
 
-    def __init__(self, in_channels, out_channels):
+    def __init__(self, in_channels, out_channels, downsample=True):
         super().__init__()
-        self.transition = nn.Sequential(
-            nn.BatchNorm2d(in_channels),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(in_channels, out_channels, kernel_size=1, bias=False),
-            nn.AvgPool2d(kernel_size=2, stride=2)
-        )
+        if downsample:
+            self.transition = nn.Sequential(
+                nn.BatchNorm2d(in_channels),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(in_channels, out_channels, kernel_size=1, bias=False),
+                nn.AvgPool2d(kernel_size=2, stride=2)
+            )
+        else:
+            # No pooling, just feature reduction
+            self.transition = nn.Sequential(
+                nn.BatchNorm2d(in_channels),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(in_channels, out_channels, kernel_size=1, bias=False)
+            )
 
     def forward(self, x):
         return self.transition(x)
 
 
-class EnhancedCRNN(nn.Module):
+class CNNBiLSTMResBlocks(nn.Module):
     def __init__(self, img_height, num_channels, n_classes, n_h, dropout=0.2):
         """
         Enhanced CRNN with improved feature extraction capabilities
@@ -119,7 +127,7 @@ class EnhancedCRNN(nn.Module):
         # Stage 3: DenseBlock for better feature reuse
         self.stage3 = nn.Sequential(
             DenseBlock(128, growth_rate=32, num_layers=3),  # Output: 128 + 3*32 = 224
-            Transition(224, 256),  # (H/8, W/8)
+            Transition(224, 256, downsample=False),  # (H/8, W/4)
             nn.MaxPool2d((1, 1))  # Keep dimensions
         )
 
@@ -127,11 +135,11 @@ class EnhancedCRNN(nn.Module):
         self.stage4 = nn.Sequential(
             ResidualBlock(256, 512, stride=1),
             ResidualBlock(512, 512),
-            nn.MaxPool2d((2, 1))  # Downsample height only (H/16, W/8)
+            nn.MaxPool2d((2, 1))  # Downsample height only (H/8, W/4)
         )
 
-        # After CNN, height becomes img_height // 16
-        self.lstm_input_size = 512 * (img_height // 16)
+        # After CNN, height becomes img_height // 8
+        self.lstm_input_size = 512 * (img_height // 8)
 
         # Bidirectional LSTM
         self.lstm = nn.LSTM(
