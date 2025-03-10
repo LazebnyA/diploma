@@ -1,0 +1,10 @@
+{
+    "avg_loss": 0.46168604479073644,
+    "avg_cer": 0.09316028039029091,
+    "avg_wer": 0.21705951808282678,
+    "avg_ld": 0.35186076004722966,
+    "batch_loss_graph": "v5\\image_augment\\31ep\\evaluation_results\\batch_loss_graph.png",
+    "error_graph": "v5\\image_augment\\31ep\\evaluation_results\\error_rates_distribution.png",
+    "error_vs_length_graph": "v5\\image_augment\\31ep\\evaluation_results\\error_vs_length.png",
+    "epoch_loss_graph": "v5\\image_augment\\31ep\\evaluation_results\\epoch_loss_graph.png"
+}

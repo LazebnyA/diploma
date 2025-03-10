@@ -58,7 +58,7 @@ def collate_fn(batch):
 # 4. The CRNN Model: CNN + BiLSTM + FC (CTC)
 ##############################################
 
-class CNN_BiLSTM_CTC_V3(nn.Module):
+class CNN_BiLSTM_CTC_V3_4Blocks(nn.Module):
     def __init__(self, img_height, num_channels, n_classes, n_h):
         """
         img_height: image height (after resize)

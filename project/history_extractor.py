@@ -59,7 +59,9 @@ def analyze_training_trends(history):
 
 
 if __name__ == "__main__":
-    log_file_path = "v5/cnn_lstm_ctc_handwritten_v5_75ep_2-Layered-BiLSTM.txt"  # Change this path if needed
+    model_name = "cnn_lstm_ctc_handwritten_v2_75ep"
+
+    log_file_path = f"{model_name}.txt"  # Change this path if needed
 
     if Path(log_file_path).is_file():
         with open(log_file_path, 'r') as file:
@@ -69,7 +71,7 @@ if __name__ == "__main__":
         exit(1)
 
     history = extract_training_history(log_text)
-    json_path = save_history_to_json(history, "cnn_lstm_ctc_handwritten_v5_75ep_2-Layered-BiLSTM")
+    json_path = save_history_to_json(history, model_name)
     plot_path = plot_training_history(history)
     analysis = analyze_training_trends(history)
 

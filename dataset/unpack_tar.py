@@ -12,7 +12,7 @@ extract_to = "./metadata"
 # Ensure the destination directory exists
 os.makedirs(extract_to, exist_ok=True)
 
-# Extract the .tgz archive
+# Extract the .tgz full_dataset
 try:
     with tarfile.open(tgz_path, "r:gz") as tar:
         tar.extractall(path=extract_to)

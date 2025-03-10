@@ -2,7 +2,7 @@ import torch
 from torch import nn as nn
 
 
-class CNN_BiLSTM_CTC_V5(nn.Module):
+class CNN_BiLSTM_CTC_V5_3ConvBlocks(nn.Module):
     def __init__(self, img_height, num_channels, n_classes, n_h):
         """
 

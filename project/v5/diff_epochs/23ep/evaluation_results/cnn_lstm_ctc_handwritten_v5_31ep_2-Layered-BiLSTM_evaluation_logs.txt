@@ -1,0 +1,24 @@
+Evaluating on device: cuda
+Test CTC Loss: 0.5771
+Evaluation Metrics:
+Average Levenshtein Distance (character level): 0.4214
+Average Character Error Rate (CER): 10.62%
+Average Word Error Rate (WER): 25.21%
+Sample Predictions vs. Ground Truths:
+1: Prediction: thrce | Ground Truth: three
+2: Prediction: wene | Ground Truth: went
+3: Prediction: you | Ground Truth: you
+4: Prediction: to | Ground Truth: to
+5: Prediction: But | Ground Truth: But
+6: Prediction: collapsed | Ground Truth: collapsed
+7: Prediction: There | Ground Truth: There
+8: Prediction: ste | Ground Truth: she
+9: Prediction: succesoful | Ground Truth: successful
+10: Prediction: the | Ground Truth: the
+Saved batch loss graph to v5\diff_epochs\23ep\evaluation_results\batch_loss_graph.png
+Saved CER/WER boxplot to v5\diff_epochs\23ep\evaluation_results\error_rates_distribution.png
+Saved error vs text length scatter plot to v5\diff_epochs\23ep\evaluation_results\error_vs_length.png
+Saved loss per epoch graph to v5\diff_epochs\23ep\evaluation_results\epoch_loss_graph.png
+Time elapsed: 34.61637759208679
+Start time: 1741636992.9975626
+End time: 1741637027.6139402

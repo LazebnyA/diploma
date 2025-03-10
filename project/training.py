@@ -10,7 +10,7 @@ from project.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from project.logger import logger_model_training
 from project.transform import get_transform
 from project.utils import execution_time_decorator
-from project.v6.models import CNNBiLSTMResBlocks
+from project.v7.models import CNNBiLSTMResBlocks
 
 
 @logger_model_training(version="5", additional="2-Layered-BiLSTM-3-CNN-Blocks")
