@@ -229,14 +229,21 @@ class CNNBiLSTMResBlocksNoDenseBetweenCNN(nn.Module):
         )
 
         # Stage 4: Final feature extraction
+        self.stage3 = nn.Sequential(
+            ResidualBlock(128, 256, stride=1),
+            ResidualBlock(256, 256),
+            nn.MaxPool2d((2, 1))  # Downsample height only (H/8, W/4)
+        )
+
+        # Stage 4: Final feature extraction
         self.stage4 = nn.Sequential(
             ResidualBlock(256, 512, stride=1),
             ResidualBlock(512, 512),
             nn.MaxPool2d((2, 1))  # Downsample height only (H/8, W/4)
         )
 
-        # After CNN, height becomes img_height // 8
-        self.lstm_input_size = 512 * (img_height // 8)
+        # After CNN, height becomes img_height // 16
+        self.lstm_input_size = 512 * (img_height // 16)
 
         # Bidirectional LSTM
         self.lstm = nn.LSTM(
