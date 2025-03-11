@@ -16,12 +16,8 @@ from pathlib import Path
 from project.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from project.utils import execution_time_decorator
 from project.logger import evaluation_logger  # Assuming you have this decorator defined
-from project.v1.models import CNN_LSTM_CTC_V1, CNN_LSTM_CTC_V1_4ConvBlocks
-from project.v3.models import CNN_BiLSTM_CTC_V3, CNN_BiLSTM_CTC_V3_4Blocks
-from project.v5.img_height.models import CNN_BiLSTM_CTC_V5_imgHeight64
-from project.v5.less_conv_blocks.models import CNN_BiLSTM_CTC_V5_3ConvBlocks
+from project.v1.models import CNN_LSTM_CTC_V1_4ConvBlocks
 
-from project.v5.models import CNN_BiLSTM_CTC_V5
 # from project.v7.models import CNNBiLSTMResBlocks
 
 MODEL_NAME = "cnn_lstm_ctc_handwritten_v0_75ep"
