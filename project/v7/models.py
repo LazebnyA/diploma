@@ -296,3 +296,116 @@ class CNNBiLSTMResBlocksNoDenseBetweenCNN(nn.Module):
         output = output.permute(1, 0, 2)
         return output
 
+
+class CNNBiLSTMResBlocksNoDenseBetweenCNNBetterFeatures(nn.Module):
+    def __init__(self, img_height, num_channels, n_classes, n_h, dropout=0.2):
+        """
+        Enhanced CRNN with improved feature extraction capabilities
+
+        Args:
+            img_height: image height (after resize)
+            num_channels: number of input channels (1 for grayscale)
+            n_classes: number of output classes (vocab size + 1 for blank)
+            n_h: number of hidden units in the LSTM
+            dropout: dropout rate for better regularization
+        """
+        super().__init__()
+
+        # Initial convolution
+        self.initial_conv = nn.Sequential(
+            nn.Conv2d(num_channels, 64, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(64),
+            nn.ReLU(inplace=True)
+        )
+
+        # Stage 1: Residual blocks
+        self.stage1 = nn.Sequential(
+            ResidualBlock(64, 64),
+            ResidualBlock(64, 64),
+            nn.MaxPool2d(2, 2)  # (H/2, W/2)
+        )
+
+        # Stage 2: Residual blocks with channel increase
+        self.stage2 = nn.Sequential(
+            ResidualBlock(64, 128, stride=1),
+            ResidualBlock(128, 128),
+            nn.MaxPool2d(2, 2)  # (H/4, W/4)
+        )
+
+        # Stage 3: Residual blocks with channel increase
+        self.stage2 = nn.Sequential(
+            ResidualBlock(128, 128, stride=1),
+            ResidualBlock(128, 128, stride=1),
+            ResidualBlock(128, 256, stride=1),
+            nn.MaxPool2d((2, 1))  # Downsample height only (H/8, W/4)
+        )
+
+        self.stage2 = nn.Sequential(
+            ResidualBlock(256, 256, stride=1),
+            ResidualBlock(256, 256, stride=1),
+            ResidualBlock(256, 512, stride=1),
+            ResidualBlock(512, 512),
+            nn.MaxPool2d((2, 1))  # Downsample height only (H/8, W/4)
+        )
+
+        # Stage 4: Final feature extraction
+        self.stage4 = nn.Sequential(
+            ResidualBlock(256, 512, stride=1),
+            ResidualBlock(512, 512),
+            nn.MaxPool2d((2, 1))  # Downsample height only (H/8, W/4)
+        )
+
+        # After CNN, height becomes img_height // 16
+        self.lstm_input_size = 512 * (img_height // 16)
+
+        # Bidirectional LSTM
+        self.lstm = nn.LSTM(
+            self.lstm_input_size,
+            n_h,
+            bidirectional=True,
+            num_layers=2,
+            batch_first=True,
+            dropout=dropout if dropout > 0 else 0
+        )
+
+        # Dropout for regularization
+        self.dropout = nn.Dropout(dropout)
+
+        # Final classifier: maps LSTM output to character classes
+        self.fc = nn.Linear(2 * n_h, n_classes)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """
+        Forward pass through the network
+
+        Args:
+            x: input images with shape (batch, channels, height, width)
+
+        Returns:
+            output in shape (T, batch, n_classes) required by CTCLoss
+        """
+        # Extract CNN features
+        x = self.initial_conv(x)
+        x = self.stage1(x)
+        x = self.stage2(x)
+        x = self.stage3(x)
+        conv = self.stage4(x)
+
+        # Shape information
+        b, c, h, w = conv.size()
+
+        # Permute and flatten for LSTM
+        conv = conv.permute(0, 3, 1, 2)  # (batch, width, channels, height)
+        conv = conv.contiguous().view(b, w, c * h)  # (batch, width, feature_size)
+
+        # LSTM sequence modeling
+        recurrent, _ = self.lstm(conv)
+        recurrent = self.dropout(recurrent)
+
+        # Final classification
+        output = self.fc(recurrent)
+
+        # For CTCLoss, we need (seq_len, batch, n_classes)
+        output = output.permute(1, 0, 2)
+        return output
+

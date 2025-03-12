@@ -17,13 +17,14 @@ from project.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from project.utils import execution_time_decorator
 from project.logger import evaluation_logger  # Assuming you have this decorator defined
 from project.v1.models import CNN_LSTM_CTC_V1_4ConvBlocks
+from project.v6.models import CNN_BiLSTM_CTC_V5_3ConvBlocks
 
 # from project.v7.models import CNNBiLSTMResBlocks
 
-MODEL_NAME = "cnn_lstm_ctc_handwritten_v0_75ep"
-MODEL_PATH = f"v1/one_more_conv_block/writer_dependent_training_set/{MODEL_NAME}.pth"
-OUTPUT_DIR = "v1/one_more_conv_block/writer_dependent_training_set/evaluation_results"
-Model = CNN_LSTM_CTC_V1_4ConvBlocks
+MODEL_NAME = "cnn_lstm_ctc_handwritten_v5_75ep_2-Layered-BiLSTM-3-CNN-Blocks"
+MODEL_PATH = f"v6/img_augment/{MODEL_NAME}.pth"
+OUTPUT_DIR = "v6/img_augment/evaluation_results"
+Model = CNN_BiLSTM_CTC_V5_3ConvBlocks
 
 # Hyperparameters
 IMG_HEIGHT = 32
