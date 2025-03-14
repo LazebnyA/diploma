@@ -11,7 +11,8 @@ from project.logger import logger_model_training
 from project.transform import get_transform
 from project.utils import execution_time_decorator
 from project.v6.models import CNN_BiLSTM_CTC_V5_3ConvBlocks
-from project.v7.models import CNNBiLSTMResBlocks, CNNBiLSTMResBlocksNoDenseBetweenCNN
+from project.v7.models import CNNBiLSTMResBlocks, CNNBiLSTMResBlocksNoDenseBetweenCNN, \
+    CNNBiLSTMResBlocksNoDenseBetweenCNNBetterFeatures
 
 
 @logger_model_training(version="5", additional="2-Layered-BiLSTM-3-CNN-Blocks")
@@ -65,7 +66,7 @@ def main(version, additional):
     num_channels = 1
     n_h = 256
 
-    model = CNNBiLSTMResBlocksNoDenseBetweenCNN(
+    model = CNNBiLSTMResBlocksNoDenseBetweenCNNBetterFeatures(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,

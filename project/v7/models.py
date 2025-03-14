@@ -333,23 +333,16 @@ class CNNBiLSTMResBlocksNoDenseBetweenCNNBetterFeatures(nn.Module):
         )
 
         # Stage 3: Residual blocks with channel increase
-        self.stage2 = nn.Sequential(
+        self.stage3 = nn.Sequential(
             ResidualBlock(128, 128, stride=1),
             ResidualBlock(128, 128, stride=1),
             ResidualBlock(128, 256, stride=1),
             nn.MaxPool2d((2, 1))  # Downsample height only (H/8, W/4)
         )
 
-        self.stage2 = nn.Sequential(
-            ResidualBlock(256, 256, stride=1),
-            ResidualBlock(256, 256, stride=1),
-            ResidualBlock(256, 512, stride=1),
-            ResidualBlock(512, 512),
-            nn.MaxPool2d((2, 1))  # Downsample height only (H/8, W/4)
-        )
-
-        # Stage 4: Final feature extraction
         self.stage4 = nn.Sequential(
+            ResidualBlock(256, 256, stride=1),
+            ResidualBlock(256, 256, stride=1),
             ResidualBlock(256, 512, stride=1),
             ResidualBlock(512, 512),
             nn.MaxPool2d((2, 1))  # Downsample height only (H/8, W/4)
