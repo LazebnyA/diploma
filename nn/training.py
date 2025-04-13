@@ -12,7 +12,7 @@ from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training
 from nn.transform import get_augment_transform, get_simple_transform
 from nn.utils import execution_time_decorator
-from nn.v0.models import CNN_LSTM_CTC_V0
+from nn.v0.models import CNN_LSTM_CTC_V0, CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm, CNN_LSTM_CTC_V1_CNN_more_filters
 
 torch.manual_seed(42)
 
@@ -61,7 +61,7 @@ def main(version, additional):
     # Initialize converter and dataset
     label_converter = LabelConverter(mapping_file, paths)
 
-    img_height = 96
+    img_height = 32
 
     dataset = IAMDataset(
         mapping_file=mapping_file,
@@ -100,7 +100,7 @@ def main(version, additional):
     num_channels = 1
     n_h = 256
 
-    model = CNN_LSTM_CTC_V0(
+    model = CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
@@ -113,9 +113,9 @@ def main(version, additional):
     model.to(device)
     print(f"Device: {device}")
 
-    base_filename = f"cnn_lstm_ctc_handwritten_v{version}_initial_imH{img_height}"
-    model_filename = f"{base_filename}.pth"
-    torch.save(model.state_dict(), model_filename)
+    # base_filename = f"cnn_lstm_ctc_handwritten_v{version}_initial_imH{img_height}"
+    # model_filename = f"{base_filename}.pth"
+    # torch.save(model.state_dict(), model_filename)
 
     # Load initial random weights (hardcoded path)
     # weights_path = "cnn_lstm_ctc_handwritten_v0_initial_imH32.pth"
@@ -128,7 +128,7 @@ def main(version, additional):
     lr = 0.001
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
-    num_epochs = 10
+    num_epochs = 30
 
     model.train()
 
@@ -251,15 +251,15 @@ def main(version, additional):
             print(f"Training - Loss: {avg_train_loss:.4f}, CER: {train_cer:.4f}, WER: {train_wer:.4f}")
             print(f"Validation - Loss: {avg_val_loss:.4f}, CER: {val_cer:.4f}, WER: {val_wer:.4f}")
 
+    except KeyboardInterrupt:
+        print("Training interrupted by user.")
+    finally:
         # Save training history after each epoch
         base_filename = f"cnn_lstm_ctc_handwritten_v{version}_lines_{epoch + 1}ep_{additional}"
         history_file = f"{base_filename}.json"
         with open(history_file, 'w') as f:
             json.dump(training_history, f, indent=4)
 
-    except KeyboardInterrupt:
-        print("Training interrupted by user.")
-    finally:
         # Save the model_params using the number of epochs actually completed.
         base_filename = f"cnn_lstm_ctc_handwritten_v{version}_lines_{epoch + 1}ep_{additional}"
         model_filename = f"{base_filename}.pth"

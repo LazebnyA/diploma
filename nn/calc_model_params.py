@@ -48,7 +48,7 @@ def count_parameters(model_path):
 
 if __name__ == "__main__":
     # You can specify the model path here
-    model_path = "cnn_lstm_ctc_handwritten_v0_initial_imH96.pth"
+    model_path = "v0/initial_state_dicts/cnn_lstm_ctc_handwritten_v0_initial_imH96.pth"
 
     num_params = count_parameters(model_path)
 
