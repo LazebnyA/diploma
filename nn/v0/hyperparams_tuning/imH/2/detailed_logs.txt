@@ -1,0 +1,217 @@
+
+=== Порівняння різної висоти зображень ===
+
+Навчання з img_height=16
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH16.pth
+Training Epoch [1/10]: 100%|██████████| 10008/10008 [02:45<00:00, 60.52it/s]
+Validation Epoch [1/10]: 100%|##########| 2182/2182 [00:19<00:00, 110.75it/s]
+Epoch 1/10:
+  Train Loss: 2.3535, CER: 0.7782, WER: 0.8143
+  Val Loss: 1.7187, CER: 0.6348, WER: 0.7012
+Training Epoch [2/10]: 100%|██████████| 10008/10008 [02:28<00:00, 67.52it/s]
+Validation Epoch [2/10]: 100%|##########| 2182/2182 [00:20<00:00, 108.90it/s]
+Epoch 2/10:
+  Train Loss: 1.4991, CER: 0.5742, WER: 0.6700
+  Val Loss: 1.3363, CER: 0.5115, WER: 0.6322
+Training Epoch [3/10]: 100%|██████████| 10008/10008 [02:08<00:00, 77.79it/s]
+Validation Epoch [3/10]: 100%|##########| 2182/2182 [00:19<00:00, 109.28it/s]
+Epoch 3/10:
+  Train Loss: 1.1764, CER: 0.5004, WER: 0.6302
+  Val Loss: 1.1796, CER: 0.5179, WER: 0.6256
+Training Epoch [4/10]: 100%|██████████| 10008/10008 [02:08<00:00, 78.00it/s]
+Validation Epoch [4/10]: 100%|##########| 2182/2182 [00:19<00:00, 114.82it/s]
+Epoch 4/10:
+  Train Loss: 1.0078, CER: 0.5163, WER: 0.6318
+  Val Loss: 1.0892, CER: 0.5319, WER: 0.6406
+Training Epoch [5/10]: 100%|██████████| 10008/10008 [02:07<00:00, 78.29it/s]
+Validation Epoch [5/10]: 100%|##########| 2182/2182 [00:19<00:00, 113.49it/s]
+Epoch 5/10:
+  Train Loss: 0.9020, CER: 0.5674, WER: 0.6744
+  Val Loss: 1.0481, CER: 0.6406, WER: 0.7190
+Training Epoch [6/10]: 100%|██████████| 10008/10008 [02:09<00:00, 77.46it/s]
+Validation Epoch [6/10]: 100%|##########| 2182/2182 [00:19<00:00, 111.08it/s]
+Epoch 6/10:
+  Train Loss: 0.8306, CER: 0.5762, WER: 0.6666
+  Val Loss: 1.0182, CER: 0.6228, WER: 0.7027
+Training Epoch [7/10]: 100%|██████████| 10008/10008 [02:08<00:00, 77.97it/s]
+Validation Epoch [7/10]: 100%|##########| 2182/2182 [00:20<00:00, 104.19it/s]
+Epoch 7/10:
+  Train Loss: 0.7780, CER: 0.6190, WER: 0.7100
+  Val Loss: 1.0121, CER: 0.6647, WER: 0.7407
+Training Epoch [8/10]: 100%|██████████| 10008/10008 [02:11<00:00, 76.14it/s]
+Validation Epoch [8/10]: 100%|##########| 2182/2182 [00:21<00:00, 102.64it/s]
+Epoch 8/10:
+  Train Loss: 0.7358, CER: 0.6320, WER: 0.7140
+  Val Loss: 0.9868, CER: 0.5972, WER: 0.6840
+Training Epoch [9/10]: 100%|██████████| 10008/10008 [02:12<00:00, 75.65it/s]
+Validation Epoch [9/10]: 100%|##########| 2182/2182 [00:22<00:00, 96.08it/s]
+Epoch 9/10:
+  Train Loss: 0.7038, CER: 0.6510, WER: 0.7364
+  Val Loss: 0.9728, CER: 0.6674, WER: 0.7334
+Training Epoch [10/10]: 100%|██████████| 10008/10008 [02:08<00:00, 77.72it/s]
+Validation Epoch [10/10]: 100%|##########| 2182/2182 [00:20<00:00, 104.96it/s]
+Epoch 10/10:
+  Train Loss: 0.6739, CER: 0.6506, WER: 0.7216
+  Val Loss: 0.9936, CER: 0.8369, WER: 0.7775
+
+Навчання з img_height=32
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH32.pth
+Training Epoch [1/10]: 100%|██████████| 10008/10008 [02:59<00:00, 55.82it/s]
+Validation Epoch [1/10]: 100%|##########| 2182/2182 [00:21<00:00, 103.40it/s]
+Epoch 1/10:
+  Train Loss: 2.4561, CER: 0.7867, WER: 0.8238
+  Val Loss: 1.8180, CER: 0.6574, WER: 0.7231
+Training Epoch [2/10]: 100%|██████████| 10008/10008 [02:43<00:00, 61.20it/s]
+Validation Epoch [2/10]: 100%|##########| 2182/2182 [00:21<00:00, 102.09it/s]
+Epoch 2/10:
+  Train Loss: 1.5176, CER: 0.5561, WER: 0.6699
+  Val Loss: 1.4784, CER: 0.5192, WER: 0.6611
+Training Epoch [3/10]: 100%|██████████| 10008/10008 [02:44<00:00, 60.86it/s]
+Validation Epoch [3/10]: 100%|##########| 2182/2182 [00:21<00:00, 102.61it/s]
+Epoch 3/10:
+  Train Loss: 1.1423, CER: 0.4558, WER: 0.6057
+  Val Loss: 1.1651, CER: 0.4497, WER: 0.6000
+Training Epoch [4/10]: 100%|██████████| 10008/10008 [02:44<00:00, 60.83it/s]
+Validation Epoch [4/10]: 100%|##########| 2182/2182 [00:21<00:00, 103.09it/s]
+Epoch 4/10:
+  Train Loss: 0.9474, CER: 0.4338, WER: 0.5752
+  Val Loss: 1.0345, CER: 0.5082, WER: 0.6018
+Training Epoch [5/10]: 100%|██████████| 10008/10008 [03:19<00:00, 50.05it/s]
+Validation Epoch [5/10]: 100%|##########| 2182/2182 [00:21<00:00, 103.76it/s]
+Epoch 5/10:
+  Train Loss: 0.8250, CER: 0.5016, WER: 0.5998
+  Val Loss: 0.9685, CER: 0.5070, WER: 0.5885
+Training Epoch [6/10]: 100%|██████████| 10008/10008 [03:18<00:00, 50.46it/s]
+Validation Epoch [6/10]: 100%|##########| 2182/2182 [00:21<00:00, 102.44it/s]
+Epoch 6/10:
+  Train Loss: 0.7377, CER: 0.5522, WER: 0.6290
+  Val Loss: 0.9834, CER: 0.5056, WER: 0.5993
+Training Epoch [7/10]: 100%|██████████| 10008/10008 [03:18<00:00, 50.47it/s]
+Validation Epoch [7/10]: 100%|##########| 2182/2182 [00:22<00:00, 96.09it/s]
+Epoch 7/10:
+  Train Loss: 0.6732, CER: 0.6016, WER: 0.6638
+  Val Loss: 0.9522, CER: 0.6862, WER: 0.7221
+Training Epoch [8/10]: 100%|██████████| 10008/10008 [02:58<00:00, 56.20it/s]
+Validation Epoch [8/10]: 100%|##########| 2182/2182 [00:21<00:00, 101.22it/s]
+Epoch 8/10:
+  Train Loss: 0.6205, CER: 0.6470, WER: 0.7194
+  Val Loss: 0.9503, CER: 0.6837, WER: 0.7410
+Training Epoch [9/10]: 100%|██████████| 10008/10008 [02:58<00:00, 56.09it/s]
+Validation Epoch [9/10]: 100%|##########| 2182/2182 [00:21<00:00, 101.78it/s]
+Epoch 9/10:
+  Train Loss: 0.5780, CER: 0.6604, WER: 0.7130
+  Val Loss: 0.9616, CER: 0.7383, WER: 0.7429
+Training Epoch [10/10]: 100%|██████████| 10008/10008 [03:18<00:00, 50.37it/s]
+Validation Epoch [10/10]: 100%|##########| 2182/2182 [00:22<00:00, 96.58it/s]
+Epoch 10/10:
+  Train Loss: 0.5406, CER: 0.6997, WER: 0.7535
+  Val Loss: 0.9550, CER: 0.7330, WER: 0.7787
+
+Навчання з img_height=64
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH64.pth
+Training Epoch [1/10]: 100%|██████████| 10008/10008 [05:42<00:00, 29.22it/s]
+Validation Epoch [1/10]: 100%|##########| 2182/2182 [00:31<00:00, 68.43it/s]
+Epoch 1/10:
+  Train Loss: 2.7090, CER: 0.8314, WER: 0.8696
+  Val Loss: 2.0126, CER: 0.7196, WER: 0.7788
+Training Epoch [2/10]: 100%|██████████| 10008/10008 [05:42<00:00, 29.20it/s]
+Validation Epoch [2/10]: 100%|##########| 2182/2182 [00:30<00:00, 71.76it/s]
+Epoch 2/10:
+  Train Loss: 1.7256, CER: 0.6429, WER: 0.7222
+  Val Loss: 1.5092, CER: 0.5659, WER: 0.6706
+Training Epoch [3/10]: 100%|██████████| 10008/10008 [05:39<00:00, 29.47it/s]
+Validation Epoch [3/10]: 100%|##########| 2182/2182 [00:30<00:00, 70.61it/s]
+Epoch 3/10:
+  Train Loss: 1.3219, CER: 0.6630, WER: 0.8369
+  Val Loss: 1.2936, CER: 0.6947, WER: 0.9158
+Training Epoch [4/10]: 100%|██████████| 10008/10008 [05:41<00:00, 29.34it/s]
+Validation Epoch [4/10]: 100%|##########| 2182/2182 [00:31<00:00, 69.07it/s]
+Epoch 4/10:
+  Train Loss: 1.1118, CER: 0.7085, WER: 0.9749
+  Val Loss: 1.1594, CER: 0.6923, WER: 0.9674
+Training Epoch [5/10]: 100%|██████████| 10008/10008 [05:40<00:00, 29.38it/s]
+Validation Epoch [5/10]: 100%|##########| 2182/2182 [00:30<00:00, 71.07it/s]
+Epoch 5/10:
+  Train Loss: 0.9761, CER: 0.6962, WER: 0.9502
+  Val Loss: 1.1754, CER: 0.7026, WER: 0.9889
+Training Epoch [6/10]: 100%|██████████| 10008/10008 [04:51<00:00, 34.29it/s]
+Validation Epoch [6/10]: 100%|##########| 2182/2182 [00:30<00:00, 72.24it/s]
+Epoch 6/10:
+  Train Loss: 0.8751, CER: 0.6491, WER: 0.8923
+  Val Loss: 1.0785, CER: 0.6301, WER: 0.8368
+Training Epoch [7/10]: 100%|██████████| 10008/10008 [04:50<00:00, 34.44it/s]
+Validation Epoch [7/10]: 100%|##########| 2182/2182 [00:30<00:00, 72.31it/s]
+Epoch 7/10:
+  Train Loss: 0.7920, CER: 0.6544, WER: 0.9289
+  Val Loss: 1.0518, CER: 0.6231, WER: 0.7893
+Training Epoch [8/10]: 100%|██████████| 10008/10008 [04:50<00:00, 34.41it/s]
+Validation Epoch [8/10]: 100%|##########| 2182/2182 [00:30<00:00, 72.07it/s]
+Epoch 8/10:
+  Train Loss: 0.7222, CER: 0.5910, WER: 0.6917
+  Val Loss: 1.0400, CER: 0.5949, WER: 0.6482
+Training Epoch [9/10]: 100%|██████████| 10008/10008 [04:51<00:00, 34.39it/s]
+Validation Epoch [9/10]: 100%|##########| 2182/2182 [00:30<00:00, 72.72it/s]
+Epoch 9/10:
+  Train Loss: 0.6642, CER: 0.5307, WER: 0.6147
+  Val Loss: 1.0511, CER: 0.5050, WER: 0.6221
+Training Epoch [10/10]: 100%|██████████| 10008/10008 [04:50<00:00, 34.46it/s]
+Validation Epoch [10/10]: 100%|##########| 2182/2182 [00:29<00:00, 73.19it/s]
+Epoch 10/10:
+  Train Loss: 0.6087, CER: 0.5454, WER: 0.6190
+  Val Loss: 1.0468, CER: 0.6556, WER: 0.6986
+
+Навчання з img_height=96
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH96.pth
+Training Epoch [1/10]: 100%|██████████| 10008/10008 [08:18<00:00, 20.09it/s]
+Validation Epoch [1/10]: 100%|##########| 2182/2182 [00:43<00:00, 50.10it/s]
+Epoch 1/10:
+  Train Loss: 3.5568, CER: 0.9514, WER: 0.9530
+  Val Loss: 3.0581, CER: 0.8966, WER: 0.9119
+Training Epoch [2/10]: 100%|██████████| 10008/10008 [08:22<00:00, 19.92it/s]
+Validation Epoch [2/10]: 100%|##########| 2182/2182 [00:45<00:00, 47.48it/s]
+Epoch 2/10:
+  Train Loss: 3.0138, CER: 0.8916, WER: 0.9045
+  Val Loss: 3.0341, CER: 0.8629, WER: 0.9026
+Training Epoch [3/10]: 100%|██████████| 10008/10008 [08:26<00:00, 19.77it/s]
+Validation Epoch [3/10]: 100%|##########| 2182/2182 [00:44<00:00, 48.68it/s]
+Epoch 3/10:
+  Train Loss: 2.9279, CER: 0.8803, WER: 0.8990
+  Val Loss: 2.9237, CER: 0.8675, WER: 0.8946
+Training Epoch [4/10]: 100%|██████████| 10008/10008 [08:23<00:00, 19.89it/s]
+Validation Epoch [4/10]: 100%|##########| 2182/2182 [00:45<00:00, 47.84it/s]
+Epoch 4/10:
+  Train Loss: 3.0178, CER: 0.8871, WER: 0.9061
+  Val Loss: 2.9370, CER: 0.8735, WER: 0.9013
+Training Epoch [5/10]: 100%|██████████| 10008/10008 [08:32<00:00, 19.51it/s]
+Validation Epoch [5/10]: 100%|##########| 2182/2182 [00:45<00:00, 47.94it/s]
+Epoch 5/10:
+  Train Loss: 3.2997, CER: 0.9097, WER: 0.9218
+  Val Loss: 3.2217, CER: 0.9065, WER: 0.9152
+Training Epoch [6/10]: 100%|██████████| 10008/10008 [08:23<00:00, 19.89it/s]
+Validation Epoch [6/10]: 100%|##########| 2182/2182 [00:45<00:00, 48.13it/s]
+Epoch 6/10:
+  Train Loss: 3.1104, CER: 0.8839, WER: 0.9104
+  Val Loss: 2.9673, CER: 0.8557, WER: 0.8969
+Training Epoch [7/10]: 100%|██████████| 10008/10008 [08:16<00:00, 20.15it/s]
+Validation Epoch [7/10]: 100%|##########| 2182/2182 [00:48<00:00, 44.81it/s]
+Epoch 7/10:
+  Train Loss: 2.9299, CER: 0.8522, WER: 0.8899
+  Val Loss: 2.8758, CER: 0.8490, WER: 0.8799
+Training Epoch [8/10]: 100%|██████████| 10008/10008 [08:12<00:00, 20.33it/s]
+Validation Epoch [8/10]: 100%|##########| 2182/2182 [00:45<00:00, 47.90it/s]
+Epoch 8/10:
+  Train Loss: 2.8130, CER: 0.8430, WER: 0.8796
+  Val Loss: 2.7545, CER: 0.8466, WER: 0.8724
+Training Epoch [9/10]: 100%|██████████| 10008/10008 [08:16<00:00, 20.14it/s]
+Validation Epoch [9/10]: 100%|##########| 2182/2182 [00:45<00:00, 48.01it/s]
+Epoch 9/10:
+  Train Loss: 2.7275, CER: 0.8281, WER: 0.8691
+  Val Loss: 2.6544, CER: 0.8188, WER: 0.8482
+Training Epoch [10/10]: 100%|██████████| 10008/10008 [08:09<00:00, 20.44it/s]
+Validation Epoch [10/10]: 100%|##########| 2182/2182 [00:45<00:00, 47.90it/s]
+Epoch 10/10:
+  Train Loss: 2.6498, CER: 0.8048, WER: 0.8564
+  Val Loss: 2.5723, CER: 0.7752, WER: 0.8289
+
+All results saved to comparison_results
+Filtered log saved to CNN-LSTM-CTC_hyperparams_tuning_logs.txt

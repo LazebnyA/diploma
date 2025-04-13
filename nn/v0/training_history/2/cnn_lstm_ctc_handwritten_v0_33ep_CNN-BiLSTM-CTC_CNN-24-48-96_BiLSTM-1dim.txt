@@ -1,0 +1,192 @@
+Device: cuda
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH32.pth
+
+Neural Network Architecture:
+CNN_LSTM_CTC_V0(
+  (cnn): Sequential(
+    (0): Conv2d(1, 24, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ReLU(inplace=True)
+    (2): Conv2d(24, 24, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (3): ReLU(inplace=True)
+    (4): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (5): Conv2d(24, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (6): ReLU(inplace=True)
+    (7): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (8): ReLU(inplace=True)
+    (9): MaxPool2d(kernel_size=(2, 1), stride=(2, 1), padding=0, dilation=1, ceil_mode=False)
+    (10): Conv2d(48, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (11): ReLU(inplace=True)
+    (12): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (13): ReLU(inplace=True)
+    (14): MaxPool2d(kernel_size=(2, 1), stride=(2, 1), padding=0, dilation=1, ceil_mode=False)
+  )
+  (lstm): LSTM(384, 256, batch_first=True, bidirectional=True)
+  (fc): Linear(in_features=512, out_features=80, bias=True)
+)
+
+Hyperparameters:
+img_height: 32
+num_channels: 1
+n_classes: 80
+n_h: 256
+optimizer: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+learning_rate: 0.001
+criterion: CTCLoss()
+num_epochs: 50
+batch_size: 8
+transform: Resize with aspect ratio
+dataset: IAM Lines Dataset (writer-independent split)
+Starting training process:
+
+
+Epoch 1 Results:
+Training - Loss: 2.3660, CER: 0.7628, WER: 0.8072
+Validation - Loss: 1.8435, CER: 0.6280, WER: 0.7151
+
+Epoch 2 Results:
+Training - Loss: 1.4690, CER: 0.5367, WER: 0.6585
+Validation - Loss: 1.3443, CER: 0.4960, WER: 0.6396
+
+Epoch 3 Results:
+Training - Loss: 1.1299, CER: 0.4676, WER: 0.6070
+Validation - Loss: 1.1983, CER: 0.4654, WER: 0.6017
+
+Epoch 4 Results:
+Training - Loss: 0.9464, CER: 0.4383, WER: 0.5742
+Validation - Loss: 1.0496, CER: 0.4633, WER: 0.5900
+
+Epoch 5 Results:
+Training - Loss: 0.8319, CER: 0.4897, WER: 0.6378
+Validation - Loss: 0.9964, CER: 0.4646, WER: 0.5951
+
+Epoch 6 Results:
+Training - Loss: 0.7422, CER: 0.4996, WER: 0.6117
+Validation - Loss: 1.0106, CER: 0.5074, WER: 0.5991
+
+Epoch 7 Results:
+Training - Loss: 0.6801, CER: 0.5364, WER: 0.6375
+Validation - Loss: 0.9597, CER: 0.5608, WER: 0.6179
+
+Epoch 8 Results:
+Training - Loss: 0.6283, CER: 0.5602, WER: 0.6144
+Validation - Loss: 0.9445, CER: 0.5024, WER: 0.5879
+
+Epoch 9 Results:
+Training - Loss: 0.5850, CER: 0.5525, WER: 0.5955
+Validation - Loss: 0.9781, CER: 0.5759, WER: 0.6181
+
+Epoch 10 Results:
+Training - Loss: 0.5467, CER: 0.5765, WER: 0.6181
+Validation - Loss: 0.9606, CER: 0.6303, WER: 0.6458
+
+Epoch 11 Results:
+Training - Loss: 0.5181, CER: 0.6161, WER: 0.6357
+Validation - Loss: 0.9848, CER: 0.6402, WER: 0.6588
+
+Epoch 12 Results:
+Training - Loss: 0.4932, CER: 0.6716, WER: 0.6903
+Validation - Loss: 1.0169, CER: 0.6466, WER: 0.6744
+
+Epoch 13 Results:
+Training - Loss: 0.4689, CER: 0.8361, WER: 0.7912
+Validation - Loss: 0.9854, CER: 0.8574, WER: 0.7970
+
+Epoch 14 Results:
+Training - Loss: 0.4529, CER: 0.9123, WER: 0.8296
+Validation - Loss: 1.0082, CER: 0.8329, WER: 0.8466
+
+Epoch 15 Results:
+Training - Loss: 0.4370, CER: 1.1067, WER: 0.9067
+Validation - Loss: 1.0235, CER: 1.0825, WER: 0.9119
+
+Epoch 16 Results:
+Training - Loss: 0.4196, CER: 1.1048, WER: 0.8800
+Validation - Loss: 1.0129, CER: 0.8991, WER: 0.8190
+
+Epoch 17 Results:
+Training - Loss: 0.4063, CER: 0.9362, WER: 0.8292
+Validation - Loss: 1.0451, CER: 1.1813, WER: 0.9171
+
+Epoch 18 Results:
+Training - Loss: 0.3961, CER: 1.0461, WER: 0.8804
+Validation - Loss: 1.0789, CER: 0.8993, WER: 0.8081
+
+Epoch 19 Results:
+Training - Loss: 0.3823, CER: 1.0828, WER: 0.8881
+Validation - Loss: 1.0492, CER: 1.1128, WER: 0.9074
+
+Epoch 20 Results:
+Training - Loss: 0.3739, CER: 1.2804, WER: 0.9171
+Validation - Loss: 1.1019, CER: 1.5151, WER: 0.9401
+
+Epoch 21 Results:
+Training - Loss: 0.3712, CER: 1.2971, WER: 0.9109
+Validation - Loss: 1.1173, CER: 1.2645, WER: 0.9147
+
+Epoch 22 Results:
+Training - Loss: 0.3650, CER: 1.1621, WER: 0.8840
+Validation - Loss: 1.1223, CER: 1.5951, WER: 0.9481
+
+Epoch 23 Results:
+Training - Loss: 0.3523, CER: 1.2836, WER: 0.9117
+Validation - Loss: 1.1405, CER: 1.2696, WER: 0.8932
+
+Epoch 24 Results:
+Training - Loss: 0.3474, CER: 1.5325, WER: 0.9381
+Validation - Loss: 1.1311, CER: 1.4202, WER: 0.9289
+
+Epoch 25 Results:
+Training - Loss: 0.3422, CER: 1.6884, WER: 0.9461
+Validation - Loss: 1.1259, CER: 1.4333, WER: 0.9261
+
+Epoch 26 Results:
+Training - Loss: 0.3371, CER: 1.7113, WER: 0.9390
+Validation - Loss: 1.1485, CER: 1.6420, WER: 0.9476
+
+Epoch 27 Results:
+Training - Loss: 0.3323, CER: 1.5246, WER: 0.9318
+Validation - Loss: 1.1726, CER: 1.1797, WER: 0.8841
+
+Epoch 28 Results:
+Training - Loss: 0.3262, CER: 1.8921, WER: 0.9551
+Validation - Loss: 1.1627, CER: 1.7128, WER: 0.9574
+
+Epoch 29 Results:
+Training - Loss: 0.3236, CER: 1.5442, WER: 0.9306
+Validation - Loss: 1.1653, CER: 1.5364, WER: 0.9288
+
+Epoch 30 Results:
+Training - Loss: 0.3194, CER: 1.9225, WER: 0.9378
+Validation - Loss: 1.1837, CER: 1.1814, WER: 0.8711
+
+Epoch 31 Results:
+Training - Loss: 0.3359, CER: 1.7787, WER: 0.9333
+Validation - Loss: 1.1560, CER: 1.7880, WER: 0.9864
+Training interrupted by user.
+Model saved as cnn_lstm_ctc_handwritten_v0_lines_32ep_CNN-BiLSTM-CTC_CNN-24-48-96_BiLSTM-1dim.pth
+
+===== Starting Test Set Evaluation =====
+
+Test Set Overall Metrics:
+CER: 1.2210, WER: 0.8635
+C:\uni\Diploma\nn\train_and_eval.py:287: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  plt.gca().set_xticklabels(new_labels)
+C:\uni\Diploma\nn\train_and_eval.py:287: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  plt.gca().set_xticklabels(new_labels)
+
+Evaluation complete. Results saved to v0/evaluation_results/
+Time elapsed: 7142.261619567871
+Start time: 1744551415.007682
+End time: 1744558557.2693017
