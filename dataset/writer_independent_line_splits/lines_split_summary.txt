@@ -1,0 +1,14 @@
+Total writers: 657
+Train writers: 459 (9445 samples)
+Validation writers: 98 (1993 samples)
+Test writers: 100 (1915 samples)
+
+Split ratios:
+Train: 70.73%
+Validation: 14.93%
+Test: 14.34%
+
+Text length statistics:
+Train: 398609 characters (42.2 avg per line)
+Validation: 85832 characters (43.1 avg per line)
+Test: 85521 characters (44.7 avg per line)

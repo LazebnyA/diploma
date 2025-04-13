@@ -1,0 +1,79 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{shapes,arrows,positioning}
+
+\begin{document}
+\begin{tikzpicture}[
+    node distance=1cm and 0.5cm,
+    block/.style={rectangle, draw=black!60, fill=black!5, thick, minimum width=6cm, minimum height=1cm, align=center},
+    arrow/.style={-stealth, thick}
+]
+
+% Nodes
+\node (input) [block] {Input Image \\ (Batch Size, Channels, Height, Width) = (B, C, H, W)};
+
+% CNN Block 1
+\node (cnn1) [block, below=of input] {
+    \textbf{CNN Block 1} \\
+    Conv2D(24, 3x3, stride=1, padding=1) → ReLU \\
+    Conv2D(24, 3x3, stride=1, padding=1) → ReLU \\
+    MaxPool2D(2x2, stride=2) \\
+    Output: (B, 24, H/2, W/2)
+};
+
+% CNN Block 2
+\node (cnn2) [block, below=of cnn1] {
+    \textbf{CNN Block 2} \\
+    Conv2D(48, 3x3, stride=1, padding=1) → ReLU \\
+    Conv2D(48, 3x3, stride=1, padding=1) → ReLU \\
+    MaxPool2D(2x1, stride=2x1) \\
+    Output: (B, 48, H/4, W/2)
+};
+
+% CNN Block 3
+\node (cnn3) [block, below=of cnn2] {
+    \textbf{CNN Block 3} \\
+    Conv2D(96, 3x3, stride=1, padding=1) → ReLU \\
+    Conv2D(96, 3x3, stride=1, padding=1) → ReLU \\
+    MaxPool2D(2x1, stride=2x1) \\
+    Output: (B, 96, H/8, W/2)
+};
+
+% Reshape Operation
+\node (reshape) [block, below=of cnn3] {
+    \textbf{Reshape Operation} \\
+    Permute(0, 3, 1, 2) → View(B, W/2, 96*(H/8)) \\
+    Output: (B, W/2, Features=96*(H/8))
+};
+
+% BiLSTM
+\node (bilstm) [block, below=of reshape] {
+    \textbf{Bidirectional LSTM} \\
+    Hidden Size: n_h (each direction) \\
+    Output: (B, W/2, 2*n_h)
+};
+
+% Classifier
+\node (classifier) [block, below=of bilstm] {
+    \textbf{Linear Classifier} \\
+    FC Layer: 2*n_h \rightarrow n\_classes \\
+    Output: (B, W/2, n\_classes)
+};
+
+% CTC Output
+\node (output) [block, below=of classifier] {
+    \textbf{CTC Output} \\
+    Permute(1, 0, 2) \\
+    Final Output: (W/2, B, n\_classes)
+};
+
+% Arrows
+\draw [arrow] (input) -- (cnn1);
+\draw [arrow] (cnn1) -- (cnn2);
+\draw [arrow] (cnn2) -- (cnn3);
+\draw [arrow] (cnn3) -- (reshape);
+\draw [arrow] (reshape) -- (bilstm);
+\draw [arrow] (bilstm) -- (classifier);
+\draw [arrow] (classifier) -- (output);
+
+\end{tikzpicture}
+\end{document}

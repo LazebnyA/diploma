@@ -1,0 +1,107 @@
+dataset/iam_lines/data/g06/g06-042a/g06-042a-00.png	Nor is this to be wondered at, for even today,
+dataset/iam_lines/data/g06/g06-042a/g06-042a-01.png	in the 1960s, no cure has been found for
+dataset/iam_lines/data/g06/g06-042a/g06-042a-02.png	the 6tic douloureux. As early as 1830, when
+dataset/iam_lines/data/g06/g06-042a/g06-042a-03.png	Anglesey believed himself to be on the point
+dataset/iam_lines/data/g06/g06-042a/g06-042a-04.png	of death, the new German curative method
+dataset/iam_lines/data/g06/g06-042a/g06-042a-05.png	known as homoeopathy had been brought to
+dataset/iam_lines/data/g06/g06-042a/g06-042a-06.png	his notice.
+dataset/iam_lines/data/g06/g06-042b/g06-042b-00.png	Nor is this to be wondered at, for even
+dataset/iam_lines/data/g06/g06-042b/g06-042b-01.png	today, in the 1960s, no cure has been
+dataset/iam_lines/data/g06/g06-042b/g06-042b-02.png	found for the 6tic douloureux. As early
+dataset/iam_lines/data/g06/g06-042b/g06-042b-03.png	as 1830, when Anglesey believed himself
+dataset/iam_lines/data/g06/g06-042b/g06-042b-04.png	to be on the point of death, the new
+dataset/iam_lines/data/g06/g06-042b/g06-042b-05.png	German curative method known as
+dataset/iam_lines/data/g06/g06-042b/g06-042b-06.png	homoeopathy had been brought to
+dataset/iam_lines/data/g06/g06-042b/g06-042b-07.png	his notice.
+dataset/iam_lines/data/g06/g06-042c/g06-042c-00.png	Nor is this to be wondered at, for even today, in
+dataset/iam_lines/data/g06/g06-042c/g06-042c-01.png	the 1960s, no cure has been found for the
+dataset/iam_lines/data/g06/g06-042c/g06-042c-02.png	6tic douloureux. As early as 1830, when
+dataset/iam_lines/data/g06/g06-042c/g06-042c-03.png	Anglesey believed himself to be on the point of
+dataset/iam_lines/data/g06/g06-042c/g06-042c-04.png	death, the new German curative method known as
+dataset/iam_lines/data/g06/g06-042c/g06-042c-05.png	homoeopathy had been brought to his notice.
+dataset/iam_lines/data/g06/g06-042d/g06-042d-00.png	Nor is this to be wondered at, for even today, in the
+dataset/iam_lines/data/g06/g06-042d/g06-042d-01.png	1960s, no cure has been found for the 6tic douloureux.
+dataset/iam_lines/data/g06/g06-042d/g06-042d-02.png	As early as 1830, when Anglesey believed himself to be
+dataset/iam_lines/data/g06/g06-042d/g06-042d-03.png	on the point of death, the new German curative method
+dataset/iam_lines/data/g06/g06-042d/g06-042d-04.png	known as homoeopathy had been brought to his notice.
+dataset/iam_lines/data/g06/g06-042e/g06-042e-00.png	Nor is this to be wondered at, for even today, in the
+dataset/iam_lines/data/g06/g06-042e/g06-042e-01.png	1960s, no cure has been found for the 6tic
+dataset/iam_lines/data/g06/g06-042e/g06-042e-02.png	douloureux. As early as 1830, when Anglesey believed
+dataset/iam_lines/data/g06/g06-042e/g06-042e-03.png	himself to be on the point of death, the new German
+dataset/iam_lines/data/g06/g06-042e/g06-042e-04.png	curative method known as homoeopathy had been
+dataset/iam_lines/data/g06/g06-042e/g06-042e-05.png	brought to his notice.
+dataset/iam_lines/data/g06/g06-042f/g06-042f-00.png	Nor is this to be wondered at, for even today, in the 1960s,
+dataset/iam_lines/data/g06/g06-042f/g06-042f-01.png	no cure has been found for the 6tic douloureux. As early as
+dataset/iam_lines/data/g06/g06-042f/g06-042f-02.png	1830, when Anglesey believed himself to be on the point of death,
+dataset/iam_lines/data/g06/g06-042f/g06-042f-03.png	the new German curative method known as homoeopathy had been
+dataset/iam_lines/data/g06/g06-042f/g06-042f-04.png	brought to his notice.
+dataset/iam_lines/data/g06/g06-042g/g06-042g-00.png	Nor is this to be wondered at, for even today, in the 1960s,
+dataset/iam_lines/data/g06/g06-042g/g06-042g-01.png	no cure has been found for the 6tic douloureux. As
+dataset/iam_lines/data/g06/g06-042g/g06-042g-02.png	early as 1830, when Anglesey believed himself to be on the
+dataset/iam_lines/data/g06/g06-042g/g06-042g-03.png	point of death, the new German curative method known as
+dataset/iam_lines/data/g06/g06-042g/g06-042g-04.png	homoeopathy had been brought to his notice.
+dataset/iam_lines/data/g06/g06-042h/g06-042h-00.png	Nor is this to be wondered at, for even today, in
+dataset/iam_lines/data/g06/g06-042h/g06-042h-01.png	the 1960s, no cure has been found for the
+dataset/iam_lines/data/g06/g06-042h/g06-042h-02.png	6tic douloureux. As early as 1830, when
+dataset/iam_lines/data/g06/g06-042h/g06-042h-03.png	Anglesey believed himself to be on the
+dataset/iam_lines/data/g06/g06-042h/g06-042h-04.png	point of death, the new German curative
+dataset/iam_lines/data/g06/g06-042h/g06-042h-05.png	method known as homoeopathy had been
+dataset/iam_lines/data/g06/g06-042h/g06-042h-06.png	brought to his notice.
+dataset/iam_lines/data/g06/g06-042i/g06-042i-00.png	Nor is this to be wondered at, for even today, in the
+dataset/iam_lines/data/g06/g06-042i/g06-042i-01.png	1960s, no cure has been found for the 6tic douloureux. As
+dataset/iam_lines/data/g06/g06-042i/g06-042i-02.png	early as 1830, when Anglesey believed himself to be on
+dataset/iam_lines/data/g06/g06-042i/g06-042i-03.png	the point of death, the new German curative method known
+dataset/iam_lines/data/g06/g06-042i/g06-042i-04.png	as homoeopathy had been brought to his notice.
+dataset/iam_lines/data/g06/g06-042j/g06-042j-00.png	Nor is this to be wondered at, for even today,
+dataset/iam_lines/data/g06/g06-042j/g06-042j-01.png	in the 1960s, no cure has been found for
+dataset/iam_lines/data/g06/g06-042j/g06-042j-02.png	the 6tic douloureux. As early as 1830, when
+dataset/iam_lines/data/g06/g06-042j/g06-042j-03.png	Anglesey believed himself to be on the
+dataset/iam_lines/data/g06/g06-042j/g06-042j-04.png	point of death, the new German curative
+dataset/iam_lines/data/g06/g06-042j/g06-042j-05.png	method known as homoeopathy had been
+dataset/iam_lines/data/g06/g06-042j/g06-042j-06.png	brought to his notice.
+dataset/iam_lines/data/g06/g06-042k/g06-042k-00.png	Nor is this to be wondered at, for even today, in
+dataset/iam_lines/data/g06/g06-042k/g06-042k-01.png	the 1960s, no cure has been found for the
+dataset/iam_lines/data/g06/g06-042k/g06-042k-02.png	6tic douloureux. As early as 1830, when Anglesey
+dataset/iam_lines/data/g06/g06-042k/g06-042k-03.png	believed himself to be on the point of death,
+dataset/iam_lines/data/g06/g06-042k/g06-042k-04.png	the new German curative method known as
+dataset/iam_lines/data/g06/g06-042k/g06-042k-05.png	homoeopathy had been brought to his notice.
+dataset/iam_lines/data/g06/g06-042l/g06-042l-00.png	Nor is this to be wondered at, for even today, in the
+dataset/iam_lines/data/g06/g06-042l/g06-042l-01.png	1960s, no cure has been found for the 6tic douloureux.
+dataset/iam_lines/data/g06/g06-042l/g06-042l-02.png	As early as 1830, when Anglesey believed himself to be
+dataset/iam_lines/data/g06/g06-042l/g06-042l-03.png	on the point of death, the new German curative method
+dataset/iam_lines/data/g06/g06-042l/g06-042l-04.png	known as homoeopathy had been brought to his notice.
+dataset/iam_lines/data/g06/g06-042m/g06-042m-00.png	Nor is this to be wondered at, for even today,
+dataset/iam_lines/data/g06/g06-042m/g06-042m-01.png	in the 1960s, no cure has been found for the
+dataset/iam_lines/data/g06/g06-042m/g06-042m-02.png	6tic douloureux. As early as 1830, when
+dataset/iam_lines/data/g06/g06-042m/g06-042m-03.png	Anglesey believed himself to be on the
+dataset/iam_lines/data/g06/g06-042m/g06-042m-04.png	point of death, the new German curative
+dataset/iam_lines/data/g06/g06-042m/g06-042m-05.png	method known as homoeopathy had
+dataset/iam_lines/data/g06/g06-042m/g06-042m-06.png	been brought to his notice.
+dataset/iam_lines/data/g06/g06-042n/g06-042n-00.png	Nor is this to be wondered at, for even
+dataset/iam_lines/data/g06/g06-042n/g06-042n-01.png	today, in the 1960s, no cure has been
+dataset/iam_lines/data/g06/g06-042n/g06-042n-02.png	found for the 6tic douloureux. As early
+dataset/iam_lines/data/g06/g06-042n/g06-042n-03.png	as 1830, when Anglesey believed himself
+dataset/iam_lines/data/g06/g06-042n/g06-042n-04.png	to be on the point of death, the new
+dataset/iam_lines/data/g06/g06-042n/g06-042n-05.png	German curative method known as
+dataset/iam_lines/data/g06/g06-042n/g06-042n-06.png	homoeopathy had been brought to his
+dataset/iam_lines/data/g06/g06-042n/g06-042n-07.png	notice.
+dataset/iam_lines/data/g06/g06-042o/g06-042o-00.png	Nor is this to be wondered at, for even
+dataset/iam_lines/data/g06/g06-042o/g06-042o-01.png	today, in the 1960s, no cure has been
+dataset/iam_lines/data/g06/g06-042o/g06-042o-02.png	found for the 6tic douloureux. As early
+dataset/iam_lines/data/g06/g06-042o/g06-042o-03.png	as 1830, when Anglesey believed him-
+dataset/iam_lines/data/g06/g06-042o/g06-042o-04.png	self to be on the point of death,
+dataset/iam_lines/data/g06/g06-042o/g06-042o-05.png	the new German curative method
+dataset/iam_lines/data/g06/g06-042o/g06-042o-06.png	known as homoeopathy had been
+dataset/iam_lines/data/g06/g06-042o/g06-042o-07.png	brought to his notice.
+dataset/iam_lines/data/g06/g06-042p/g06-042p-00.png	Nor is this to be wondered at, for even today, in the
+dataset/iam_lines/data/g06/g06-042p/g06-042p-01.png	1960s, no cure has been found for the 6tic douloureux.
+dataset/iam_lines/data/g06/g06-042p/g06-042p-02.png	As early as 1830, when Anglesey believed himself to
+dataset/iam_lines/data/g06/g06-042p/g06-042p-03.png	be on the point of death, the new German curative
+dataset/iam_lines/data/g06/g06-042p/g06-042p-04.png	method known as homoeopathy had been brought
+dataset/iam_lines/data/g06/g06-042p/g06-042p-05.png	to his notice.
+dataset/iam_lines/data/g06/g06-042r/g06-042r-00.png	Nor is this to be wondered at, for even today, in
+dataset/iam_lines/data/g06/g06-042r/g06-042r-01.png	the 1960s, no cure has been found for the 6tic
+dataset/iam_lines/data/g06/g06-042r/g06-042r-02.png	douloureux. As early as 1830, when Anglesey believed
+dataset/iam_lines/data/g06/g06-042r/g06-042r-03.png	himself to be on the point of death, the new
+dataset/iam_lines/data/g06/g06-042r/g06-042r-04.png	German curative method known as homoeopathy
+dataset/iam_lines/data/g06/g06-042r/g06-042r-05.png	had been brought to his notice.

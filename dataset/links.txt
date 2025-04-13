@@ -1,7 +1,0 @@
-Forms - https://www.kaggle.com/datasets/naderabdalghani/iam-handwritten-forms-dataset
-Words - https://www.kaggle.com/datasets/ngkinwang/iam-dataset
-Lines - https://www.kaggle.com/datasets/adammika/iam-lines
-Words Original - https://www.kaggle.com/datasets/teykaicong/iamondb-handwriting-dataset
-
-DS Analyis - https://www.researchgate.net/publication/226662568_The_IAM-database_An_English_sentence_database_for_offline_handwriting_recognition
-Original Link - https://fki.tic.heia-fr.ch/databases/iam-handwriting-database

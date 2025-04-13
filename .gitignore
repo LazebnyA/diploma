@@ -3,13 +3,23 @@ iam_forms/
 iam_lines/
 iam_words/
 metadata/
+other_ds/
 
 test_lines/
 test_words/
 
+main_diploma/
+
 word_mappings.txt
 line_mappings.txt
 form_statistics.txt
+
+model_params/
+archive/
+archive/**
+
+mappings_archive/
+mappings_archive/**
 
 .idea/
 .vscode/
@@ -17,3 +27,9 @@ form_statistics.txt
 __pycache__/
 
 tests/
+tests/**
+ukrainian
+ukrainian/**
+
+venv/
+venv/**

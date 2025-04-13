@@ -1,0 +1,114 @@
+% nnblocks.sty
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{nnblocks}[2023/11/15 Custom Neural Network Blocks]
+
+\RequirePackage{tikz}
+\usetikzlibrary{shapes,arrows.meta,positioning,decorations.pathreplacing,calligraphy}
+
+% BiLSTM Block with improved visualization
+\tikzset{
+    pics/BiLSTM/.style={
+        code={
+            \tikzset{BiLSTM/.cd,#1}
+            \def\pv##1{\pgfkeysvalueof{/tikz/BiLSTM/##1}}
+            
+            % Main rectangle
+            \node[rectangle, draw=black!70, thick, fill=\pv{fill}, minimum width=3.5cm, minimum height=2.2cm, 
+                  rounded corners=3pt, align=center] (-body) {};
+                  
+            % Title at top
+            \node[font=\bfseries, align=center] at (-body.north) [yshift=-0.3cm] {\pv{caption}};
+            
+            % Add dimensions label at bottom
+            \node[font=\small, align=center] at (-body.south) [yshift=0.3cm] {\pv{xlabel}};
+            
+            % Internal cell structure
+            \draw[rounded corners=1pt] ($(- body.center) + (-1.2,-0.1)$) rectangle ($(- body.center) + (-0.4,0.5)$);
+            \draw[rounded corners=1pt] ($(- body.center) + (0.4,-0.1)$) rectangle ($(- body.center) + (1.2,0.5)$);
+            
+            % Cell connections
+            \draw[->, thick] ($(- body.center) + (-1.2,0.2)$) -- ($(- body.center) + (-0.4,0.2)$);
+            \draw[->, thick] ($(- body.center) + (0.4,0.2)$) -- ($(- body.center) + (1.2,0.2)$);
+            
+            % Bidirectional arrows
+            \draw[thick, -{Stealth[length=3mm]}] (-body.west) ++(0,0.4) -- ++(-0.4,0);
+            \draw[thick, {Stealth[length=3mm]}-] (-body.west) ++(0,-0.4) -- ++(-0.4,0);
+            \draw[thick, -{Stealth[length=3mm]}] (-body.east) ++(0,0.4) -- ++(0.4,0);
+            \draw[thick, {Stealth[length=3mm]}-] (-body.east) ++(0,-0.4) -- ++(0.4,0);
+            
+            % Add LSTM cell labels
+            \node[font=\tiny, align=center] at ($(- body.center) + (-0.8,0.2)$) {LSTM};
+            \node[font=\tiny, align=center] at ($(- body.center) + (0.8,0.2)$) {LSTM};
+            
+            % Direction labels
+            \node[font=\tiny, align=center] at ($(- body.center) + (0,-0.6)$) {Bidirectional};
+            
+            % Memory flow visualization
+            \draw[decorate, decoration={calligraphic brace, amplitude=5pt}, thick] 
+                ($(- body.center) + (-1.2,0.6)$) -- ($(- body.center) + (1.2,0.6)$);
+                
+            % Export anchors to parent coordinate system
+            \coordinate (-east) at (-body.east);
+            \coordinate (-west) at (-body.west);
+            \coordinate (-north) at (-body.north);
+            \coordinate (-south) at (-body.south);
+            \coordinate (-center) at (-body.center);
+        }
+    },
+    BiLSTM/.search also={/tikz},
+    BiLSTM/.cd,
+    fill/.initial=white,
+    caption/.initial=BiLSTM,
+    xlabel/.initial=,
+    name/.initial=,
+}
+
+% FC Block with improved visualization
+\tikzset{
+    pics/FC/.style={
+        code={
+            \tikzset{FC/.cd,#1}
+            \def\pv##1{\pgfkeysvalueof{/tikz/FC/##1}}
+            
+            % Main rectangle with dots
+            \node[rectangle, draw=black!70, thick, fill=\pv{fill}, minimum width=3cm, minimum height=2.2cm, 
+                  align=center] (-body) {};
+            
+            % Title at top
+            \node[font=\bfseries, align=center] at (-body.north) [yshift=-0.3cm] {\pv{caption}};
+            
+            % Add dimensions label at bottom
+            \node[font=\small, align=center] at (-body.south) [yshift=0.3cm] {\pv{xlabel}};
+            
+            % Draw input and output nodes with connections (fully connected pattern)
+            \foreach \y in {-0.6,-0.3,0,0.3,0.6} {
+                % Input nodes (left)
+                \fill ($(- body.center) + (-1,\y)$) circle (1.5pt);
+                
+                % Output nodes (right)
+                \fill ($(- body.center) + (1,\y)$) circle (1.5pt);
+                
+                % Connect each input to each output
+                \foreach \x in {-0.6,-0.3,0,0.3,0.6} {
+                    \draw[gray, opacity=0.4] 
+                        ($(- body.center) + (-1,\y)$) -- ($(- body.center) + (1,\x)$);
+                }
+            }
+            
+            % Export anchors to parent coordinate system
+            \coordinate (-east) at (-body.east);
+            \coordinate (-west) at (-body.west);
+            \coordinate (-north) at (-body.north);
+            \coordinate (-south) at (-body.south);
+            \coordinate (-center) at (-body.center);
+        }
+    },
+    FC/.search also={/tikz},
+    FC/.cd,
+    fill/.initial=white,
+    caption/.initial=Linear,
+    xlabel/.initial=,
+    name/.initial=,
+}
+
+\endinput
