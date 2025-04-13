@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.3) (preloaded format=pdflatex 2025.3.19)  11 APR 2025 22:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.3) (preloaded format=pdflatex 2025.3.19)  13 APR 2025 14:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -255,86 +255,55 @@ File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
 File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )))
 \sa@box=\box63
-) (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryshapes.code.tex
-File: tikzlibraryshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
- (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryshapes.geometric.code.tex
-File: tikzlibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
- (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.geometric.code.tex
-File: pgflibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)) (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryshapes.misc.code.tex
-File: tikzlibraryshapes.misc.code.tex 2023-01-15 v3.1.10 (3.1.10)
- (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.misc.code.tex
-File: pgflibraryshapes.misc.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)) (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryshapes.symbols.code.tex
-File: tikzlibraryshapes.symbols.code.tex 2023-01-15 v3.1.10 (3.1.10)
- (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.symbols.code.tex
-File: pgflibraryshapes.symbols.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)) (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryshapes.arrows.code.tex
-File: tikzlibraryshapes.arrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
- (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.arrows.code.tex
-File: pgflibraryshapes.arrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)) (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryshapes.callouts.code.tex (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.callouts.code.tex)) (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryshapes.multipart.code.tex
-File: tikzlibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
- (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.multipart.code.tex
-File: pgflibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfnodepartlowerbox=\box64
-\pgfnodeparttwobox=\box65
-\pgfnodepartthreebox=\box66
-\pgfnodepartfourbox=\box67
-\pgfnodeparttwentybox=\box68
-\pgfnodepartnineteenbox=\box69
-\pgfnodeparteighteenbox=\box70
-\pgfnodepartseventeenbox=\box71
-\pgfnodepartsixteenbox=\box72
-\pgfnodepartfifteenbox=\box73
-\pgfnodepartfourteenbox=\box74
-\pgfnodepartthirteenbox=\box75
-\pgfnodeparttwelvebox=\box76
-\pgfnodepartelevenbox=\box77
-\pgfnodeparttenbox=\box78
-\pgfnodepartninebox=\box79
-\pgfnodeparteightbox=\box80
-\pgfnodepartsevenbox=\box81
-\pgfnodepartsixbox=\box82
-\pgfnodepartfivebox=\box83
-))) (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryarrows.code.tex
-File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
- (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibraryarrows.code.tex
-File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\arrowsize=\dimen194
-)) (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarypositioning.code.tex
+) (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/latex/import\import.sty
+Package: import 2020/04/01  v 6.2
+) (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryquotes.code.tex
+File: tikzlibraryquotes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+) (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibraryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfarrowinset=\dimen194
+\pgfarrowlength=\dimen195
+\pgfarrowwidth=\dimen196
+\pgfarrowlinewidth=\dimen197
+) (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
+) (Ball.sty
+Package: Ball 
+) (Box.sty
+Package: Box 
+) (RightBandedBox.sty
+Package: RightBandedBox 
 ) (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count294
-\l__pdf_internal_box=\box84
+\l__pdf_internal_box=\box64
 ) (schema.aux)
 \openout1 = `schema.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
  (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count295
-\scratchdimen=\dimen195
-\scratchbox=\box85
+\scratchdimen=\dimen198
+\scratchbox=\box65
 \nofMPsegments=\count296
 \nofMParguments=\count297
 \everyMPshowfont=\toks31
 \MPscratchCnt=\count298
-\MPscratchDim=\dimen196
+\MPscratchDim=\dimen199
 \MPnumerator=\count299
 \makeMPintoPDFobject=\count300
 \everyMPtoPDFconversion=\toks32
@@ -344,358 +313,9 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-c:/uni/Diploma/nn/v0/schemas/schema.tex:51: Missing $ inserted.
-<inserted text> 
-                $
-l.51     Hidden Size: n_
-                        h (each direction) \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 51.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 51.
-c:/uni/Diploma/nn/v0/schemas/schema.tex:52: Extra }, or forgotten $.
-\tikz@@align@newline [#1]->\egroup 
-                                   \tikz@align@continue \pgfmathparse {#1}\l...
-l.52     O
-          utput: (B, W/2, 2*n_h)
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:52: Missing $ inserted.
-<inserted text> 
-                $
-l.52     Output: (B, W/2, 2*n_
-                              h)
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:53: Extra }, or forgotten $.
-l.53 }
-      ;
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:54: Missing $ inserted.
-<inserted text> 
-                $
-l.54 
-     
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:56: Undefined control sequence.
-l.56 \node
-           (classifier) [block, below=of bilstm] {
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:58: Missing $ inserted.
-<inserted text> 
-                $
-l.58     FC Layer: 2*n_
-                       h \rightarrow n\_classes \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:59: Extra }, or forgotten $.
-\tikz@@align@newline [#1]->\egroup 
-                                   \tikz@align@continue \pgfmathparse {#1}\l...
-l.59     O
-          utput: (B, W/2, n\_classes)
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:60: Extra }, or forgotten $.
-\pgfutil@reserved@c ...@align@aligned@box \egroup 
-                                                  
-l.60 };
-       
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:61: Missing $ inserted.
-<inserted text> 
-                $
-l.61 
-     
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:63: Undefined control sequence.
-l.63 \node
-           (output) [block, below=of classifier] {
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:67: Extra }, or forgotten $.
-\pgfutil@reserved@c ...@align@aligned@box \egroup 
-                                                  
-l.67 };
-       
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:68: Missing $ inserted.
-<inserted text> 
-                $
-l.68 
-     
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:70: Undefined control sequence.
-l.70 \draw
-           [arrow] (input) -- (cnn1);
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:71: Undefined control sequence.
-l.71 \draw
-           [arrow] (cnn1) -- (cnn2);
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:72: Undefined control sequence.
-l.72 \draw
-           [arrow] (cnn2) -- (cnn3);
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:73: Undefined control sequence.
-l.73 \draw
-           [arrow] (cnn3) -- (reshape);
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:74: Undefined control sequence.
-l.74 \draw
-           [arrow] (reshape) -- (bilstm);
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:75: Undefined control sequence.
-l.75 \draw
-           [arrow] (bilstm) -- (classifier);
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:76: Undefined control sequence.
-l.76 \draw
-           [arrow] (classifier) -- (output);
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:78: Undefined control sequence.
-\sa@orig@endtikzpicture ...ist@globally \endscope 
-                                                  \let \pgf@baseline =\pgf@s...
-l.78 \end{tikzpicture}
-                      
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:78: Missing } inserted.
-<inserted text> 
-                }
-l.78 \end{tikzpicture}
-                      
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:78: Package tikz Error: Giving up on this path. Did you forget a semicolon?.
-
-See the tikz package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.78 \end{tikzpicture}
-                      
-This error message was generated by an \errmessage
-command, so I can't give any explicit help.
-Pretend that you're Hercule Poirot: Examine all clues,
-and deduce the truth by order and method.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:78: Extra }, or forgotten \endgroup.
-\endpgfpicture ...globally \endgroup \hss \egroup 
-                                                  \pgf@restore@layerlist@fro...
-l.78 \end{tikzpicture}
-                      
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:78: Extra }, or forgotten \endgroup.
-\endpgfpicture ...dpicture \endgroup \hss \egroup 
-                                                  \pgfsys@typesetpicturebox ...
-l.78 \end{tikzpicture}
-                      
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:78: Missing } inserted.
-<inserted text> 
-                }
-l.78 \end{tikzpicture}
-                      
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:78: Extra }, or forgotten \endgroup.
-\endsa@boxit ...dvarwidth \color@endgroup \egroup 
-                                                  
-l.78 \end{tikzpicture}
-                      
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:78: Improper \prevdepth.
-\newpage ...everypar {}\fi \par \ifdim \prevdepth 
-                                                  >\z@ \vskip -\ifdim \prevd...
-l.78 \end{tikzpicture}
-                      
-You can refer to \spacefactor only in horizontal mode;
-you can refer to \prevdepth only in vertical mode; and
-neither of these is meaningful inside \write. So
-I'm forgetting what you said and using zero instead.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:78: Missing \endgroup inserted.
-<inserted text> 
-                \endgroup 
-l.78 \end{tikzpicture}
-                      
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:78: Missing \endgroup inserted.
-<inserted text> 
-                \endgroup 
-l.78 \end{tikzpicture}
-                      
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:78: Missing } inserted.
-<inserted text> 
-                }
-l.78 \end{tikzpicture}
-                      
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:78: Missing \endgroup inserted.
-<inserted text> 
-                \endgroup 
-l.78 \end{tikzpicture}
-                      
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:78: Missing \endgroup inserted.
-<inserted text> 
-                \endgroup 
-l.78 \end{tikzpicture}
-                      
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:78: Missing \endgroup inserted.
-<inserted text> 
-                \endgroup 
-l.78 \end{tikzpicture}
-                      
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/uni/Diploma/nn/v0/schemas/schema.tex:78: Missing } inserted.
-<inserted text> 
-                }
-l.78 \end{tikzpicture}
-                      
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
+Overfull \hbox (17.83504pt too wide) in paragraph at lines 81--81
+ [][][]\OT1/cmr/bx/n/10 fc8+softmax[] 
+ []
 
 
 
@@ -703,27 +323,25 @@ my insertion and my current dilemma will both disappear.
 
 
 Non-PDF special ignored!
-<special> papersize=0.0pt,0.0pt
-]
-
-[2] (schema.aux)
+<special> papersize=984.28598pt,416.20688pt
+{C:/Users/Professional/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] (schema.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 14799 strings out of 473523
- 333621 string characters out of 5711242
- 712555 words of memory out of 5000000
- 37785 multiletter control sequences out of 15000+600000
- 559480 words of font info for 38 fonts, out of 8000000 for 9000
+ 15531 strings out of 473523
+ 336512 string characters out of 5711242
+ 846206 words of memory out of 5000000
+ 38543 multiletter control sequences out of 15000+600000
+ 559444 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 117i,12n,121p,462b,667s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-Output written on schema.pdf (2 pages, 1457 bytes).
+ 117i,11n,121p,439b,1247s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/Professional/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Professional/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Professional/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb>
+Output written on schema.pdf (1 page, 41573 bytes).
 PDF statistics:
- 12 PDF objects out of 1000 (max. 8388607)
+ 24 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

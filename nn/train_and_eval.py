@@ -366,7 +366,7 @@ def main(version, additional):
     lr = 0.001
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
-    num_epochs = 10
+    num_epochs = 50
 
     model.train()
 

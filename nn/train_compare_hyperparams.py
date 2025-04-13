@@ -890,9 +890,9 @@ if __name__ == "__main__":
     fixed_params = {
         'img_height': 32,
         'n_h': 256,
-        'optimizer': 'RMSprop',
+        'optimizer': 'Adam',
         'batch_size': 8
     }
 
     # За замовчуванням запускаємо налаштування тільки оптимізатора
-    run_hyperparameter_tuning(fixed_params, ['img_height'], num_epochs=10)
+    run_hyperparameter_tuning(fixed_params, ['n_h'], num_epochs=10)
