@@ -50,7 +50,7 @@ def calculate_metrics(predictions, ground_truths):
     return total_cer, total_wer
 
 
-@logger_model_training(version="0", additional="CNN-BiLSTM-CTC_CNN-24-48-96_BiLSTM-1dim")
+@logger_model_training(version="1", additional="CNN-BiLSTM-CTC_CNN-VGG16_BiLSTM-1dim")
 @execution_time_decorator
 def main(version, additional):
     # Initialize nn paths
@@ -62,7 +62,7 @@ def main(version, additional):
     # Initialize converter and dataset
     label_converter = LabelConverter(mapping_file, paths)
 
-    img_height = 32
+    img_height = 64
 
     dataset = IAMDataset(
         mapping_file=mapping_file,

@@ -1,0 +1,96 @@
+
+=== Порівняння для різних розмірів батчів ===
+
+Навчання з batch_size=4
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH32.pth
+
+Epoch 1/5:
+  Train Loss: 2.3959, CER: 0.7663, WER: 0.8100
+  Val Loss: 1.8908, CER: 0.6437, WER: 0.7222
+
+Epoch 2/5:
+  Train Loss: 1.5524, CER: 0.5897, WER: 0.6773
+  Val Loss: 1.3983, CER: 0.5545, WER: 0.6473
+
+Epoch 3/5:
+  Train Loss: 1.2289, CER: 0.5862, WER: 0.6649
+  Val Loss: 1.2740, CER: 0.6142, WER: 0.6909
+
+Epoch 4/5:
+  Train Loss: 1.0505, CER: 0.6018, WER: 0.6684
+  Val Loss: 1.1523, CER: 0.5702, WER: 0.6370
+
+Epoch 5/5:
+  Train Loss: 0.9357, CER: 0.6053, WER: 0.6503
+  Val Loss: 1.1353, CER: 0.5939, WER: 0.6312
+
+Навчання з batch_size=8
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH32.pth
+
+Epoch 1/5:
+  Train Loss: 2.5856, CER: 0.8142, WER: 0.8462
+  Val Loss: 1.9786, CER: 0.7061, WER: 0.7485
+
+Epoch 2/5:
+  Train Loss: 1.7198, CER: 0.6202, WER: 0.7023
+  Val Loss: 1.5488, CER: 0.5578, WER: 0.6682
+
+Epoch 3/5:
+  Train Loss: 1.3346, CER: 0.8412, WER: 0.8033
+  Val Loss: 1.3044, CER: 1.1291, WER: 0.9524
+
+Epoch 4/5:
+  Train Loss: 1.1035, CER: 1.1077, WER: 0.9305
+  Val Loss: 1.1748, CER: 1.7375, WER: 0.9674
+
+Epoch 5/5:
+  Train Loss: 0.9532, CER: 1.2344, WER: 0.9455
+  Val Loss: 1.0787, CER: 1.2336, WER: 0.9648
+
+Навчання з batch_size=16
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH32.pth
+
+Epoch 1/5:
+  Train Loss: 2.6582, CER: 0.8244, WER: 0.8530
+  Val Loss: 2.0251, CER: 0.7194, WER: 0.7578
+
+Epoch 2/5:
+  Train Loss: 1.7674, CER: 0.6373, WER: 0.7117
+  Val Loss: 1.5983, CER: 0.5705, WER: 0.6775
+
+Epoch 3/5:
+  Train Loss: 1.3663, CER: 0.5327, WER: 0.6485
+  Val Loss: 1.3076, CER: 0.5686, WER: 0.7282
+
+Epoch 4/5:
+  Train Loss: 1.1003, CER: 0.4780, WER: 0.6077
+  Val Loss: 1.1401, CER: 0.4829, WER: 0.5996
+
+Epoch 5/5:
+  Train Loss: 0.9394, CER: 0.4659, WER: 0.5837
+  Val Loss: 1.0829, CER: 0.4963, WER: 0.6028
+
+Навчання з batch_size=32
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH32.pth
+
+Epoch 1/5:
+  Train Loss: 2.9648, CER: 0.8715, WER: 0.8941
+  Val Loss: 2.4189, CER: 0.7889, WER: 0.8332
+
+Epoch 2/5:
+  Train Loss: 2.1532, CER: 0.7461, WER: 0.7827
+  Val Loss: 1.9447, CER: 0.6910, WER: 0.7278
+
+Epoch 3/5:
+  Train Loss: 1.7235, CER: 0.6475, WER: 0.6932
+  Val Loss: 1.6161, CER: 0.6037, WER: 0.6668
+
+Epoch 4/5:
+  Train Loss: 1.4281, CER: 0.5451, WER: 0.6332
+  Val Loss: 1.5273, CER: 0.5347, WER: 0.6649
+
+Epoch 5/5:
+  Train Loss: 1.2122, CER: 0.4683, WER: 0.6077
+  Val Loss: 1.2280, CER: 0.4534, WER: 0.6062
+
+All results saved to comparison_results

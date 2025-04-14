@@ -248,10 +248,10 @@ def create_model(img_height, num_channels, n_classes, n_h, device):
     )
     model.to(device)
 
-    weights_path = f"cnn_lstm_ctc_handwritten_v0_initial_imH{img_height}.pth"
-
-    model.load_state_dict(torch.load(weights_path, map_location=device))
-    print(f"Loaded initial random weights from {weights_path}")
+    # weights_path = f"cnn_lstm_ctc_handwritten_v0_initial_imH{img_height}.pth"
+    #
+    # model.load_state_dict(torch.load(weights_path, map_location=device))
+    # print(f"Loaded initial random weights from {weights_path}")
 
     return model
 
@@ -895,4 +895,4 @@ if __name__ == "__main__":
     }
 
     # За замовчуванням запускаємо налаштування тільки оптимізатора
-    run_hyperparameter_tuning(fixed_params, ['n_h'], num_epochs=10)
+    run_hyperparameter_tuning(fixed_params, ['batch_size'], num_epochs=5)
