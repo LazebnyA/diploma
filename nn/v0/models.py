@@ -156,7 +156,7 @@ class CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm(nn.Module):
             nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1),
             nn.BatchNorm2d(128),
             nn.ReLU(inplace=True),
-            nn.MaxPool2d(2, 2),  # Downsample (H/4, W/2)
+            nn.MaxPool2d((2, 1)),  # Downsample (H/4, W/2)
 
             # Conv Block 3
             nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1),
