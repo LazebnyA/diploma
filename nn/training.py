@@ -13,7 +13,7 @@ from nn.logger import logger_model_training
 from nn.transform import get_augment_transform, get_simple_transform
 from nn.utils import execution_time_decorator
 from nn.v0.models import CNN_LSTM_CTC_V0, CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm, CNN_LSTM_CTC_V1_CNN_more_filters, \
-    CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like
+    CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like, CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_more_imH
 
 torch.manual_seed(42)
 
@@ -62,7 +62,7 @@ def main(version, additional):
     # Initialize converter and dataset
     label_converter = LabelConverter(mapping_file, paths)
 
-    img_height = 32
+    img_height = 64
 
     dataset = IAMDataset(
         mapping_file=mapping_file,
@@ -101,7 +101,7 @@ def main(version, additional):
     num_channels = 1
     n_h = 256
 
-    model = CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like(
+    model = CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_more_imH(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
@@ -114,14 +114,14 @@ def main(version, additional):
     model.to(device)
     print(f"Device: {device}")
 
-    base_filename = f"cnn_lstm_ctc_handwritten_v{version}_initial_imH{img_height}"
-    model_filename = f"{base_filename}.pth"
-    torch.save(model.state_dict(), model_filename)
+    # base_filename = f"cnn_lstm_ctc_handwritten_v{version}_initial_imH{img_height}"
+    # model_filename = f"{base_filename}.pth"
+    # torch.save(model.state_dict(), model_filename)
 
     # Load initial random weights (hardcoded path)
-    # weights_path = "cnn_lstm_ctc_handwritten_v1_lines_7ep_CNN-BiLSTM-CTC_CNN-64-128-256_BiLSTM-1dim.pth"
-    # model.load_state_dict(torch.load(weights_path, map_location=device))
-    # print(f"Loaded initial random weights from {weights_path}")
+    weights_path = "cnn_lstm_ctc_handwritten_v0_initial_imH64.pth"
+    model.load_state_dict(torch.load(weights_path, map_location=device))
+    print(f"Loaded initial random weights from {weights_path}")
 
     # Define the CTCLoss and optimizer.
     criterion = nn.CTCLoss(blank=0, zero_infinity=True)
