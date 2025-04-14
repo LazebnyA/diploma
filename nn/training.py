@@ -113,12 +113,12 @@ def main(version, additional):
     model.to(device)
     print(f"Device: {device}")
 
-    # base_filename = f"cnn_lstm_ctc_handwritten_v{version}_initial_imH{img_height}"
-    # model_filename = f"{base_filename}.pth"
-    # torch.save(model.state_dict(), model_filename)
+    base_filename = f"cnn_lstm_ctc_handwritten_v{version}_initial_imH{img_height}"
+    model_filename = f"{base_filename}.pth"
+    torch.save(model.state_dict(), model_filename)
 
     # Load initial random weights (hardcoded path)
-    # weights_path = "cnn_lstm_ctc_handwritten_v0_initial_imH32.pth"
+    # weights_path = "cnn_lstm_ctc_handwritten_v1_lines_7ep_CNN-BiLSTM-CTC_CNN-64-128-256_BiLSTM-1dim.pth"
     # model.load_state_dict(torch.load(weights_path, map_location=device))
     # print(f"Loaded initial random weights from {weights_path}")
 
