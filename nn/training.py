@@ -12,7 +12,8 @@ from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training
 from nn.transform import get_augment_transform, get_simple_transform
 from nn.utils import execution_time_decorator
-from nn.v0.models import CNN_LSTM_CTC_V0, CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm, CNN_LSTM_CTC_V1_CNN_more_filters
+from nn.v0.models import CNN_LSTM_CTC_V0, CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm, CNN_LSTM_CTC_V1_CNN_more_filters, \
+    CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like
 
 torch.manual_seed(42)
 
@@ -100,7 +101,7 @@ def main(version, additional):
     num_channels = 1
     n_h = 256
 
-    model = CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm(
+    model = CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
