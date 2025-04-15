@@ -10,10 +10,10 @@ from tqdm import tqdm
 
 from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training
-from nn.transform import get_augment_transform, get_simple_transform
+from nn.transform import get_augment_transform, get_contrast_brightness_transform, get_contrast_brightness_transform
 from nn.utils import execution_time_decorator
-from nn.v0.models import CNN_LSTM_CTC_V0, CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm, CNN_LSTM_CTC_V1_CNN_more_filters, \
-    CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like, CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_more_imH
+from nn.v0.models import CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_more_imH
+from nn.v1.models import CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like
 
 torch.manual_seed(42)
 
@@ -67,7 +67,7 @@ def main(version, additional):
     dataset = IAMDataset(
         mapping_file=mapping_file,
         paths=paths,
-        transform=get_simple_transform(img_height),
+        transform=get_contrast_brightness_transform(img_height),
         label_converter=label_converter
     )
 
@@ -84,7 +84,7 @@ def main(version, additional):
     validation_dataset = IAMDataset(
         mapping_file=validation_mapping_file,
         paths=paths,
-        transform=get_simple_transform(img_height),
+        transform=get_contrast_brightness_transform(img_height),
         label_converter=label_converter
     )
 
@@ -158,7 +158,7 @@ def main(version, additional):
         "criterion": str(criterion),
         "num_epochs": num_epochs,
         "batch_size": batch_size,
-        "transform": "Resize with aspect ratio",
+        "transform": "Resize with aspect ratio. Contrast/Brightness Transform with PIL.ImageEnhance",
         "dataset": "IAM Lines Dataset (writer-independent split)"
     }
 
