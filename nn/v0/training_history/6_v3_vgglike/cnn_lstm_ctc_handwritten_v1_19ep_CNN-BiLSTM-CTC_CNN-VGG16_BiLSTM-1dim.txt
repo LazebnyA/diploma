@@ -1,0 +1,143 @@
+Device: cuda
+
+Neural Network Architecture:
+CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like(
+  (cnn): Sequential(
+    (0): Conv2d(1, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): LeakyReLU(negative_slope=0.01, inplace=True)
+    (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (5): LeakyReLU(negative_slope=0.01, inplace=True)
+    (6): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (7): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (8): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): LeakyReLU(negative_slope=0.01, inplace=True)
+    (10): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (11): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (12): LeakyReLU(negative_slope=0.01, inplace=True)
+    (13): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (14): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (15): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (16): LeakyReLU(negative_slope=0.01, inplace=True)
+    (17): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (18): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (19): LeakyReLU(negative_slope=0.01, inplace=True)
+    (20): MaxPool2d(kernel_size=(2, 1), stride=(2, 1), padding=0, dilation=1, ceil_mode=False)
+    (21): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (22): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (23): LeakyReLU(negative_slope=0.01, inplace=True)
+    (24): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (25): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (26): LeakyReLU(negative_slope=0.01, inplace=True)
+    (27): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (28): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (29): LeakyReLU(negative_slope=0.01, inplace=True)
+    (30): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (31): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (32): LeakyReLU(negative_slope=0.01, inplace=True)
+    (33): MaxPool2d(kernel_size=(2, 1), stride=(2, 1), padding=0, dilation=1, ceil_mode=False)
+  )
+  (lstm): LSTM(2048, 256, batch_first=True, bidirectional=True)
+  (fc): Linear(in_features=512, out_features=80, bias=True)
+)
+
+Hyperparameters:
+img_height: 64
+num_channels: 1
+n_classes: 80
+n_h: 256
+optimizer: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+learning_rate: 0.001
+criterion: CTCLoss()
+num_epochs: 30
+batch_size: 8
+transform: Resize with aspect ratio
+dataset: IAM Lines Dataset (writer-independent split)
+Starting training process: 
+
+
+Epoch 1 Results:
+Training - Loss: 1.8171, CER: 0.5720, WER: 0.7569
+Validation - Loss: 0.9856, CER: 0.2857, WER: 0.5567
+
+Epoch 2 Results:
+Training - Loss: 0.7644, CER: 0.2298, WER: 0.4890
+Validation - Loss: 0.7193, CER: 0.2092, WER: 0.4544
+
+Epoch 3 Results:
+Training - Loss: 0.5564, CER: 0.1669, WER: 0.3952
+Validation - Loss: 0.6116, CER: 0.1637, WER: 0.3819
+
+Epoch 4 Results:
+Training - Loss: 0.4611, CER: 0.1389, WER: 0.3473
+Validation - Loss: 0.5733, CER: 0.1551, WER: 0.3698
+
+Epoch 5 Results:
+Training - Loss: 0.3911, CER: 0.1208, WER: 0.3152
+Validation - Loss: 0.5492, CER: 0.1447, WER: 0.3538
+
+Epoch 6 Results:
+Training - Loss: 0.3405, CER: 0.1077, WER: 0.2896
+Validation - Loss: 0.5513, CER: 0.1418, WER: 0.3510
+
+Epoch 7 Results:
+Training - Loss: 0.2957, CER: 0.0961, WER: 0.2662
+Validation - Loss: 0.5804, CER: 0.1514, WER: 0.3668
+
+Epoch 8 Results:
+Training - Loss: 0.2597, CER: 0.0878, WER: 0.2484
+Validation - Loss: 0.5724, CER: 0.1450, WER: 0.3513
+
+Epoch 9 Results:
+Training - Loss: 0.2258, CER: 0.0795, WER: 0.2306
+Validation - Loss: 0.5923, CER: 0.1407, WER: 0.3466
+
+Epoch 10 Results:
+Training - Loss: 0.2004, CER: 0.0739, WER: 0.2192
+Validation - Loss: 0.6006, CER: 0.1408, WER: 0.3462
+
+Epoch 11 Results:
+Training - Loss: 0.1788, CER: 0.0690, WER: 0.2100
+Validation - Loss: 0.6018, CER: 0.1362, WER: 0.3368
+
+Epoch 12 Results:
+Training - Loss: 0.1608, CER: 0.0641, WER: 0.1971
+Validation - Loss: 0.6402, CER: 0.1363, WER: 0.3383
+
+Epoch 13 Results:
+Training - Loss: 0.1458, CER: 0.0601, WER: 0.1883
+Validation - Loss: 0.6639, CER: 0.1403, WER: 0.3474
+
+Epoch 14 Results:
+Training - Loss: 0.1321, CER: 0.0566, WER: 0.1793
+Validation - Loss: 0.7021, CER: 0.1432, WER: 0.3500
+
+Epoch 15 Results:
+Training - Loss: 0.1217, CER: 0.0542, WER: 0.1737
+Validation - Loss: 0.6894, CER: 0.1382, WER: 0.3411
+
+Epoch 16 Results:
+Training - Loss: 0.1134, CER: 0.0539, WER: 0.1750
+Validation - Loss: 0.7291, CER: 0.1390, WER: 0.3458
+
+Epoch 17 Results:
+Training - Loss: 0.1039, CER: 0.0498, WER: 0.1638
+Validation - Loss: 0.7458, CER: 0.1447, WER: 0.3519
+Training interrupted by user.
+Model saved as cnn_lstm_ctc_handwritten_v1_lines_18ep_CNN-BiLSTM-CTC_CNN-VGG16_BiLSTM-1dim.pth
+Time elapsed: 12440.754423379898
+Start time: 1744713977.4954875
+End time: 1744726418.2499108
