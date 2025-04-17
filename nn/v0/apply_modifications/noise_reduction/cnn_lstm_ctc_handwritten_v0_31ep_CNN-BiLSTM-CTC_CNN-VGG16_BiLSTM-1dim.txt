@@ -1,0 +1,182 @@
+Device: cuda
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH64.pth
+
+Neural Network Architecture:
+CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_more_imH(
+  (cnn): Sequential(
+    (0): Conv2d(1, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (5): ReLU(inplace=True)
+    (6): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (7): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (8): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): ReLU(inplace=True)
+    (10): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (11): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (12): ReLU(inplace=True)
+    (13): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (14): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (15): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (16): ReLU(inplace=True)
+    (17): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (18): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (19): ReLU(inplace=True)
+    (20): MaxPool2d(kernel_size=(2, 1), stride=(2, 1), padding=0, dilation=1, ceil_mode=False)
+  )
+  (lstm): LSTM(2048, 256, batch_first=True, bidirectional=True)
+  (fc): Linear(in_features=512, out_features=80, bias=True)
+)
+
+Hyperparameters:
+img_height: 64
+num_channels: 1
+n_classes: 80
+n_h: 256
+optimizer: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+learning_rate: 0.001
+criterion: CTCLoss()
+num_epochs: 30
+batch_size: 8
+transform: Resize with aspect ratio. Median/Gaussian filter for noise removal
+dataset: IAM Lines Dataset (writer-independent split)
+Starting training process: 
+
+
+Epoch 1 Results:
+Training - Loss: 1.7057, CER: 0.5240, WER: 0.7299
+Validation - Loss: 0.9914, CER: 0.2943, WER: 0.5593
+
+Epoch 2 Results:
+Training - Loss: 0.7435, CER: 0.2256, WER: 0.4816
+Validation - Loss: 0.7630, CER: 0.2221, WER: 0.4659
+
+Epoch 3 Results:
+Training - Loss: 0.5498, CER: 0.1685, WER: 0.3972
+Validation - Loss: 0.6677, CER: 0.1880, WER: 0.4221
+
+Epoch 4 Results:
+Training - Loss: 0.4408, CER: 0.1396, WER: 0.3487
+Validation - Loss: 0.6618, CER: 0.1852, WER: 0.4181
+
+Epoch 5 Results:
+Training - Loss: 0.3580, CER: 0.1186, WER: 0.3085
+Validation - Loss: 0.6556, CER: 0.1730, WER: 0.4036
+
+Epoch 6 Results:
+Training - Loss: 0.2943, CER: 0.1021, WER: 0.2776
+Validation - Loss: 0.6469, CER: 0.1663, WER: 0.3941
+
+Epoch 7 Results:
+Training - Loss: 0.2395, CER: 0.0893, WER: 0.2510
+Validation - Loss: 0.6813, CER: 0.1679, WER: 0.3943
+
+Epoch 8 Results:
+Training - Loss: 0.2003, CER: 0.0784, WER: 0.2290
+Validation - Loss: 0.7217, CER: 0.1674, WER: 0.3972
+
+Epoch 9 Results:
+Training - Loss: 0.1665, CER: 0.0707, WER: 0.2113
+Validation - Loss: 0.7688, CER: 0.1727, WER: 0.4056
+
+Epoch 10 Results:
+Training - Loss: 0.1414, CER: 0.0642, WER: 0.1974
+Validation - Loss: 0.7896, CER: 0.1703, WER: 0.3954
+
+Epoch 11 Results:
+Training - Loss: 0.1228, CER: 0.0588, WER: 0.1846
+Validation - Loss: 0.8340, CER: 0.1722, WER: 0.4030
+
+Epoch 12 Results:
+Training - Loss: 0.1091, CER: 0.0556, WER: 0.1773
+Validation - Loss: 0.8691, CER: 0.1674, WER: 0.3933
+
+Epoch 13 Results:
+Training - Loss: 0.0978, CER: 0.0553, WER: 0.1797
+Validation - Loss: 0.8851, CER: 0.1706, WER: 0.3980
+
+Epoch 14 Results:
+Training - Loss: 0.0910, CER: 0.0529, WER: 0.1727
+Validation - Loss: 0.9386, CER: 0.1732, WER: 0.4055
+
+Epoch 15 Results:
+Training - Loss: 0.0815, CER: 0.0488, WER: 0.1614
+Validation - Loss: 0.9457, CER: 0.1725, WER: 0.4012
+
+Epoch 16 Results:
+Training - Loss: 0.0747, CER: 0.0470, WER: 0.1568
+Validation - Loss: 0.9848, CER: 0.1735, WER: 0.4047
+
+Epoch 17 Results:
+Training - Loss: 0.0716, CER: 0.0465, WER: 0.1556
+Validation - Loss: 1.0305, CER: 0.1772, WER: 0.4100
+
+Epoch 18 Results:
+Training - Loss: 0.0665, CER: 0.0448, WER: 0.1514
+Validation - Loss: 1.0537, CER: 0.1758, WER: 0.4100
+
+Epoch 19 Results:
+Training - Loss: 0.0614, CER: 0.0440, WER: 0.1503
+Validation - Loss: 1.0508, CER: 0.1757, WER: 0.4104
+
+Epoch 20 Results:
+Training - Loss: 0.0597, CER: 0.0447, WER: 0.1525
+Validation - Loss: 1.0841, CER: 0.1744, WER: 0.4074
+
+Epoch 21 Results:
+Training - Loss: 0.0562, CER: 0.0423, WER: 0.1462
+Validation - Loss: 1.1272, CER: 0.1729, WER: 0.4068
+
+Epoch 22 Results:
+Training - Loss: 0.0560, CER: 0.0418, WER: 0.1437
+Validation - Loss: 1.1241, CER: 0.1743, WER: 0.4088
+
+Epoch 23 Results:
+Training - Loss: 0.0549, CER: 0.0411, WER: 0.1422
+Validation - Loss: 1.1428, CER: 0.1762, WER: 0.4084
+
+Epoch 24 Results:
+Training - Loss: 0.0528, CER: 0.0408, WER: 0.1417
+Validation - Loss: 1.1385, CER: 0.1737, WER: 0.4048
+
+Epoch 25 Results:
+Training - Loss: 0.0515, CER: 0.0406, WER: 0.1406
+Validation - Loss: 1.1860, CER: 0.1745, WER: 0.4078
+
+Epoch 26 Results:
+Training - Loss: 0.0515, CER: 0.0401, WER: 0.1402
+Validation - Loss: 1.1846, CER: 0.1721, WER: 0.4013
+
+Epoch 27 Results:
+Training - Loss: 0.0481, CER: 0.0396, WER: 0.1379
+Validation - Loss: 1.2009, CER: 0.1776, WER: 0.4124
+
+Epoch 28 Results:
+Training - Loss: 0.0465, CER: 0.0392, WER: 0.1371
+Validation - Loss: 1.2077, CER: 0.1786, WER: 0.4123
+
+Epoch 29 Results:
+Training - Loss: 0.0471, CER: 0.0390, WER: 0.1369
+Validation - Loss: 1.2046, CER: 0.1718, WER: 0.4027
+
+Epoch 30 Results:
+Training - Loss: 0.0451, CER: 0.0384, WER: 0.1355
+Validation - Loss: 1.2041, CER: 0.1729, WER: 0.4025
+Model saved as cnn_lstm_ctc_handwritten_v0_lines_30ep_CNN-BiLSTM-CTC_CNN-VGG16_BiLSTM-1dim.pth
+Time elapsed: 26604.04257750511
+Start time: 1744743067.4531658
+End time: 1744769671.4957433
