@@ -133,7 +133,7 @@ def collate_fn(batch):
 
     # images are tensors of shape (C - channels, H - height, W - width)
     widths = [img.size(2) for img in images]
-    max_width = max(widths)
+    max_width = 1200
 
     padded_images = []
     for img in images:

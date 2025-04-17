@@ -230,7 +230,7 @@ def display_images_vertical(img, img_height):
 # Main script to load image and display all transforms.
 ###############################################
 if __name__ == "__main__":
-    img_path = "img_2.png"
+    img_path = "img_5.png"
     if not os.path.exists(img_path):
         print(f"Image not found at {img_path}. Please ensure the image file 'img.png' is in the current directory.")
     else:

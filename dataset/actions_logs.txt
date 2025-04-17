@@ -1,0 +1,122 @@
+Були видалені такі слова:
+
+dataset/iam_words/data/a03/a03-059/a03-059-11-00.png	increasingly
+dataset/iam_words/data/a03/a03-059/a03-059-11-01.png	confident
+dataset/iam_words/data/a03/a03-059/a03-059-11-02.png	of
+dataset/iam_words/data/a03/a03-059/a03-059-11-03.png	return
+dataset/iam_words/data/a03/a03-059/a03-059-11-04.png	to
+dataset/iam_words/data/a03/a03-059/a03-059-11-05.png	power
+dataset/iam_words/data/a03/a03-059/a03-059-11-06.png	,
+
+
+dataset/iam_words/data/c01/c01-014/c01-014-10-00.png	of
+dataset/iam_words/data/c01/c01-014/c01-014-10-01.png	the the
+dataset/iam_words/data/c01/c01-014/c01-014-10-02.png	libretto
+dataset/iam_words/data/c01/c01-014/c01-014-10-03.png	,
+dataset/iam_words/data/c01/c01-014/c01-014-10-04.png	which
+dataset/iam_words/data/c01/c01-014/c01-014-10-05.png	contains
+dataset/iam_words/data/c01/c01-014/c01-014-10-06.png	an
+dataset/iam_words/data/c01/c01-014/c01-014-10-07.png	odd
+dataset/iam_words/data/c01/c01-014/c01-014-10-08.png	blend
+dataset/iam_words/data/c01/c01-014/c01-014-10-09.png	of
+dataset/iam_words/data/c01/c01-014/c01-014-10-10.png	highly
+
+
+
+dataset/iam_words/data/n03/n03-106/n03-106-11-00.png	pier
+dataset/iam_words/data/n03/n03-106/n03-106-11-01.png	,
+dataset/iam_words/data/n03/n03-106/n03-106-11-02.png	leading
+dataset/iam_words/data/n03/n03-106/n03-106-11-03.png	the
+dataset/iam_words/data/n03/n03-106/n03-106-11-04.png	yawl
+dataset/iam_words/data/n03/n03-106/n03-106-11-05.png	toward
+
+
+
+dataset/iam_words/data/m02/m02-083/m02-083-11-00.png	of
+dataset/iam_words/data/m02/m02-083/m02-083-11-01.png	the
+dataset/iam_words/data/m02/m02-083/m02-083-11-02.png	O.G.O.
+dataset/iam_words/data/m02/m02-083/m02-083-11-03.png	contingent
+dataset/iam_words/data/m02/m02-083/m02-083-11-04.png	in
+dataset/iam_words/data/m02/m02-083/m02-083-11-05.png	the
+dataset/iam_words/data/m02/m02-083/m02-083-11-06.png	Panama
+dataset/iam_words/data/m02/m02-083/m02-083-11-07.png	region
+dataset/iam_words/data/m02/m02-083/m02-083-11-08.png	,
+
+
+
+dataset/iam_words/data/m01/m01-136/m01-136-10-00.png	tuning
+dataset/iam_words/data/m01/m01-136/m01-136-10-01.png	points
+dataset/iam_words/data/m01/m01-136/m01-136-10-02.png	of
+dataset/iam_words/data/m01/m01-136/m01-136-10-03.png	the
+dataset/iam_words/data/m01/m01-136/m01-136-10-04.png	world's
+dataset/iam_words/data/m01/m01-136/m01-136-10-05.png	great
+dataset/iam_words/data/m01/m01-136/m01-136-10-06.png	radio
+
+
+
+dataset/iam_words/data/c01/c01-009/c01-009-10-00.png	idioms
+dataset/iam_words/data/c01/c01-009/c01-009-10-01.png	,
+dataset/iam_words/data/c01/c01-009/c01-009-10-02.png	with
+dataset/iam_words/data/c01/c01-009/c01-009-10-03.png	a
+dataset/iam_words/data/c01/c01-009/c01-009-10-04.png	strong
+dataset/iam_words/data/c01/c01-009/c01-009-10-05.png	sense
+dataset/iam_words/data/c01/c01-009/c01-009-10-06.png	of
+dataset/iam_words/data/c01/c01-009/c01-009-10-07.png	words
+dataset/iam_words/data/c01/c01-009/c01-009-10-08.png	and
+dataset/iam_words/data/c01/c01-009/c01-009-10-09.png	situation
+dataset/iam_words/data/c01/c01-009/c01-009-10-10.png	.
+
+
+
+dataset/iam_words/data/d06/d06-063/d06-063-10-00.png	be
+dataset/iam_words/data/d06/d06-063/d06-063-10-01.png	happening
+dataset/iam_words/data/d06/d06-063/d06-063-10-02.png	at
+dataset/iam_words/data/d06/d06-063/d06-063-10-03.png	the
+dataset/iam_words/data/d06/d06-063/d06-063-10-04.png	other
+dataset/iam_words/data/d06/d06-063/d06-063-10-05.png	end
+dataset/iam_words/data/d06/d06-063/d06-063-10-06.png	of
+dataset/iam_words/data/d06/d06-063/d06-063-10-07.png	England
+dataset/iam_words/data/d06/d06-063/d06-063-10-08.png	,
+
+
+
+dataset/iam_words/data/m01/m01-110/m01-110-11-00.png	we
+dataset/iam_words/data/m01/m01-110/m01-110-11-01.png	may
+dataset/iam_words/data/m01/m01-110/m01-110-11-02.png	form
+dataset/iam_words/data/m01/m01-110/m01-110-11-03.png	the
+dataset/iam_words/data/m01/m01-110/m01-110-11-04.png	nucleus
+dataset/iam_words/data/m01/m01-110/m01-110-11-05.png	around
+dataset/iam_words/data/m01/m01-110/m01-110-11-06.png	...
+
+
+
+dataset/iam_words/data/a06/a06-039/a06-039-10-00.png	Commons
+dataset/iam_words/data/a06/a06-039/a06-039-10-01.png	of
+dataset/iam_words/data/a06/a06-039/a06-039-10-02.png	his
+dataset/iam_words/data/a06/a06-039/a06-039-10-03.png	momentous
+
+
+
+dataset/iam_words/data/l04/l04-082/l04-082-00-00.png	Sentence
+dataset/iam_words/data/l04/l04-082/l04-082-00-01.png	Database
+dataset/iam_words/data/l04/l04-082/l04-082-00-02.png	L04-082
+
+
+
+
+dataset/iam_words/data/a03/a03-020/a03-020-10-00.png	in
+dataset/iam_words/data/a03/a03-020/a03-020-10-01.png	the
+dataset/iam_words/data/a03/a03-020/a03-020-10-02.png	same
+dataset/iam_words/data/a03/a03-020/a03-020-10-03.png	terms
+dataset/iam_words/data/a03/a03-020/a03-020-10-04.png	.
+
+
+
+dataset/iam_words/data/m01/m01-049/m01-049-11-00.png	became
+dataset/iam_words/data/m01/m01-049/m01-049-11-01.png	great
+dataset/iam_words/data/m01/m01-049/m01-049-11-02.png	sighs
+dataset/iam_words/data/m01/m01-049/m01-049-11-03.png	of
+dataset/iam_words/data/m01/m01-049/m01-049-11-04.png	ecstacy
+dataset/iam_words/data/m01/m01-049/m01-049-11-05.png	.
+
+

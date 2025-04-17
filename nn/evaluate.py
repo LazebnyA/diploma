@@ -16,10 +16,10 @@ import pandas as pd
 from pathlib import Path
 
 from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
-from nn.transform import resize_with_aspect, get_simple_transform
+from nn.transform import resize_with_aspect, get_full_transform
 from nn.utils import execution_time_decorator
 from nn.logger import evaluation_logger  # Assuming you have this
-from nn.v0.models import CNN_LSTM_CTC_V0
+from nn.v0.models import CNN_LSTM_CTC_V0, CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_more_imH
 
 MODEL_NAME = "cnn_lstm_ctc_handwritten_v8_75ep_2-Layered-BiLSTM-ResNet-CNN-Shortcut"
 MODEL_PATH = f"archive/v5/better_features/{MODEL_NAME}.pth"
@@ -27,10 +27,10 @@ OUTPUT_DIR = "v5/better_features/evaluation_results"
 Model = CNN_LSTM_CTC_V0
 
 # Hyperparameters
-IMG_HEIGHT = 32
+IMG_HEIGHT = 64
 NUM_CHANNELS = 1
 N_H = 256
-BATCH_SIZE = 8
+BATCH_SIZE = 1
 
 torch.manual_seed(42)
 
@@ -327,7 +327,7 @@ def evaluate():
     os.makedirs(eval_dir, exist_ok=True)
 
     # Load test dataset
-    test_mapping_file = "dataset/writer_independent_word_splits/test_word_mappings.txt"
+    test_mapping_file = "tests/test_self_wr_base/dataset/dataset.txt"
 
     label_converter = LabelConverter(test_mapping_file, paths)
     n_classes = 80
@@ -335,7 +335,7 @@ def evaluate():
     test_dataset = IAMDataset(
         mapping_file=test_mapping_file,
         paths=paths,
-        transform=get_simple_transform(img_height),
+        transform=get_full_transform(img_height),
         label_converter=label_converter
     )
 
@@ -346,7 +346,7 @@ def evaluate():
         collate_fn=collate_fn
     )
 
-    model = CNN_LSTM_CTC_V0(
+    model = CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_more_imH(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
@@ -357,7 +357,7 @@ def evaluate():
     model.to(device)
     print(f"Device: {device}")
 
-    weights_path = ("./v0/training_history/1/cnn_lstm_ctc_handwritten_v0_10ep_CNN-BiLSTM-CTC_CNN-24-48-96_BiLSTM-1dim"
+    weights_path = ("./cnn_lstm_ctc_handwritten_v1_words_30ep_CNN-BiLSTM-CTC_CNN-VGG16_BiLSTM-1dim"
                     ".pth")
     model.load_state_dict(torch.load(weights_path, map_location=device))
     print(f"Loaded initial random weights from {weights_path}")

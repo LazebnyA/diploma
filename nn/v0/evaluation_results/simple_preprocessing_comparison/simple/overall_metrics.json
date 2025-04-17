@@ -1,0 +1,14 @@
+{
+    "overall_cer": 0.9929078014184397,
+    "overall_wer": 1.0,
+    "mean_cer": 0.9905778894472361,
+    "mean_wer": 1.0,
+    "median_cer": 1.0,
+    "median_wer": 1.0,
+    "min_cer": 0.5,
+    "min_wer": 1.0,
+    "max_cer": 1.0,
+    "max_wer": 1.0,
+    "std_cer": 0.056878247648042626,
+    "std_wer": 0.0
+}

@@ -1,9 +1,9 @@
 Total writers: 657
-Train writers: 459 (80061 samples)
-Validation writers: 98 (17449 samples)
-Test writers: 100 (16823 samples)
+Train writers: 459 (78062 samples)
+Validation writers: 98 (16661 samples)
+Test writers: 100 (19533 samples)
 
 Split ratios:
-Train: 70.02%
-Validation: 15.26%
-Test: 14.71%
+Train: 68.32%
+Validation: 14.58%
+Test: 17.10%

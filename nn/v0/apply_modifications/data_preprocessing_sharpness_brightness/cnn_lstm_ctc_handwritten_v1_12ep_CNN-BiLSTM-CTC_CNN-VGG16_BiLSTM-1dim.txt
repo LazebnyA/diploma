@@ -1,0 +1,103 @@
+Device: cuda
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH64.pth
+
+Neural Network Architecture:
+CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_more_imH(
+  (cnn): Sequential(
+    (0): Conv2d(1, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (5): ReLU(inplace=True)
+    (6): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (7): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (8): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): ReLU(inplace=True)
+    (10): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (11): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (12): ReLU(inplace=True)
+    (13): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (14): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (15): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (16): ReLU(inplace=True)
+    (17): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (18): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (19): ReLU(inplace=True)
+    (20): MaxPool2d(kernel_size=(2, 1), stride=(2, 1), padding=0, dilation=1, ceil_mode=False)
+  )
+  (lstm): LSTM(2048, 256, batch_first=True, bidirectional=True)
+  (fc): Linear(in_features=512, out_features=80, bias=True)
+)
+
+Hyperparameters:
+img_height: 64
+num_channels: 1
+n_classes: 80
+n_h: 256
+optimizer: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+learning_rate: 0.001
+criterion: CTCLoss()
+num_epochs: 30
+batch_size: 8
+transform: Resize with aspect ratio. Contrast/Brightness Transform with PIL.ImageEnhance
+dataset: IAM Lines Dataset (writer-independent split)
+Starting training process: 
+
+
+Epoch 1 Results:
+Training - Loss: 1.6949, CER: 0.5228, WER: 0.7427
+Validation - Loss: 1.0436, CER: 0.3111, WER: 0.5918
+
+Epoch 2 Results:
+Training - Loss: 0.7969, CER: 0.2519, WER: 0.5259
+Validation - Loss: 0.7591, CER: 0.2164, WER: 0.4646
+
+Epoch 3 Results:
+Training - Loss: 0.5801, CER: 0.1801, WER: 0.4199
+Validation - Loss: 0.7170, CER: 0.1936, WER: 0.4374
+
+Epoch 4 Results:
+Training - Loss: 0.4623, CER: 0.1465, WER: 0.3646
+Validation - Loss: 0.6498, CER: 0.1808, WER: 0.4231
+
+Epoch 5 Results:
+Training - Loss: 0.3750, CER: 0.1266, WER: 0.3306
+Validation - Loss: 0.6722, CER: 0.1787, WER: 0.4115
+
+Epoch 6 Results:
+Training - Loss: 0.3065, CER: 0.1055, WER: 0.2862
+Validation - Loss: 0.6837, CER: 0.1724, WER: 0.4026
+
+Epoch 7 Results:
+Training - Loss: 0.2450, CER: 0.0916, WER: 0.2588
+Validation - Loss: 0.7090, CER: 0.1735, WER: 0.4043
+
+Epoch 8 Results:
+Training - Loss: 0.2004, CER: 0.0933, WER: 0.2782
+Validation - Loss: 0.7390, CER: 0.1728, WER: 0.4063
+
+Epoch 9 Results:
+Training - Loss: 0.1625, CER: 0.0767, WER: 0.2335
+Validation - Loss: 0.8009, CER: 0.1766, WER: 0.4094
+
+Epoch 10 Results:
+Training - Loss: 0.1355, CER: 0.0647, WER: 0.2006
+Validation - Loss: 0.8386, CER: 0.1767, WER: 0.4121
+Training interrupted by user.
+Model saved as cnn_lstm_ctc_handwritten_v1_lines_11ep_CNN-BiLSTM-CTC_CNN-VGG16_BiLSTM-1dim.pth
+Time elapsed: 4930.311721086502
+Start time: 1744893649.968472
+End time: 1744898580.280193

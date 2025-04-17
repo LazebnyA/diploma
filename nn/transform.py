@@ -109,7 +109,6 @@ def otsu_binarization(img: Image.Image) -> Image.Image:
     return Image.fromarray(binary)
 
 
-
 ###############################################
 # Define transforms as functions for testing
 ###############################################
@@ -122,11 +121,32 @@ def get_contrast_brightness_transform(img_height):
         transforms.ToTensor()
     ])
 
+
 def get_noise_removal_transform(img_height):
     return transforms.Compose([
         transforms.Lambda(lambda img: resize_with_aspect(img, img_height)),
         transforms.Grayscale(num_output_channels=1),
         transforms.Lambda(remove_noise),
+        transforms.ToTensor()
+    ])
+
+
+def get_contrast_brightness_noise_removal_transform(img_height):
+    return transforms.Compose([
+        transforms.Lambda(lambda img: resize_with_aspect(img, img_height)),
+        transforms.Grayscale(num_output_channels=1),
+        transforms.Lambda(remove_noise),
+        transforms.Lambda(adjust_contrast_brightness),
+        transforms.ToTensor()
+    ])
+
+
+def get_contrast_brightness_otsu_transform(img_height):
+    return transforms.Compose([
+        transforms.Lambda(lambda img: resize_with_aspect(img, img_height)),
+        transforms.Grayscale(num_output_channels=1),
+        transforms.Lambda(remove_noise),
+        transforms.Lambda(adjust_contrast_brightness),
         transforms.ToTensor()
     ])
 

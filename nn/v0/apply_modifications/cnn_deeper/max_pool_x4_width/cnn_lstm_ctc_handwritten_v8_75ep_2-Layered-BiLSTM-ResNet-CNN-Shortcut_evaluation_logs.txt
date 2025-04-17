@@ -1,0 +1,17 @@
+Evaluating on device: cuda
+
+===== Starting Test Set Evaluation =====
+Device: cuda
+Loaded initial random weights from ./cnn_lstm_ctc_handwritten_v0_lines_11ep_CNN-BiLSTM-CTC_CNN-24-48-96_BiLSTM-1dim.pth
+
+Test Set Overall Metrics:
+CER: 0.9917, WER: 1.0000
+C:\uni\Diploma\nn\evaluate.py:300: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  plt.gca().set_xticklabels(new_labels)
+C:\uni\Diploma\nn\evaluate.py:300: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  plt.gca().set_xticklabels(new_labels)
+
+Evaluation complete. Results saved to v0/evaluation_results/
+Time elapsed: 6.093104600906372
+Start time: 1744909641.5158958
+End time: 1744909647.6090004
