@@ -119,28 +119,12 @@ class IAMDataset(Dataset):
         # Load image in grayscale
         image = Image.open(img_path).convert('L')
 
-        # Resize image to 1200x64 while maintaining aspect ratio
-        original_width, original_height = image.size
-        target_width, target_height = 1200, 64
-
-        # Calculate new dimensions while maintaining aspect ratio
-        ratio = min(target_width / original_width, target_height / original_height)
-        new_width = int(original_width * ratio)
-        new_height = int(original_height * ratio)
-
-        # Resize image
-        image = image.resize((new_width, new_height), Image.BILINEAR)
-
-        # Create a new blank image with target size and paste the resized image
-        new_image = Image.new('L', (target_width, target_height), color=0)
-        new_image.paste(image, ((target_width - new_width) // 2, (target_height - new_height) // 2))
-
         if self.transform is not None:
-            new_image = self.transform(new_image)
+            image = self.transform(image)
 
         # Encode the text label into a list of indices
         label = self.label_converter.encode(text)
-        return new_image, label
+        return image, label
 
 
 def collate_fn(batch):
@@ -164,8 +148,8 @@ def collate_fn(batch):
     targets_lengths_tensor = torch.tensor(target_lengths, dtype=torch.long)
 
     # Assuming our CNN downsamples the width by a factor of 4
-    # Since all images are now 1200px wide, input length is 1200//4 = 300
-    input_lengths = [300] * len(images)
+    # Since all images are now 300px wide, input length is 300//4 = 75
+    input_lengths = [75] * len(images)
     input_lengths_tensor = torch.tensor(input_lengths, dtype=torch.long)
 
     return images_tensor, targets_tensor, targets_lengths_tensor, input_lengths_tensor

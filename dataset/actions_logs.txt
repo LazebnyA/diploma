@@ -120,3 +120,126 @@ dataset/iam_words/data/m01/m01-049/m01-049-11-04.png	ecstacy
 dataset/iam_words/data/m01/m01-049/m01-049-11-05.png	.
 
 
+dataset/iam_words/data_preprocessed/e06/e06-030/e06-030-01-00.png	mean
+dataset/iam_words/data_preprocessed/e06/e06-030/e06-030-01-01.png	no
+dataset/iam_words/data_preprocessed/e06/e06-030/e06-030-01-02.png	herring
+dataset/iam_words/data_preprocessed/e06/e06-030/e06-030-01-03.png	along
+dataset/iam_words/data_preprocessed/e06/e06-030/e06-030-01-04.png	the
+dataset/iam_words/data_preprocessed/e06/e06-030/e06-030-01-05.png	shore
+dataset/iam_words/data_preprocessed/e06/e06-030/e06-030-01-06.png	,
+dataset/iam_words/data_preprocessed/e06/e06-030/e06-030-01-07.png	as
+
+
+
+dataset/iam_words/data_preprocessed/d06/d06-072/d06-072-10-00.png	need
+dataset/iam_words/data_preprocessed/d06/d06-072/d06-072-10-03.png	handled
+dataset/iam_words/data_preprocessed/d06/d06-072/d06-072-10-04.png	correctly
+dataset/iam_words/data_preprocessed/d06/d06-072/d06-072-10-05.png	.
+
+
+
+dataset/iam_words/data_preprocessed/f04/f04-028/f04-028-10-00.png	of
+dataset/iam_words/data_preprocessed/f04/f04-028/f04-028-10-01.png	her
+dataset/iam_words/data_preprocessed/f04/f04-028/f04-028-10-02.png	former
+dataset/iam_words/data_preprocessed/f04/f04-028/f04-028-10-03.png	men
+dataset/iam_words/data_preprocessed/f04/f04-028/f04-028-10-04.png	friends
+dataset/iam_words/data_preprocessed/f04/f04-028/f04-028-10-05.png	and
+dataset/iam_words/data_preprocessed/f04/f04-028/f04-028-10-06.png	acquaintances
+dataset/iam_words/data_preprocessed/f04/f04-028/f04-028-10-07.png	began
+dataset/iam_words/data_preprocessed/f04/f04-028/f04-028-10-08.png	.
+
+
+
+dataset/iam_words/data_preprocessed/k02/k02-023/k02-023-06-00.png	Verena
+dataset/iam_words/data_preprocessed/k02/k02-023/k02-023-06-01.png	Holenstein
+
+
+
+dataset/iam_words/data_preprocessed/l04/l04-118/l04-118-00-00.png	Roddy
+dataset/iam_words/data_preprocessed/l04/l04-118/l04-118-00-01.png	puffed
+dataset/iam_words/data_preprocessed/l04/l04-118/l04-118-00-02.png	at
+dataset/iam_words/data_preprocessed/l04/l04-118/l04-118-00-03.png	his
+dataset/iam_words/data_preprocessed/l04/l04-118/l04-118-00-04.png	pipe
+dataset/iam_words/data_preprocessed/l04/l04-118/l04-118-00-05.png	,
+dataset/iam_words/data_preprocessed/l04/l04-118/l04-118-00-06.png	his
+dataset/iam_words/data_preprocessed/l04/l04-118/l04-118-00-07.png	eyes
+dataset/iam_words/data_preprocessed/l04/l04-118/l04-118-00-08.png	fixed
+dataset/iam_words/data_preprocessed/l04/l04-118/l04-118-00-09.png	on
+dataset/iam_words/data_preprocessed/l04/l04-118/l04-118-00-10.png	the
+dataset/iam_words/data_preprocessed/l04/l04-118/l04-118-00-11.png	white-coated
+
+
+dataset/iam_words/data_preprocessed/m04/m04-081/m04-081-10-00.png	happened
+dataset/iam_words/data_preprocessed/m04/m04-081/m04-081-10-01.png	,
+dataset/iam_words/data_preprocessed/m04/m04-081/m04-081-10-05.png	me
+dataset/iam_words/data_preprocessed/m04/m04-081/m04-081-10-06.png	.
+dataset/iam_words/data_preprocessed/m04/m04-081/m04-081-10-07.png	"
+
+
+dataset/iam_words/data_preprocessed/p01/p01-147/p01-147-11-00.png	kind
+dataset/iam_words/data_preprocessed/p01/p01-147/p01-147-11-01.png	of
+dataset/iam_words/data_preprocessed/p01/p01-147/p01-147-11-02.png	sequence
+dataset/iam_words/data_preprocessed/p01/p01-147/p01-147-11-03.png	.
+
+
+dataset/iam_words/data_preprocessed/p06/p06-042/p06-042-04-00.png	Even
+dataset/iam_words/data_preprocessed/p06/p06-042/p06-042-04-01.png	in
+dataset/iam_words/data_preprocessed/p06/p06-042/p06-042-04-02.png	that
+dataset/iam_words/data_preprocessed/p06/p06-042/p06-042-04-03.png	,
+dataset/iam_words/data_preprocessed/p06/p06-042/p06-042-04-04.png	his
+dataset/iam_words/data_preprocessed/p06/p06-042/p06-042-04-05.png	hands
+dataset/iam_words/data_preprocessed/p06/p06-042/p06-042-04-06.png	were
+
+
+dataset/iam_words/data_preprocessed/r06/r06-022/r06-022-03-00.png	was
+dataset/iam_words/data_preprocessed/r06/r06-022/r06-022-03-01.png	raining
+dataset/iam_words/data_preprocessed/r06/r06-022/r06-022-03-02.png	,
+dataset/iam_words/data_preprocessed/r06/r06-022/r06-022-03-03.png	an
+dataset/iam_words/data_preprocessed/r06/r06-022/r06-022-03-04.png	even
+dataset/iam_words/data_preprocessed/r06/r06-022/r06-022-03-05.png	more
+dataset/iam_words/data_preprocessed/r06/r06-022/r06-022-03-06.png	hopeless
+dataset/iam_words/data_preprocessed/r06/r06-022/r06-022-03-07.png	rain
+dataset/iam_words/data_preprocessed/r06/r06-022/r06-022-03-08.png	than
+dataset/iam_words/data_preprocessed/r06/r06-022/r06-022-03-09.png	London
+dataset/iam_words/data_preprocessed/r06/r06-022/r06-022-03-10.png	,
+dataset/iam_words/data_preprocessed/r06/r06-022/r06-022-03-11.png	and
+dataset/iam_words/data_preprocessed/r06/r06-022/r06-022-03-12.png	we
+
+
+
+dataset/iam_words/data_preprocessed/b05/b05-042/b05-042-10-00.png	to
+dataset/iam_words/data_preprocessed/b05/b05-042/b05-042-10-01.png	a
+dataset/iam_words/data_preprocessed/b05/b05-042/b05-042-10-02.png	different
+dataset/iam_words/data_preprocessed/b05/b05-042/b05-042-10-03.png	industry
+dataset/iam_words/data_preprocessed/b05/b05-042/b05-042-10-07.png	gives
+dataset/iam_words/data_preprocessed/b05/b05-042/b05-042-10-09.png	and
+
+
+dataset/iam_words/data_preprocessed/f01/f01-070/f01-070-02-00.png	The
+dataset/iam_words/data_preprocessed/f01/f01-070/f01-070-02-01.png	physicists
+dataset/iam_words/data_preprocessed/f01/f01-070/f01-070-02-02.png	have
+dataset/iam_words/data_preprocessed/f01/f01-070/f01-070-02-03.png	succeeded
+dataset/iam_words/data_preprocessed/f01/f01-070/f01-070-02-04.png	remarkably
+dataset/iam_words/data_preprocessed/f01/f01-070/f01-070-02-05.png	well
+dataset/iam_words/data_preprocessed/f01/f01-070/f01-070-02-06.png	,
+
+
+dataset/iam_words/data_preprocessed/l01/l01-000/l01-000-05-00.png	only
+dataset/iam_words/data_preprocessed/l01/l01-000/l01-000-05-01.png	her
+dataset/iam_words/data_preprocessed/l01/l01-000/l01-000-05-02.png	mind
+dataset/iam_words/data_preprocessed/l01/l01-000/l01-000-05-03.png	wasn't
+dataset/iam_words/data_preprocessed/l01/l01-000/l01-000-05-04.png	as
+dataset/iam_words/data_preprocessed/l01/l01-000/l01-000-05-05.png	clear
+dataset/iam_words/data_preprocessed/l01/l01-000/l01-000-05-06.png	as
+
+
+dataset/iam_words/data_preprocessed/l01/l01-000/l01-000-08-00.png	that
+dataset/iam_words/data_preprocessed/l01/l01-000/l01-000-08-01.png	the
+dataset/iam_words/data_preprocessed/l01/l01-000/l01-000-08-02.png	name
+dataset/iam_words/data_preprocessed/l01/l01-000/l01-000-08-03.png	of
+dataset/iam_words/data_preprocessed/l01/l01-000/l01-000-08-04.png	her
+dataset/iam_words/data_preprocessed/l01/l01-000/l01-000-08-05.png	house
+dataset/iam_words/data_preprocessed/l01/l01-000/l01-000-08-06.png	-
+dataset/iam_words/data_preprocessed/l01/l01-000/l01-000-08-07.png	Grand
+
+

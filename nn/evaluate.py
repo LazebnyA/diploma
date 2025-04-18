@@ -15,8 +15,8 @@ import seaborn as sns
 import pandas as pd
 from pathlib import Path
 
-from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
-from nn.transform import resize_with_aspect, get_full_transform
+from nn.dataset_2 import ProjectPaths, LabelConverter, IAMDataset, collate_fn
+from nn.transform import get_otsu_binarization_transform
 from nn.utils import execution_time_decorator
 from nn.logger import evaluation_logger  # Assuming you have this
 from nn.v0.models import CNN_LSTM_CTC_V0, CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_more_imH
@@ -335,7 +335,7 @@ def evaluate():
     test_dataset = IAMDataset(
         mapping_file=test_mapping_file,
         paths=paths,
-        transform=get_full_transform(img_height),
+        transform=get_otsu_binarization_transform(),
         label_converter=label_converter
     )
 
@@ -357,7 +357,7 @@ def evaluate():
     model.to(device)
     print(f"Device: {device}")
 
-    weights_path = ("./cnn_lstm_ctc_handwritten_v1_words_30ep_CNN-BiLSTM-CTC_CNN-VGG16_BiLSTM-1dim"
+    weights_path = ("./cnn_lstm_ctc_handwritten_v0_word_22ep_CNN-BiLSTM-CTC_CNN-VGG16_BiLSTM-1dim"
                     ".pth")
     model.load_state_dict(torch.load(weights_path, map_location=device))
     print(f"Loaded initial random weights from {weights_path}")

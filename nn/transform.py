@@ -5,31 +5,29 @@ import torchvision.transforms as transforms
 import torchvision.transforms.functional as TF
 import random
 
-from PIL import ImageEnhance, Image
+from PIL import ImageEnhance, Image, ImageOps
 from PIL.Image import Resampling
 
-
-def resize_with_aspect(image, target_height=32):
-    """
-    Змінює розмір зображення до заданої висоти з збереженням аспектного співвідношення.
-    """
-    w, h = image.size
-    if h == 0:
-        raise ValueError(f"Invalid image with height=0, original size: {image.size}")
-    new_w = max(1, int(w * (target_height / h)))  # забезпечує мінімум 1 піксель
-    return image.resize((new_w, target_height))
+TARGET_WIDTH = 300
 
 
-def resize_with_aspect_lanczos_filter(image, target_height=32):
-    """
-    Змінює розмір зображення до заданої висоти з збереженням аспектного співвідношення.
-    """
-    w, h = image.size
-    if h == 0:
-        raise ValueError(f"Invalid image with height=0, original size: {image.size}")
-    new_w = max(1, int(w * (target_height / h)))  # забезпечує мінімум 1 піксель
-    return image.resize((new_w, target_height), Resampling.LANCZOS)
+def resize_aspect_ratio_add_padding(img):
+    # 3. Resize maintaining aspect ratio based on height
+    original_width, original_height = img.size
+    target_height = 64
+    ratio = target_height / original_height
+    new_width = int(original_width * ratio)
+    new_height = target_height
+    img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
 
+    # 4. Add right padding to reach 600px width
+    if new_width < TARGET_WIDTH:
+        right_pad = TARGET_WIDTH - new_width
+        img = ImageOps.expand(img, border=(0, 0, right_pad, 0), fill=255)
+    elif new_width > TARGET_WIDTH:
+        img = img.crop((0, 0, TARGET_WIDTH, new_height))
+
+    return img
 
 def add_gaussian_noise(tensor, mean=0, std=0.05):
     """
@@ -60,19 +58,29 @@ def random_distortion(image):
     return image
 
 
-def get_simple_transform(img_height):
+def get_simple_recognize_transform():
     transform = transforms.Compose([
-        transforms.Lambda(lambda img: resize_with_aspect(img, target_height=img_height)),
+        transforms.Grayscale(num_output_channels=1),
+        transforms.Lambda(lambda img: resize_aspect_ratio_add_padding(img)),
         transforms.ToTensor()
     ])
     return transform
 
 
-# Повна трансформаційна послідовність
-def get_augment_transform(img_height):
+def get_simple_train_transform():
     transform = transforms.Compose([
-        transforms.Lambda(lambda img: resize_with_aspect(img, target_height=img_height)),
         transforms.Grayscale(num_output_channels=1),
+        transforms.ToTensor()
+    ])
+
+    return transform
+
+
+# Повна трансформаційна послідовність
+def get_augment_transform():
+    transform = transforms.Compose([
+        transforms.Grayscale(num_output_channels=1),
+        transforms.Lambda(lambda img: resize_aspect_ratio_add_padding(img)),
         transforms.RandomRotation(degrees=5),
         transforms.RandomAffine(degrees=0, translate=(0.05, 0.05)),
         transforms.ColorJitter(brightness=0.2, contrast=0.2),
@@ -113,57 +121,57 @@ def otsu_binarization(img: Image.Image) -> Image.Image:
 # Define transforms as functions for testing
 ###############################################
 
-def get_contrast_brightness_transform(img_height):
+def get_contrast_brightness_transform():
     return transforms.Compose([
-        transforms.Lambda(lambda img: resize_with_aspect(img, img_height)),
         transforms.Grayscale(num_output_channels=1),
+        transforms.Lambda(lambda img: resize_aspect_ratio_add_padding(img)),
         transforms.Lambda(adjust_contrast_brightness),
         transforms.ToTensor()
     ])
 
 
-def get_noise_removal_transform(img_height):
+def get_noise_removal_transform():
     return transforms.Compose([
-        transforms.Lambda(lambda img: resize_with_aspect(img, img_height)),
         transforms.Grayscale(num_output_channels=1),
+        transforms.Lambda(lambda img: resize_aspect_ratio_add_padding(img)),
         transforms.Lambda(remove_noise),
         transforms.ToTensor()
     ])
 
 
-def get_contrast_brightness_noise_removal_transform(img_height):
+def get_contrast_brightness_noise_removal_transform():
     return transforms.Compose([
-        transforms.Lambda(lambda img: resize_with_aspect(img, img_height)),
         transforms.Grayscale(num_output_channels=1),
-        transforms.Lambda(remove_noise),
-        transforms.Lambda(adjust_contrast_brightness),
-        transforms.ToTensor()
-    ])
-
-
-def get_contrast_brightness_otsu_transform(img_height):
-    return transforms.Compose([
-        transforms.Lambda(lambda img: resize_with_aspect(img, img_height)),
-        transforms.Grayscale(num_output_channels=1),
+        transforms.Lambda(lambda img: resize_aspect_ratio_add_padding(img)),
         transforms.Lambda(remove_noise),
         transforms.Lambda(adjust_contrast_brightness),
         transforms.ToTensor()
     ])
 
 
-def get_otsu_binarization_transform(img_height):
+def get_contrast_brightness_otsu_transform():
     return transforms.Compose([
-        transforms.Lambda(lambda img: resize_with_aspect(img, img_height)),
         transforms.Grayscale(num_output_channels=1),
+        transforms.Lambda(lambda img: resize_aspect_ratio_add_padding(img)),
+        transforms.Lambda(remove_noise),
+        transforms.Lambda(adjust_contrast_brightness),
+        transforms.ToTensor()
+    ])
+
+
+def get_otsu_binarization_transform():
+    return transforms.Compose([
+        transforms.Grayscale(num_output_channels=1),
+        transforms.Lambda(lambda img: resize_aspect_ratio_add_padding(img)),
         transforms.Lambda(otsu_binarization),
         transforms.ToTensor()
     ])
 
 
-def get_full_transform(img_height):
+def get_full_transform():
     return transforms.Compose([
-        transforms.Lambda(lambda img: resize_with_aspect(img, img_height)),
         transforms.Grayscale(num_output_channels=1),
+        transforms.Lambda(lambda img: resize_aspect_ratio_add_padding(img)),
         transforms.Lambda(remove_noise),
         transforms.Lambda(adjust_contrast_brightness),
         transforms.Lambda(otsu_binarization),

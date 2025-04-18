@@ -8,9 +8,9 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
+from nn.dataset_2 import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training
-from nn.transform import get_augment_transform, get_simple_transform, get_simple_transform
+from nn.transform import get_augment_transform, get_simple_train_transform, get_simple_train_transform
 from nn.utils import execution_time_decorator
 from nn.v0.models import CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_more_imH
 from nn.v1.models import CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like
@@ -58,17 +58,15 @@ def main(version, additional):
     paths = ProjectPaths()
 
     # Use relative paths from nn root
-    mapping_file = "dataset/writer_independent_word_splits/train_word_mappings.txt"
+    mapping_file = "dataset/writer_independent_word_splits/v2/train_word_mappings.txt"
 
     # Initialize converter and dataset
     label_converter = LabelConverter(mapping_file, paths)
 
-    img_height = 64
-
     dataset = IAMDataset(
         mapping_file=mapping_file,
         paths=paths,
-        transform=get_simple_transform(img_height),
+        transform=get_simple_train_transform(),
         label_converter=label_converter
     )
 
@@ -81,12 +79,12 @@ def main(version, additional):
                             collate_fn=collate_fn,
                             )
 
-    validation_mapping_file = "dataset/writer_independent_word_splits/val_word_mappings.txt"
+    validation_mapping_file = "dataset/writer_independent_word_splits/v2/val_word_mappings.txt"
 
     validation_dataset = IAMDataset(
         mapping_file=validation_mapping_file,
         paths=paths,
-        transform=get_simple_transform(img_height),
+        transform=get_simple_train_transform(),
         label_converter=label_converter
     )
 
@@ -102,6 +100,7 @@ def main(version, additional):
 
     num_channels = 1
     n_h = 256
+    img_height = 64
 
     model = CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_more_imH(
         img_height=img_height,
@@ -131,7 +130,7 @@ def main(version, additional):
     lr = 0.001
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
-    num_epochs = 10
+    num_epochs = 30
 
     model.train()
 
