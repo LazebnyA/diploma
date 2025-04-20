@@ -16,10 +16,12 @@ import pandas as pd
 from pathlib import Path
 
 from nn.dataset_2 import ProjectPaths, LabelConverter, IAMDataset, collate_fn
-from nn.transform import get_otsu_binarization_transform
+from nn.transform import get_otsu_binarization_transform, get_simple_recognize_transform, \
+    get_contrast_brightness_transform
 from nn.utils import execution_time_decorator
 from nn.logger import evaluation_logger  # Assuming you have this
 from nn.v0.models import CNN_LSTM_CTC_V0, CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_more_imH
+from nn.v1.models import CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like
 
 MODEL_NAME = "cnn_lstm_ctc_handwritten_v8_75ep_2-Layered-BiLSTM-ResNet-CNN-Shortcut"
 MODEL_PATH = f"archive/v5/better_features/{MODEL_NAME}.pth"
@@ -30,10 +32,89 @@ Model = CNN_LSTM_CTC_V0
 IMG_HEIGHT = 64
 NUM_CHANNELS = 1
 N_H = 256
-BATCH_SIZE = 1
+BATCH_SIZE = 8
 
 torch.manual_seed(42)
 
+class CNN_BiLSTM_CTC_V5_imgHeight64(nn.Module):
+    def __init__(self, img_height, num_channels, n_classes, n_h):
+        """
+
+        img_height: image height (after resize)
+        num_channels: number of input channels (1 for grayscale)
+        n_classes: number of output classes (vocab size + 1 for blank)
+        n_h: number of hidden units in the LSTM
+        """
+        super().__init__()
+
+        # CNN Module
+        self.cnn = nn.Sequential(
+            # Conv Block 1
+            nn.Conv2d(num_channels, 64, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(64),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(64),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(2, 2),  # Downsample (H/2, W/2)
+
+            # Conv Block 2
+            nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(128),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(128),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(2, 2),  # Downsample (H/4, W/4)
+
+            # Conv Block 3
+            nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(256),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(256),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d((2, 1)),  # Downsample height only (H/8, W/4)
+
+            # Conv Block 4
+            nn.Conv2d(256, 512, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(512),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(512),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d((2, 1)),  # Downsample height only (H/16, W/4)
+        )
+
+        # After CNN, height becomes img_height // 8
+        self.lstm_input_size = 512 * (img_height // 16)
+
+        # Bidirectional LSTM
+        self.lstm = nn.LSTM(self.lstm_input_size, n_h, bidirectional=True, num_layers=2, batch_first=True)
+
+        # Final classifier: maps LSTM output to character classes
+        self.fc = nn.Linear(2 * n_h, n_classes)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """
+        x: input images with shape (batch, channels, height, width)
+        Returns output in shape (T, batch, n_classes) required by CTCLoss
+        """
+
+        conv = self.cnn(x)  # shape: (batch, 128, H', W')
+        b, c, h, w = conv.size()
+
+        # Permute and flatten so that each column (width) is a time step
+        conv = conv.permute(0, 3, 1, 2)  # now (batch, width, channels, height)
+        conv = conv.contiguous().view(b, w, c * h)  # (batch, width, feature_size)
+
+        # LSTM expects input shape (batch, seq_len, input_size)
+        recurrent, _ = self.lstm(conv)  # (batch, seq_len, n_h)
+        output = self.fc(recurrent)  # (batch, seq_len, n_classes)
+
+        # For CTCLoss, we need (seq_len, batch, n_classes)
+        output = output.permute(1, 0, 2)
+        return output
 
 def greedy_decoder(output, label_converter):
     """
@@ -323,19 +404,21 @@ def evaluate():
     print("\n===== Starting Test Set Evaluation =====")
 
     # Create evaluation results directory if it doesn't exist
-    eval_dir = "v0/evaluation_results"
+    eval_dir = "evaluation_results"
     os.makedirs(eval_dir, exist_ok=True)
 
     # Load test dataset
     test_mapping_file = "tests/test_self_wr_base/dataset/dataset.txt"
 
-    label_converter = LabelConverter(test_mapping_file, paths)
+    label_converter_mapping = "dataset/writer_independent_word_splits/v2/train_word_mappings.txt"
+
+    label_converter = LabelConverter(label_converter_mapping, paths)
     n_classes = 80
 
     test_dataset = IAMDataset(
         mapping_file=test_mapping_file,
         paths=paths,
-        transform=get_otsu_binarization_transform(),
+        transform=get_contrast_brightness_transform(),
         label_converter=label_converter
     )
 
@@ -346,7 +429,7 @@ def evaluate():
         collate_fn=collate_fn
     )
 
-    model = CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_more_imH(
+    model = CNN_BiLSTM_CTC_V5_imgHeight64(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
@@ -357,7 +440,7 @@ def evaluate():
     model.to(device)
     print(f"Device: {device}")
 
-    weights_path = ("./cnn_lstm_ctc_handwritten_v0_word_22ep_CNN-BiLSTM-CTC_CNN-VGG16_BiLSTM-1dim"
+    weights_path = ("./cnn_lstm_ctc_handwritten_v5_75ep_2-Layered-BiLSTM-imgH64"
                     ".pth")
     model.load_state_dict(torch.load(weights_path, map_location=device))
     print(f"Loaded initial random weights from {weights_path}")

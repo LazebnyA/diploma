@@ -133,14 +133,14 @@ def collate_fn(batch):
 
     # images are tensors of shape (C - channels, H - height, W - width)
     widths = [img.size(2) for img in images]
-    max_width = 1200
+    max_width = max(widths)
 
     padded_images = []
     for img in images:
         pad_width = max_width - img.size(2)
         if pad_width > 0:
             # pad the right side of the width dimension
-            img = F.pad(img, (0, pad_width), value=0)
+            img = F.pad(img, (0, pad_width), value=255)
         padded_images.append(img)
     images_tensor = torch.stack(padded_images, dim=0)
 
@@ -153,7 +153,7 @@ def collate_fn(batch):
     targets_tensor = torch.tensor(targets, dtype=torch.long)
     targets_lengths_tensor = torch.tensor(target_lenghts, dtype=torch.long)
 
-    # Assuming our CNN downsamples the width by a factor of 4
+    # Assuming our CNN downsamples the width by a factor of 2
     input_lengths = [w // 4 for w in widths]
     input_lengths_tensor = torch.tensor(input_lengths, dtype=torch.long)
 

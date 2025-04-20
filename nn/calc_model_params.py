@@ -48,7 +48,7 @@ def count_parameters(model_path):
 
 if __name__ == "__main__":
     # You can specify the model path here
-    model_path = "v0/apply_modifications/cnn_deeper/max_pool_x4_width/cnn_lstm_ctc_handwritten_v0_lines_11ep_CNN-BiLSTM-CTC_CNN-24-48-96_BiLSTM-1dim.pth"
+    model_path = "v0/archive/2/apply_modifications/cnn_deeper/max_pool_x4_width/cnn_lstm_ctc_handwritten_v0_lines_11ep_CNN-BiLSTM-CTC_CNN-24-48-96_BiLSTM-1dim.pth"
 
     num_params = count_parameters(model_path)
 

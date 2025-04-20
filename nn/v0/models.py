@@ -25,7 +25,7 @@ class CNN_LSTM_CTC_V0(nn.Module):
             nn.ReLU(True),
             nn.Conv2d(48, 48, kernel_size=3, stride=1, padding=1),
             nn.ReLU(True),
-            nn.MaxPool2d((2, 1)),  # downsample height by 4
+            nn.MaxPool2d(2, 2),  # downsample height by 4
             nn.Conv2d(48, 96, kernel_size=3, stride=1, padding=1),
             nn.ReLU(True),
             nn.Conv2d(96, 96, kernel_size=3, stride=1, padding=1),

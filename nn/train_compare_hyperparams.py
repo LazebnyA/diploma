@@ -13,7 +13,7 @@ from tqdm import tqdm
 
 from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training, logger_hyperparameters_tuning
-from nn.transform import get_simple_transform
+from nn.transform import get_simple_train_transform_v0
 from nn.v0.models import CNN_LSTM_CTC_V0
 
 torch.manual_seed(42)
@@ -208,14 +208,14 @@ def create_datasets(paths, mapping_files, img_height, label_converter, batch_siz
     train_dataset = IAMDataset(
         mapping_file=train_mapping_file,
         paths=paths,
-        transform=get_simple_transform(img_height),
+        transform=get_simple_train_transform_v0(img_height),
         label_converter=label_converter
     )
 
     val_dataset = IAMDataset(
         mapping_file=validation_mapping_file,
         paths=paths,
-        transform=get_simple_transform(img_height),
+        transform=get_simple_train_transform_v0(img_height),
         label_converter=label_converter
     )
 
@@ -248,10 +248,10 @@ def create_model(img_height, num_channels, n_classes, n_h, device):
     )
     model.to(device)
 
-    # weights_path = f"cnn_lstm_ctc_handwritten_v0_initial_imH{img_height}.pth"
-    #
-    # model.load_state_dict(torch.load(weights_path, map_location=device))
-    # print(f"Loaded initial random weights from {weights_path}")
+    weights_path = f"cnn_lstm_ctc_handwritten_v0_initial_imH{img_height}.pth"
+
+    model.load_state_dict(torch.load(weights_path, map_location=device))
+    print(f"Loaded initial random weights from {weights_path}")
 
     return model
 
@@ -740,14 +740,14 @@ def evaluate_best_model(best_params=None):
     train_dataset = IAMDataset(
         mapping_file=train_mapping_file,
         paths=paths,
-        transform=get_simple_transform(best_params['img_height']),
+        transform=get_simple_train_transform_v0(best_params['img_height']),
         label_converter=label_converter
     )
 
     test_dataset = IAMDataset(
         mapping_file=test_mapping_file,
         paths=paths,
-        transform=get_simple_transform(best_params['img_height']),
+        transform=get_simple_train_transform_v0(best_params['img_height']),
         label_converter=label_converter
     )
 
@@ -895,4 +895,4 @@ if __name__ == "__main__":
     }
 
     # За замовчуванням запускаємо налаштування тільки оптимізатора
-    run_hyperparameter_tuning(fixed_params, ['batch_size'], num_epochs=5)
+    run_hyperparameter_tuning(fixed_params, ['optimizer'], num_epochs=5)
