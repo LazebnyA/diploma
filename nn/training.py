@@ -12,7 +12,9 @@ from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training
 from nn.transform import get_simple_train_transform_v0
 from nn.utils import execution_time_decorator
-from nn.v0.models import CNN_LSTM_CTC_V0
+from nn.v0.models import CNN_LSTM_CTC_V0, CNN_LSTM_CTC_V2_CNN_more_filters_deeper_vgg16like, \
+    CNN_LSTM_CTC_V0_CNN_48_start_filters
+from nn.v1.models import CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like
 
 torch.manual_seed(42)
 
@@ -50,14 +52,14 @@ def calculate_metrics(predictions, ground_truths):
     return total_cer, total_wer
 
 
-@logger_model_training(version="0", additional="CNN-BiLSTM-CTC_CNN_V0")
+@logger_model_training(version="1", additional="CNN-BiLSTM-CTC_CNN_V0_48-start-filters")
 @execution_time_decorator
 def main(version, additional):
     # Initialize nn paths
     paths = ProjectPaths()
 
     # Use relative paths from nn root
-    mapping_file = "dataset/writer_independent_word_splits/v1/archive/1/train_word_mappings.txt"
+    mapping_file = "dataset/writer_independent_word_splits/train_word_mappings.txt"
 
     # Initialize converter and dataset
     label_converter = LabelConverter(mapping_file, paths)
@@ -80,7 +82,7 @@ def main(version, additional):
                             collate_fn=collate_fn,
                             )
 
-    validation_mapping_file = "dataset/writer_independent_word_splits/v1/archive/1/val_word_mappings.txt"
+    validation_mapping_file = "dataset/writer_independent_word_splits/val_word_mappings.txt"
 
     validation_dataset = IAMDataset(
         mapping_file=validation_mapping_file,
@@ -102,7 +104,7 @@ def main(version, additional):
     num_channels = 1
     n_h = 256
 
-    model = CNN_LSTM_CTC_V0(
+    model = CNN_LSTM_CTC_V0_CNN_48_start_filters(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
@@ -115,14 +117,14 @@ def main(version, additional):
     model.to(device)
     print(f"Device: {device}")
 
-    # base_filename = f"cnn_lstm_ctc_handwritten_v1_initial_resnet_classic"
-    # model_filename = f"{base_filename}.pth"
-    # torch.save(model.state_dict(), model_filename)
+    base_filename = f"cnn_lstm_ctc_handwritten_v1_initial_48_start_filters"
+    model_filename = f"{base_filename}.pth"
+    torch.save(model.state_dict(), model_filename)
 
     # Load initial random weights (hardcoded path)
-    weights_path = "cnn_lstm_ctc_handwritten_v0_initial_imH32.pth"
-    model.load_state_dict(torch.load(weights_path, map_location=device))
-    print(f"Loaded initial random weights from {weights_path}")
+    # weights_path = "cnn_lstm_ctc_handwritten_v1_initial_imH32.pth"
+    # model.load_state_dict(torch.load(weights_path, map_location=device))
+    # print(f"Loaded initial random weights from {weights_path}")
 
     # Define the CTCLoss and optimizer.
     criterion = nn.CTCLoss(blank=0, zero_infinity=True)

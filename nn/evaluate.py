@@ -15,9 +15,8 @@ import seaborn as sns
 import pandas as pd
 from pathlib import Path
 
-from nn.dataset_2 import ProjectPaths, LabelConverter, IAMDataset, collate_fn
-from nn.transform import get_otsu_binarization_transform, get_simple_recognize_transform, \
-    get_contrast_brightness_transform
+from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
+from nn.transform import get_simple_train_transform_v0
 from nn.utils import execution_time_decorator
 from nn.logger import evaluation_logger  # Assuming you have this
 from nn.v0.models import CNN_LSTM_CTC_V0, CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_more_imH
@@ -29,7 +28,7 @@ OUTPUT_DIR = "v5/better_features/evaluation_results"
 Model = CNN_LSTM_CTC_V0
 
 # Hyperparameters
-IMG_HEIGHT = 64
+IMG_HEIGHT = 32
 NUM_CHANNELS = 1
 N_H = 256
 BATCH_SIZE = 8
@@ -408,9 +407,10 @@ def evaluate():
     os.makedirs(eval_dir, exist_ok=True)
 
     # Load test dataset
-    test_mapping_file = "tests/test_self_wr_base/dataset/dataset.txt"
+    # test_mapping_file = "tests/test_self_wr_base/dataset/dataset.txt"
+    test_mapping_file = "dataset/writer_independent_word_splits/test_word_mappings.txt"
 
-    label_converter_mapping = "dataset/writer_independent_word_splits/v2/train_word_mappings.txt"
+    label_converter_mapping = "dataset/writer_independent_word_splits/train_word_mappings.txt"
 
     label_converter = LabelConverter(label_converter_mapping, paths)
     n_classes = 80
@@ -418,7 +418,7 @@ def evaluate():
     test_dataset = IAMDataset(
         mapping_file=test_mapping_file,
         paths=paths,
-        transform=get_contrast_brightness_transform(),
+        transform=get_simple_train_transform_v0(img_height),
         label_converter=label_converter
     )
 
@@ -429,7 +429,7 @@ def evaluate():
         collate_fn=collate_fn
     )
 
-    model = CNN_BiLSTM_CTC_V5_imgHeight64(
+    model = CNN_LSTM_CTC_V0(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
@@ -440,7 +440,7 @@ def evaluate():
     model.to(device)
     print(f"Device: {device}")
 
-    weights_path = ("./cnn_lstm_ctc_handwritten_v5_75ep_2-Layered-BiLSTM-imgH64"
+    weights_path = ("./cnn_lstm_ctc_handwritten_v0_word_16ep_CNN-BiLSTM-CTC_CNN_V0"
                     ".pth")
     model.load_state_dict(torch.load(weights_path, map_location=device))
     print(f"Loaded initial random weights from {weights_path}")

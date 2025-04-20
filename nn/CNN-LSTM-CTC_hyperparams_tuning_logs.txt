@@ -1,0 +1,37 @@
+
+=== Порівняння для різних розмірів батчів ===
+
+Навчання з batch_size=4
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH32.pth
+
+Epoch 1/5:
+  Train Loss: 2.3561, CER: 0.7472, WER: 0.8448
+  Val Loss: 1.6035, CER: 0.5600, WER: 0.8046
+
+Epoch 2/5:
+  Train Loss: 1.3434, CER: 0.4769, WER: 0.7236
+  Val Loss: 1.2317, CER: 0.3743, WER: 0.6245
+
+Epoch 3/5:
+  Train Loss: 1.0921, CER: 0.3611, WER: 0.6671
+  Val Loss: 1.1785, CER: 0.3214, WER: 0.6092
+
+Epoch 4/5:
+  Train Loss: 1.0114, CER: 0.3077, WER: 0.6055
+  Val Loss: 1.0292, CER: 0.3895, WER: 0.7938
+
+Epoch 5/5:
+  Train Loss: 0.9116, CER: 0.3387, WER: 0.6407
+  Val Loss: 1.0037, CER: 0.3739, WER: 0.7480
+
+Навчання з batch_size=8
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH32.pth
+
+Epoch 1/5:
+  Train Loss: 2.4618, CER: 0.7427, WER: 0.8301
+  Val Loss: 1.6122, CER: 0.5049, WER: 0.7102
+
+Epoch 2/5:
+  Train Loss: 1.3019, CER: 0.4041, WER: 0.6479
+  Val Loss: 1.1904, CER: 0.3535, WER: 0.6194
+Training interrupted by user.

@@ -153,7 +153,7 @@ def collate_fn(batch):
     targets_tensor = torch.tensor(targets, dtype=torch.long)
     targets_lengths_tensor = torch.tensor(target_lenghts, dtype=torch.long)
 
-    # Assuming our CNN downsamples the width by a factor of 2
+    # Assuming our CNN downsamples the width by a factor of 4
     input_lengths = [w // 4 for w in widths]
     input_lengths_tensor = torch.tensor(input_lengths, dtype=torch.long)
 
