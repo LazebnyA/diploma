@@ -1,1 +1,1 @@
-Training interrupted by user.
+Device: cuda
