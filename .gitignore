@@ -14,7 +14,7 @@ word_mappings.txt
 line_mappings.txt
 form_statistics.txt
 
-model_params/
+parameters/
 archive/
 archive/**
 

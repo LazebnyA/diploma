@@ -512,7 +512,7 @@ def main(version, additional):
     print("\n===== Starting Test Set Evaluation =====")
 
     # Create evaluation results directory if it doesn't exist
-    eval_dir = "v0/evaluation_results"
+    eval_dir = "v0/archive/2/evaluation_results"
     os.makedirs(eval_dir, exist_ok=True)
 
     # Load test dataset

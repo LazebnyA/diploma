@@ -1,0 +1,186 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\definecolor{fullColor}{RGB}{31,119,180}  % Синій для повного набору
+\definecolor{cleanedColor}{RGB}{255,127,14}  % Помаранчевий для очищеного
+
+\begin{document}
+\begin{tikzpicture}[remember picture]
+
+    % Графік 1: Loss
+    \begin{axis}[
+        name=plot1,
+        width=6.5cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={Loss},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=16.5,
+        ymin=0, ymax=2.0,
+        xtick={1,4,8,12,16},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={Loss},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers},
+        legend to name=commonlegend,
+        legend columns=2,
+        legend style={draw=none, fill=none, font=\footnotesize}
+    ]
+        % Full Train
+        \addplot[color=fullColor, thick] coordinates {
+            (1,1.7070) (2,0.7499) (3,0.6494) (4,0.6890) (5,0.6759)
+            (6,0.6807) (7,0.6217) (8,0.5668) (9,0.5565) (10,0.5183)
+            (11,0.5244) (12,0.5112)
+        };
+
+        % Full Validation
+        \addplot[color=fullColor, thick, dashed] coordinates {
+            (1,0.9901) (2,0.7979) (3,0.8779) (4,0.8441) (5,0.8385)
+            (6,0.8808) (7,0.8524) (8,0.8817) (9,0.8714) (10,0.8605)
+            (11,0.8954) (12,0.9026)
+        };
+
+        % Cleaned Train
+        \addplot[color=cleanedColor, thick] coordinates {
+            (1,1.8483) (2,0.7564) (3,0.5963) (4,0.5181) (5,0.5675)
+            (6,0.6154) (7,0.5830) (8,0.7480) (9,0.6775) (10,0.6202)
+            (11,0.5843) (12,0.5726) (13,0.5615) (14,0.5462) (15,0.5393) (16,0.5925)
+        };
+
+        % Cleaned Validation
+        \addplot[color=cleanedColor, thick, dashed] coordinates {
+            (1,0.9483) (2,0.7754) (3,0.7108) (4,0.7114) (5,0.8771)
+            (6,0.9002) (7,1.0406) (8,0.9853) (9,0.9501) (10,0.9186)
+            (11,0.9543) (12,0.9528) (13,0.9588) (14,0.9996) (15,1.0343) (16,1.0205)
+        };
+
+        \legend{Original Train, Original Val, Cleaned Train, Cleaned Val}
+    \end{axis}
+
+    % Графік 2: CER
+    \begin{axis}[
+        name=plot2,
+        at={($(plot1.east)+(1.5cm,0)$)},
+        anchor=west,
+        width=6.5cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={CER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=16.5,
+        ymin=0, ymax=1.0,
+        xtick={1,4,8,12,16},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={Character Error Rate (CER)},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % Full Train
+        \addplot[color=fullColor, thick] coordinates {
+            (1,0.5429) (2,0.2386) (3,0.1987) (4,0.2090) (5,0.1944)
+            (6,0.2012) (7,0.1782) (8,0.1676) (9,0.1622) (10,0.1544)
+            (11,0.1529) (12,0.1501)
+        };
+
+        % Full Validation
+        \addplot[color=fullColor, thick, dashed] coordinates {
+            (1,0.3140) (2,0.2418) (3,0.2385) (4,0.2286) (5,0.2224)
+            (6,0.2295) (7,0.2297) (8,0.2231) (9,0.2228) (10,0.2218)
+            (11,0.2202) (12,0.2220)
+        };
+
+        % Cleaned Train
+        \addplot[color=cleanedColor, thick] coordinates {
+            (1,0.5706) (2,0.2392) (3,0.1913) (4,0.1703) (5,0.1746)
+            (6,0.1876) (7,0.1887) (8,0.2926) (9,0.1883) (10,0.1766)
+            (11,0.1689) (12,0.1659) (13,0.1657) (14,0.1592) (15,0.3368) (16,0.4887)
+        };
+
+        % Cleaned Validation
+        \addplot[color=cleanedColor, thick, dashed] coordinates {
+            (1,0.3035) (2,0.2349) (3,0.2133) (4,0.2103) (5,0.2378)
+            (6,0.2576) (7,0.9824) (8,0.2502) (9,0.2428) (10,0.2358)
+            (11,0.2407) (12,0.2385) (13,0.2360) (14,0.2390) (15,0.7523) (16,0.4396)
+        };
+    \end{axis}
+
+    % Графік 3: WER
+    \begin{axis}[
+        name=plot3,
+        at={($(plot2.east)+(1.5cm,0)$)},
+        anchor=west,
+        width=6.5cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={WER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=16.5,
+        ymin=0.2, ymax=1.0,
+        xtick={1,4,8,12,16},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={Word Error Rate (WER)},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % Full Train
+        \addplot[color=fullColor, thick] coordinates {
+            (1,0.7128) (2,0.4799) (3,0.4331) (4,0.4644) (5,0.4340)
+            (6,0.4506) (7,0.4081) (8,0.3917) (9,0.3811) (10,0.3659)
+            (11,0.3663) (12,0.3622)
+        };
+
+        % Full Validation
+        \addplot[color=fullColor, thick, dashed] coordinates {
+            (1,0.5646) (2,0.4838) (3,0.4906) (4,0.4756) (5,0.4632)
+            (6,0.4774) (7,0.4779) (8,0.4750) (9,0.4619) (10,0.4618)
+            (11,0.4658) (12,0.4656)
+        };
+
+        % Cleaned Train
+        \addplot[color=cleanedColor, thick] coordinates {
+            (1,0.7269) (2,0.4807) (3,0.4175) (4,0.3866) (5,0.4018)
+            (6,0.4231) (7,0.4246) (8,0.5661) (9,0.4293) (10,0.4085)
+            (11,0.3948) (12,0.3893) (13,0.3884) (14,0.3790) (15,0.5405) (16,0.7349)
+        };
+
+        % Cleaned Validation
+        \addplot[color=cleanedColor, thick, dashed] coordinates {
+            (1,0.5522) (2,0.4871) (3,0.4597) (4,0.4558) (5,0.5052)
+            (6,0.5416) (7,0.9377) (8,0.5255) (9,0.5085) (10,0.4998)
+            (11,0.5062) (12,0.5043) (13,0.4976) (14,0.5072) (15,0.9253) (16,0.8470)
+        };
+    \end{axis}
+
+    % Легенда
+    \node at ($(plot1.south)!0.5!(plot3.south)+(0,-1.5cm)$) {\pgfplotslegendfromname{commonlegend}};
+
+\end{tikzpicture}
+\end{document}

@@ -3,9 +3,8 @@ import xml.etree.ElementTree as ET
 import random
 from PIL import Image
 
-# Базова директорія
+# Base directory
 BASE_DIR = r'C:\uni\Diploma'
-
 
 def get_form_id_from_image_path(image_path):
     filename = os.path.basename(image_path)
@@ -13,7 +12,6 @@ def get_form_id_from_image_path(image_path):
     if len(parts) < 2:
         raise ValueError(f"Unexpected filename format: {filename}")
     return '-'.join(parts[:2])
-
 
 def build_form_to_writer_map(metadata_folder):
     form_to_writer = {}
@@ -34,10 +32,8 @@ def build_form_to_writer_map(metadata_folder):
             print(f"Error parsing {fname}: {e}")
     return form_to_writer
 
-
 def is_suspicious(width, height, word):
-    return (width > 700 and len(word) < 8) or width > 1207
-
+    return (width > 700 and height < 280 and len(word) < 8) or width > 1207
 
 def writer_independent_split(word_mappings_file, metadata_folder, output_dir, ratios=(0.7, 0.15, 0.15)):
     if sum(ratios) != 1.0:
@@ -49,6 +45,23 @@ def writer_independent_split(word_mappings_file, metadata_folder, output_dir, ra
     if not form_to_writer:
         print("No valid XML files found in the metadata folder.")
         return
+
+    # Load suspicious images from file
+    suspicious_images = set()
+    try:
+        with open("suspicious_sequences.txt", 'r', encoding='utf-8') as f_susp:
+            for line in f_susp:
+                line = line.strip()
+                if not line:
+                    continue
+                parts = line.split('\t')
+                if parts:
+                    img_path = parts[0]
+                    suspicious_images.add(img_path)
+    except FileNotFoundError:
+        print("Warning: 'suspicious_sequences.txt' not found. Proceeding without additional filtering.")
+    except Exception as e:
+        print(f"Error reading 'suspicious_sequences.txt': {e}")
 
     entries = []  # (image_path, word, writer_id)
     suspicious_log = []
@@ -69,7 +82,12 @@ def writer_independent_split(word_mappings_file, metadata_folder, output_dir, ra
                 print(f"Warning: No writer ID found for form '{form_id}' from image {image_path}")
                 continue
 
-            # Абсолютний шлях до зображення
+            # Check if image is in suspicious_sequences.txt
+            if image_path in suspicious_images:
+                suspicious_log.append(f"{image_path}\t{word} [filtered via suspicious_sequences.txt]")
+                continue
+
+            # Absolute image path
             full_image_path = os.path.join(BASE_DIR, image_path.replace('/', os.sep))
             if not os.path.isfile(full_image_path):
                 print(f"Warning: Image not found: {full_image_path}")
@@ -153,7 +171,6 @@ def writer_independent_split(word_mappings_file, metadata_folder, output_dir, ra
             for line in suspicious_log:
                 f_log.write(f"{line}\n")
         print(f"Filtered {len(suspicious_log)} suspicious entries (saved to 'suspicious_filtered.txt').")
-
 
 if __name__ == "__main__":
     WORD_MAPPINGS_FILE = "word_mappings.txt"

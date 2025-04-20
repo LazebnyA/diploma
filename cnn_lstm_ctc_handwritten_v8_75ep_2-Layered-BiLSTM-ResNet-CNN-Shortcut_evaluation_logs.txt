@@ -1,0 +1,3 @@
+Evaluating on device: cuda
+
+===== Starting Test Set Evaluation =====

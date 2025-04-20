@@ -4,25 +4,26 @@ from torchvision import transforms
 from PIL import Image
 import matplotlib.pyplot as plt
 
-from nn.v2.main import CNN_BiLSTM_CTC_V3
 from nn.dataset import ProjectPaths, LabelConverter
+from nn.transform import get_simple_recognize_transform
+from nn.v1.models import CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like
 
 # Load the trained model_params
-model_path = "archive/v2/writer_dependent_training/cnn_lstm_ctc_handwritten_v3_75ep_wr_dependent.pth"
+model_path = "cnn_lstm_ctc_handwritten_v1_lines_18ep_CNN-BiLSTM-CTC_CNN-VGG16_BiLSTM-1dim.pth"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Define the same model_params architecture
 n_h = 256  # Hidden units in LSTM
-img_height = 32  # Height of input images
+img_height = 64  # Height of input images
 num_channels = 1  # Grayscale images
 
 # Load character mapping
-mapping_file = "dataset/word_mappings.txt"
+mapping_file = "dataset/writer_independent_word_splits/v2/train_word_mappings.txt"
 paths = ProjectPaths()
 label_converter = LabelConverter(mapping_file, paths)
-n_classes = len(label_converter.chars) + 1  # +1 for CTC blank character
+n_classes = 80  # +1 for CTC blank character
 
-model = CNN_BiLSTM_CTC_V3(img_height, num_channels, n_classes, n_h)
+model = CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like(img_height, num_channels, n_classes, n_h)
 model.load_state_dict(torch.load(model_path, map_location=device))
 model.to(device)
 model.eval()
@@ -40,15 +41,12 @@ def resize_with_aspect(image, target_height=32):
     return image.resize((new_w, target_height))
 
 
-transform = transforms.Compose([
-    transforms.Lambda(lambda img: resize_with_aspect(img)),
-    transforms.ToTensor()
-])
+transform = get_simple_recognize_transform()
 
 
 # Load and preprocess test image
 def predict(image_path):
-    image = Image.open(image_path).convert('L')
+    image = Image.open(image_path)
     image = transform(image).unsqueeze(0).to(device)  # Add batch dimension
 
     with torch.no_grad():
@@ -62,7 +60,7 @@ def predict(image_path):
 
 
 # Test the model_params on an example image
-image_path = "img.png"  # Change this to your test image path
+image_path = "img_1.png"  # Change this to your test image path
 predicted_text = predict(image_path)
 
 # Display the image and prediction
