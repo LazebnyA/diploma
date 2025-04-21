@@ -1,262 +1,176 @@
 
-=== Порівняння різних алгоритмів оптимізації з різними швидкостями навчання ===
+=== Порівняння для різних розмірів батчів ===
 
-Навчання з оптимізатором Adam, learning_rate=0.0001
+Навчання з batch_size=4
 Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH32.pth
 
 Epoch 1/10:
-  Train Loss: 2.9750, CER: 0.8908, WER: 0.9246
-  Val Loss: 2.4701, CER: 0.8864, WER: 0.9629
+  Train Loss: 1.9555, CER: 0.6089, WER: 0.7662
+  Val Loss: 1.2283, CER: 0.3690, WER: 0.6293
 
 Epoch 2/10:
-  Train Loss: 2.2271, CER: 0.8374, WER: 0.9053
-  Val Loss: 2.0135, CER: 0.9359, WER: 0.9839
+  Train Loss: 1.0801, CER: 0.3665, WER: 0.6480
+  Val Loss: 1.1549, CER: 0.3370, WER: 0.6009
 
 Epoch 3/10:
-  Train Loss: 1.8601, CER: 0.8678, WER: 0.9867
-  Val Loss: 1.7304, CER: 0.7720, WER: 0.9848
+  Train Loss: 0.9472, CER: 0.2720, WER: 0.5394
+  Val Loss: 0.9797, CER: 0.2677, WER: 0.5356
 
 Epoch 4/10:
-  Train Loss: 1.5897, CER: 0.9347, WER: 0.9875
-  Val Loss: 1.5083, CER: 0.9423, WER: 0.9906
+  Train Loss: 0.8428, CER: 0.2384, WER: 0.4881
+  Val Loss: 0.9570, CER: 0.2792, WER: 0.5654
 
 Epoch 5/10:
-  Train Loss: 1.3361, CER: 1.0045, WER: 0.9831
-  Val Loss: 1.2928, CER: 0.9350, WER: 0.9854
+  Train Loss: 0.7919, CER: 0.3136, WER: 0.6345
+  Val Loss: 0.9339, CER: 0.3961, WER: 0.8769
 
 Epoch 6/10:
-  Train Loss: 1.1039, CER: 0.8621, WER: 0.9736
-  Val Loss: 1.0798, CER: 0.6783, WER: 0.9636
+  Train Loss: 0.7468, CER: 0.2464, WER: 0.5487
+  Val Loss: 0.9435, CER: 0.2509, WER: 0.5245
 
 Epoch 7/10:
-  Train Loss: 0.9260, CER: 0.7308, WER: 0.9537
-  Val Loss: 0.9532, CER: 0.8334, WER: 0.9671
+  Train Loss: 0.7145, CER: 0.2048, WER: 0.4451
+  Val Loss: 1.0211, CER: 0.2629, WER: 0.5355
 
 Epoch 8/10:
-  Train Loss: 0.7994, CER: 0.5636, WER: 0.8629
-  Val Loss: 0.8849, CER: 0.3622, WER: 0.6607
+  Train Loss: 0.6882, CER: 0.1942, WER: 0.4285
+  Val Loss: 0.9158, CER: 0.2388, WER: 0.5043
 
 Epoch 9/10:
-  Train Loss: 0.7024, CER: 0.3330, WER: 0.6336
-  Val Loss: 0.8226, CER: 0.3352, WER: 0.6673
+  Train Loss: 0.6804, CER: 0.2211, WER: 0.4864
+  Val Loss: 0.9189, CER: 0.2349, WER: 0.4963
 
 Epoch 10/10:
-  Train Loss: 0.6222, CER: 0.3435, WER: 0.6853
-  Val Loss: 0.7749, CER: 0.6201, WER: 0.9475
+  Train Loss: 0.6596, CER: 0.2291, WER: 0.5170
+  Val Loss: 0.9417, CER: 0.2321, WER: 0.4936
 
-Навчання з оптимізатором Adam, learning_rate=0.001
+Навчання з batch_size=8
 Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH32.pth
 
 Epoch 1/10:
-  Train Loss: 2.2594, CER: 0.8453, WER: 0.9537
-  Val Loss: 1.4463, CER: 0.6776, WER: 0.9788
+  Train Loss: 2.1416, CER: 0.6499, WER: 0.7887
+  Val Loss: 1.3471, CER: 0.4040, WER: 0.6620
 
 Epoch 2/10:
-  Train Loss: 1.1951, CER: 0.4665, WER: 0.7578
-  Val Loss: 1.0459, CER: 0.3050, WER: 0.5830
+  Train Loss: 1.1389, CER: 0.3891, WER: 0.6993
+  Val Loss: 1.0562, CER: 0.3019, WER: 0.5724
 
 Epoch 3/10:
-  Train Loss: 0.9253, CER: 0.2937, WER: 0.5773
-  Val Loss: 0.9798, CER: 0.3030, WER: 0.6239
+  Train Loss: 0.9071, CER: 0.2595, WER: 0.5126
+  Val Loss: 0.9631, CER: 0.2678, WER: 0.5353
 
 Epoch 4/10:
-  Train Loss: 0.8295, CER: 0.4483, WER: 0.7688
-  Val Loss: 0.9187, CER: 0.2509, WER: 0.5233
+  Train Loss: 0.7972, CER: 0.2262, WER: 0.4696
+  Val Loss: 0.9265, CER: 0.2510, WER: 0.5167
 
 Epoch 5/10:
-  Train Loss: 0.7492, CER: 0.2686, WER: 0.5894
-  Val Loss: 0.9056, CER: 0.3396, WER: 0.7281
+  Train Loss: 0.7172, CER: 0.2047, WER: 0.4422
+  Val Loss: 0.8874, CER: 0.2428, WER: 0.5007
 
 Epoch 6/10:
-  Train Loss: 0.6895, CER: 0.2514, WER: 0.5526
-  Val Loss: 0.8888, CER: 0.4100, WER: 0.9308
+  Train Loss: 0.6654, CER: 0.1921, WER: 0.4237
+  Val Loss: 0.8723, CER: 0.2297, WER: 0.4875
 
 Epoch 7/10:
-  Train Loss: 0.6596, CER: 0.4288, WER: 0.8187
-  Val Loss: 0.8883, CER: 0.3737, WER: 0.8709
+  Train Loss: 0.6305, CER: 0.1820, WER: 0.4086
+  Val Loss: 0.9010, CER: 0.2366, WER: 0.4927
 
 Epoch 8/10:
-  Train Loss: 0.6094, CER: 0.2226, WER: 0.5044
-  Val Loss: 0.8848, CER: 0.2403, WER: 0.5133
+  Train Loss: 0.5940, CER: 0.1957, WER: 0.4498
+  Val Loss: 0.9091, CER: 0.2375, WER: 0.5029
 
 Epoch 9/10:
-  Train Loss: 0.6096, CER: 0.2088, WER: 0.4762
-  Val Loss: 0.9972, CER: 0.2368, WER: 0.5102
+  Train Loss: 0.5748, CER: 0.2229, WER: 0.4676
+  Val Loss: 0.8974, CER: 0.2276, WER: 0.4842
 
 Epoch 10/10:
-  Train Loss: 0.6231, CER: 0.2478, WER: 0.5665
-  Val Loss: 0.9017, CER: 0.2445, WER: 0.5232
+  Train Loss: 0.5595, CER: 0.1638, WER: 0.3820
+  Val Loss: 0.9248, CER: 0.2313, WER: 0.4907
 
-Навчання з оптимізатором SGD, learning_rate=0.0001
+Навчання з batch_size=16
 Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH32.pth
 
 Epoch 1/10:
-  Train Loss: 3.8015, CER: 1.0011, WER: 1.0000
-  Val Loss: 3.5540, CER: 1.0000, WER: 1.0000
+  Train Loss: 2.2664, CER: 0.7224, WER: 0.8149
+  Val Loss: 1.4373, CER: 0.4640, WER: 0.6765
 
 Epoch 2/10:
-  Train Loss: 3.5192, CER: 1.0000, WER: 1.0000
-  Val Loss: 3.4464, CER: 1.0000, WER: 1.0000
+  Train Loss: 1.1570, CER: 0.4154, WER: 0.6925
+  Val Loss: 1.0852, CER: 0.3403, WER: 0.6438
 
 Epoch 3/10:
-  Train Loss: 3.4473, CER: 1.0000, WER: 1.0000
-  Val Loss: 3.4211, CER: 1.0000, WER: 1.0000
+  Train Loss: 0.8794, CER: 0.4177, WER: 0.7489
+  Val Loss: 0.8774, CER: 0.4359, WER: 0.9539
 
 Epoch 4/10:
-  Train Loss: 3.4060, CER: 0.9955, WER: 0.9997
-  Val Loss: 3.3574, CER: 0.9997, WER: 1.0000
+  Train Loss: 0.7481, CER: 0.2610, WER: 0.5381
+  Val Loss: 0.8347, CER: 0.3236, WER: 0.6618
 
 Epoch 5/10:
-  Train Loss: 3.3508, CER: 0.9864, WER: 0.9980
-  Val Loss: 3.2996, CER: 0.9742, WER: 0.9955
+  Train Loss: 0.6601, CER: 0.4310, WER: 0.6889
+  Val Loss: 0.8056, CER: 0.6472, WER: 0.9832
 
 Epoch 6/10:
-  Train Loss: 3.3053, CER: 0.9189, WER: 0.9997
-  Val Loss: 3.2694, CER: 0.9026, WER: 0.9982
+  Train Loss: 0.5921, CER: 0.6099, WER: 0.8525
+  Val Loss: 0.8280, CER: 0.5615, WER: 0.9579
 
 Epoch 7/10:
-  Train Loss: 3.2528, CER: 0.8947, WER: 0.9987
-  Val Loss: 3.2092, CER: 0.9143, WER: 0.9991
+  Train Loss: 0.5542, CER: 0.5581, WER: 0.9120
+  Val Loss: 0.7931, CER: 1.0020, WER: 0.9651
 
 Epoch 8/10:
-  Train Loss: 3.2045, CER: 0.8955, WER: 0.9981
-  Val Loss: 3.1657, CER: 0.8727, WER: 0.9988
+  Train Loss: 0.5059, CER: 0.4594, WER: 0.7530
+  Val Loss: 0.8040, CER: 0.2649, WER: 0.5542
 
 Epoch 9/10:
-  Train Loss: 3.1491, CER: 0.8973, WER: 0.9973
-  Val Loss: 3.0978, CER: 0.8729, WER: 0.9984
+  Train Loss: 0.4792, CER: 0.2474, WER: 0.5269
+  Val Loss: 0.9611, CER: 0.2575, WER: 0.5222
 
 Epoch 10/10:
-  Train Loss: 3.1149, CER: 0.8978, WER: 0.9949
-  Val Loss: 3.0984, CER: 0.8838, WER: 0.9678
+  Train Loss: 0.4587, CER: 0.2471, WER: 0.4836
+  Val Loss: 0.7977, CER: 0.2113, WER: 0.4659
 
-Навчання з оптимізатором SGD, learning_rate=0.001
+Навчання з batch_size=32
 Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH32.pth
 
 Epoch 1/10:
-  Train Loss: 3.4584, CER: 0.9898, WER: 0.9897
-  Val Loss: 3.2709, CER: 0.9866, WER: 0.9675
+  Train Loss: 2.4464, CER: 0.7453, WER: 0.8427
+  Val Loss: 1.2616, CER: 0.4074, WER: 0.6616
 
 Epoch 2/10:
-  Train Loss: 3.2410, CER: 0.9577, WER: 0.9762
-  Val Loss: 3.2682, CER: 0.9788, WER: 0.9782
+  Train Loss: 0.9416, CER: 0.3127, WER: 0.5757
+  Val Loss: 0.8180, CER: 0.2674, WER: 0.5173
 
 Epoch 3/10:
-  Train Loss: 3.2682, CER: 0.9489, WER: 0.9639
-  Val Loss: 3.2351, CER: 0.9234, WER: 0.9375
+  Train Loss: 0.6625, CER: 0.2173, WER: 0.4583
+  Val Loss: 0.6658, CER: 0.2070, WER: 0.4469
 
 Epoch 4/10:
-  Train Loss: 3.1302, CER: 0.8888, WER: 0.9173
-  Val Loss: 2.9727, CER: 0.8735, WER: 0.8982
+  Train Loss: 0.5374, CER: 0.1739, WER: 0.3908
+  Val Loss: 0.6289, CER: 0.1919, WER: 0.4346
 
 Epoch 5/10:
-  Train Loss: 2.8826, CER: 0.8658, WER: 0.8941
-  Val Loss: 2.7380, CER: 0.8433, WER: 0.8809
+  Train Loss: 0.4611, CER: 0.1521, WER: 0.3574
+  Val Loss: 0.6072, CER: 0.1822, WER: 0.4175
 
 Epoch 6/10:
-  Train Loss: 2.6231, CER: 0.8112, WER: 0.8644
-  Val Loss: 2.4894, CER: 0.7738, WER: 0.8506
+  Train Loss: 0.3922, CER: 0.1358, WER: 0.3298
+  Val Loss: 0.5974, CER: 0.2261, WER: 0.5425
 
 Epoch 7/10:
-  Train Loss: 2.3572, CER: 0.7390, WER: 0.8327
-  Val Loss: 2.1957, CER: 0.6953, WER: 0.8155
+  Train Loss: 0.3444, CER: 0.1301, WER: 0.3335
+  Val Loss: 0.6024, CER: 0.1758, WER: 0.4096
 
 Epoch 8/10:
-  Train Loss: 2.6089, CER: 0.7937, WER: 0.8739
-  Val Loss: 2.8865, CER: 0.8811, WER: 0.9021
+  Train Loss: 0.2989, CER: 0.1355, WER: 0.3613
+  Val Loss: 0.5983, CER: 0.1678, WER: 0.4005
 
 Epoch 9/10:
-  Train Loss: 2.9214, CER: 0.8767, WER: 0.9080
-  Val Loss: 2.6020, CER: 0.8283, WER: 0.8870
+  Train Loss: 0.2611, CER: 0.1039, WER: 0.2760
+  Val Loss: 0.6109, CER: 0.1695, WER: 0.4051
 
 Epoch 10/10:
-  Train Loss: 2.3837, CER: 0.7605, WER: 0.8730
-  Val Loss: 2.1531, CER: 0.8404, WER: 0.9754
-
-Навчання з оптимізатором RMSprop, learning_rate=0.0001
-Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH32.pth
-
-Epoch 1/10:
-  Train Loss: 2.9747, CER: 0.9764, WER: 0.9736
-  Val Loss: 2.5233, CER: 0.9935, WER: 0.9916
-
-Epoch 2/10:
-  Train Loss: 2.2961, CER: 1.0167, WER: 0.9858
-  Val Loss: 2.0917, CER: 0.9916, WER: 0.9811
-
-Epoch 3/10:
-  Train Loss: 1.8944, CER: 0.8626, WER: 0.9322
-  Val Loss: 1.7492, CER: 0.6862, WER: 0.8700
-
-Epoch 4/10:
-  Train Loss: 1.5966, CER: 0.5764, WER: 0.7332
-  Val Loss: 1.4953, CER: 0.5328, WER: 0.7095
-
-Epoch 5/10:
-  Train Loss: 1.3301, CER: 0.4778, WER: 0.6871
-  Val Loss: 1.2568, CER: 0.4218, WER: 0.6455
-
-Epoch 6/10:
-  Train Loss: 1.1080, CER: 0.3792, WER: 0.6211
-  Val Loss: 1.0796, CER: 0.3936, WER: 0.7091
-
-Epoch 7/10:
-  Train Loss: 0.9467, CER: 0.3164, WER: 0.5723
-  Val Loss: 0.9640, CER: 0.3132, WER: 0.5693
-
-Epoch 8/10:
-  Train Loss: 0.8307, CER: 0.2729, WER: 0.5261
-  Val Loss: 0.8976, CER: 0.2850, WER: 0.5519
-
-Epoch 9/10:
-  Train Loss: 0.7422, CER: 0.2415, WER: 0.4871
-  Val Loss: 0.8536, CER: 0.2634, WER: 0.5286
-
-Epoch 10/10:
-  Train Loss: 0.6705, CER: 0.2164, WER: 0.4511
-  Val Loss: 0.8051, CER: 0.2392, WER: 0.4932
-
-Навчання з оптимізатором RMSprop, learning_rate=0.001
-Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH32.pth
-
-Epoch 1/10:
-  Train Loss: 1.8724, CER: 0.5831, WER: 0.7350
-  Val Loss: 0.9442, CER: 0.2901, WER: 0.5489
-
-Epoch 2/10:
-  Train Loss: 0.7919, CER: 0.2539, WER: 0.5028
-  Val Loss: 0.6970, CER: 0.2090, WER: 0.4522
-
-Epoch 3/10:
-  Train Loss: 0.6422, CER: 0.1932, WER: 0.4251
-  Val Loss: 0.6923, CER: 0.2029, WER: 0.4435
-
-Epoch 4/10:
-  Train Loss: 0.5399, CER: 0.1685, WER: 0.3857
-  Val Loss: 0.6409, CER: 0.1820, WER: 0.4156
-
-Epoch 5/10:
-  Train Loss: 0.4927, CER: 0.1559, WER: 0.3652
-  Val Loss: 0.6307, CER: 0.1788, WER: 0.4068
-
-Epoch 6/10:
-  Train Loss: 0.5080, CER: 0.1506, WER: 0.3595
-  Val Loss: 0.8254, CER: 0.2049, WER: 0.4577
-
-Epoch 7/10:
-  Train Loss: 0.4719, CER: 0.1516, WER: 0.3682
-  Val Loss: 0.6450, CER: 0.1749, WER: 0.4017
-
-Epoch 8/10:
-  Train Loss: 0.3996, CER: 0.1365, WER: 0.3365
-  Val Loss: 0.6325, CER: 0.2179, WER: 0.5178
-
-Epoch 9/10:
-  Train Loss: 0.4995, CER: 0.1459, WER: 0.3572
-  Val Loss: 0.8933, CER: 0.2048, WER: 0.4633
-
-Epoch 10/10:
-  Train Loss: 0.6732, CER: 0.1796, WER: 0.4191
-  Val Loss: 1.0390, CER: 0.2237, WER: 0.4975
+  Train Loss: 0.2300, CER: 0.0954, WER: 0.2594
+  Val Loss: 0.6274, CER: 0.1683, WER: 0.3958
 
 All results saved to comparison_results

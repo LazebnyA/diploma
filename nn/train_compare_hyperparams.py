@@ -906,4 +906,4 @@ if __name__ == "__main__":
     }
 
     # За замовчуванням запускаємо налаштування тільки оптимізатора
-    run_hyperparameter_tuning(fixed_params, ['optimizer'], num_epochs=10)
+    run_hyperparameter_tuning(fixed_params, ['batch_size'], num_epochs=10)
