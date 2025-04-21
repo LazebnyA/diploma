@@ -6,8 +6,8 @@ from tqdm import tqdm
 # Base directory for original dataset
 BASE_DIR = r'C:\uni\Diploma'
 
-# Output base directory for processed data
-OUTPUT_BASE = os.path.join(BASE_DIR, 'iam_words', 'data_processed')
+# Output base directory for processed data_preprocessed
+OUTPUT_BASE = os.path.join(BASE_DIR, 'iam_words', 'data_preprocessed')
 
 # Mapping files
 mapping_files = [

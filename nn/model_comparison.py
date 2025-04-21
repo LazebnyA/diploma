@@ -20,7 +20,7 @@ avg_wer_values = []
 avg_ld_values = []
 
 def process_eval_results(eval_results_path, model_name):
-    """Process evaluation results from a given path and add to data structures"""
+    """Process evaluation results from a given path and add to data_preprocessed structures"""
     if eval_results_path.exists():
         try:
             with open(eval_results_path, 'r') as f:

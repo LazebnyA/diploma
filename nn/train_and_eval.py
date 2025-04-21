@@ -133,7 +133,7 @@ def plot_boxplots(cer_values, wer_values, save_dir):
     """
     Create box plots for CER and WER distributions.
     """
-    # Prepare data
+    # Prepare data_preprocessed
     data = pd.DataFrame({
         'CER': cer_values,
         'WER': wer_values
