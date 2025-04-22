@@ -1,0 +1,179 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\definecolor{model1Color}{RGB}{31,119,180}    % Blue for 1-layered Bi-LSTM
+\definecolor{model2Color}{RGB}{255,127,14}    % Orange for 2-layered Bi-LSTM
+
+\begin{document}
+\begin{tikzpicture}[remember picture]
+
+    % Графік 1: Loss
+    \begin{axis}[
+        name=plot1,
+        width=8cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={Loss},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=10.5,
+        ymin=0, ymax=2.5,
+        xtick={1,2,3,4,5,6,7,8,9,10},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={Loss},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers},
+        legend to name=commonlegend,
+        legend columns=2,
+        legend style={
+            draw=none,
+            fill=none,
+            font=\footnotesize,
+            column sep=0.1cm
+        }
+    ]
+        % 1-layered Bi-LSTM Train
+        \addplot[color=model1Color, thick] coordinates {
+            (1,2.310774) (2,1.031123) (3,0.787431) (4,0.643618) (5,0.553570)
+            (6,0.468973) (7,0.409175) (8,0.439552) (9,0.372078) (10,0.329343)
+        };
+
+        % 1-layered Bi-LSTM Validation
+        \addplot[color=model1Color, thick, dashed] coordinates {
+            (1,1.329000) (2,0.921064) (3,0.826078) (4,0.809453) (5,0.735747)
+            (6,0.721476) (7,0.820735) (8,0.826373) (9,0.778496) (10,0.812213)
+        };
+
+        % 2-layered Bi-LSTM Train
+        \addplot[color=model2Color, thick] coordinates {
+            (1,2.314288) (2,0.902615) (3,0.586842) (4,0.453556) (5,0.356148)
+            (6,0.297283) (7,0.257317) (8,0.227457) (9,0.211801) (10,0.188474)
+        };
+
+        % 2-layered Bi-LSTM Validation
+        \addplot[color=model2Color, thick, dashed] coordinates {
+            (1,1.275323) (2,0.762703) (3,0.653733) (4,0.626852) (5,0.614828)
+            (6,0.618869) (7,0.659192) (8,0.669937) (9,0.697867) (10,0.698217)
+        };
+
+        \legend{1-layer Tr, 1-layer Val, 2-layer Tr, 2-layer Val}
+    \end{axis}
+
+    % Графік 2: CER
+    \begin{axis}[
+        name=plot2,
+        at={($(plot1.east)+(1.5cm,0)$)},
+        anchor=west,
+        width=8cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={CER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=10.5,
+        ymin=0, ymax=0.9,
+        xtick={1,2,3,4,5,6,7,8,9,10},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={CER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % 1-layered Bi-LSTM Train
+        \addplot[color=model1Color, thick] coordinates {
+            (1,0.833824) (2,0.371197) (3,0.269898) (4,0.210825) (5,0.168494)
+            (6,0.147011) (7,0.129685) (8,0.133640) (9,0.115847) (10,0.103208)
+        };
+
+        % 1-layered Bi-LSTM Validation
+        \addplot[color=model1Color, thick, dashed] coordinates {
+            (1,0.510793) (2,0.277373) (3,0.278524) (4,0.234632) (5,0.206496)
+            (6,0.197858) (7,0.212295) (8,0.220901) (9,0.196524) (10,0.196723)
+        };
+
+        % 2-layered Bi-LSTM Train
+        \addplot[color=model2Color, thick] coordinates {
+            (1,0.721719) (2,0.292335) (3,0.189937) (4,0.150887) (5,0.122420)
+            (6,0.105859) (7,0.093266) (8,0.085033) (9,0.079428) (10,0.073257)
+        };
+
+        % 2-layered Bi-LSTM Validation
+        \addplot[color=model2Color, thick, dashed] coordinates {
+            (1,0.430005) (2,0.237777) (3,0.196247) (4,0.185662) (5,0.175214)
+            (6,0.170627) (7,0.172545) (8,0.170765) (9,0.170167) (10,0.169124)
+        };
+    \end{axis}
+
+    % Графік 3: WER
+    \begin{axis}[
+        name=plot3,
+        at={($(plot2.east)+(1.5cm,0)$)},
+        anchor=west,
+        width=8cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={WER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=10.5,
+        ymin=0, ymax=1.0,
+        xtick={1,2,3,4,5,6,7,8,9,10},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={WER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % 1-layered Bi-LSTM Train
+        \addplot[color=model1Color, thick] coordinates {
+            (1,0.899576) (2,0.634773) (3,0.543466) (4,0.464601) (5,0.387969)
+            (6,0.351748) (7,0.323949) (8,0.336167) (9,0.301050) (10,0.277205)
+        };
+
+        % 1-layered Bi-LSTM Validation
+        \addplot[color=model1Color, thick, dashed] coordinates {
+            (1,0.811333) (2,0.545012) (3,0.555819) (4,0.493534) (5,0.458175)
+            (6,0.447867) (7,0.469794) (8,0.475167) (9,0.443806) (10,0.447304)
+        };
+
+        % 2-layered Bi-LSTM Train
+        \addplot[color=model2Color, thick] coordinates {
+            (1,0.797549) (2,0.523378) (3,0.405612) (4,0.348201) (5,0.302469)
+            (6,0.274538) (7,0.251534) (8,0.236701) (9,0.227518) (10,0.216023)
+        };
+
+        % 2-layered Bi-LSTM Validation
+        \addplot[color=model2Color, thick, dashed] coordinates {
+            (1,0.635347) (2,0.483663) (3,0.425251) (4,0.409883) (5,0.402699)
+            (6,0.393265) (7,0.395140) (8,0.389142) (9,0.388767) (10,0.388642)
+        };
+    \end{axis}
+
+    % Легенда
+    \node at ($(plot1.south)!0.5!(plot3.south)+(0,-1.8cm)$) {\pgfplotslegendfromname{commonlegend}};
+
+\end{tikzpicture}
+\end{document}

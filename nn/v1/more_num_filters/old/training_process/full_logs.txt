@@ -1,0 +1,178 @@
+Device: cuda
+
+Neural Network Architecture:
+CNN_LSTM_CTC_V0_CNN_36_start_filters(
+  (cnn): Sequential(
+    (0): Conv2d(1, 36, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ReLU(inplace=True)
+    (2): Conv2d(36, 36, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (3): ReLU(inplace=True)
+    (4): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (5): Conv2d(36, 72, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (6): ReLU(inplace=True)
+    (7): Conv2d(72, 72, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (8): ReLU(inplace=True)
+    (9): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (10): Conv2d(72, 144, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (11): ReLU(inplace=True)
+    (12): Conv2d(144, 144, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (13): ReLU(inplace=True)
+    (14): MaxPool2d(kernel_size=(2, 1), stride=(2, 1), padding=0, dilation=1, ceil_mode=False)
+  )
+  (lstm): LSTM(576, 512, batch_first=True, bidirectional=True)
+  (fc): Linear(in_features=1024, out_features=80, bias=True)
+)
+
+Hyperparameters:
+img_height: 32
+num_channels: 1
+n_classes: 80
+n_h: 512
+optimizer: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0
+)
+learning_rate: 0.001
+criterion: CTCLoss()
+num_epochs: 30
+batch_size: 32
+transform: Resize with aspect ratio. Simple Transform
+dataset: IAM Lines Dataset (writer-independent split). Cleaned dataset
+Starting training process:
+
+Training Epoch [1/30]: 100%|██████████| 2378/2378 [02:01<00:00, 19.60it/s]
+Validation Epoch [1/30]: 100%|██████████| 501/501 [00:20<00:00, 24.12it/s]
+
+Epoch 1 Results:
+Training - Loss: 2.0612, CER: 0.6509, WER: 0.7882
+Validation - Loss: 0.9962, CER: 0.3203, WER: 0.5746
+Training Epoch [2/30]: 100%|██████████| 2378/2378 [02:01<00:00, 19.54it/s]
+Validation Epoch [2/30]: 100%|██████████| 501/501 [00:16<00:00, 29.95it/s]
+
+Epoch 2 Results:
+Training - Loss: 0.8064, CER: 0.2692, WER: 0.5297
+Validation - Loss: 0.7017, CER: 0.2358, WER: 0.5088
+Training Epoch [3/30]: 100%|██████████| 2378/2378 [02:01<00:00, 19.57it/s]
+Validation Epoch [3/30]: 100%|██████████| 501/501 [00:18<00:00, 27.40it/s]
+
+Epoch 3 Results:
+Training - Loss: 0.5771, CER: 0.1895, WER: 0.4214
+Validation - Loss: 0.6291, CER: 0.1947, WER: 0.4336
+Training Epoch [4/30]: 100%|██████████| 2378/2378 [01:57<00:00, 20.17it/s]
+Validation Epoch [4/30]: 100%|██████████| 501/501 [00:17<00:00, 29.41it/s]
+
+Epoch 4 Results:
+Training - Loss: 0.5186, CER: 0.1688, WER: 0.3922
+Validation - Loss: 0.8685, CER: 0.2356, WER: 0.5211
+Training Epoch [5/30]: 100%|██████████| 2378/2378 [01:55<00:00, 20.52it/s]
+Validation Epoch [5/30]: 100%|██████████| 501/501 [00:17<00:00, 29.46it/s]
+
+Epoch 5 Results:
+Training - Loss: 0.6061, CER: 0.1743, WER: 0.4073
+Validation - Loss: 0.7432, CER: 0.1978, WER: 0.4498
+Training Epoch [6/30]: 100%|██████████| 2378/2378 [01:58<00:00, 20.05it/s]
+Validation Epoch [6/30]: 100%|██████████| 501/501 [00:16<00:00, 29.82it/s]
+
+Epoch 6 Results:
+Training - Loss: 0.4870, CER: 0.1442, WER: 0.3530
+Validation - Loss: 0.7042, CER: 0.1903, WER: 0.4443
+Training Epoch [7/30]: 100%|██████████| 2378/2378 [02:01<00:00, 19.59it/s]
+Validation Epoch [7/30]: 100%|██████████| 501/501 [00:17<00:00, 28.62it/s]
+
+Epoch 7 Results:
+Training - Loss: 0.4084, CER: 0.1261, WER: 0.3211
+Validation - Loss: 0.6891, CER: 0.1810, WER: 0.4257
+Training Epoch [8/30]: 100%|██████████| 2378/2378 [01:59<00:00, 19.97it/s]
+Validation Epoch [8/30]: 100%|██████████| 501/501 [00:17<00:00, 28.70it/s]
+
+Epoch 8 Results:
+Training - Loss: 0.3473, CER: 0.1071, WER: 0.2841
+Validation - Loss: 0.7198, CER: 0.1828, WER: 0.4307
+Training Epoch [9/30]: 100%|██████████| 2378/2378 [02:07<00:00, 18.59it/s]
+Validation Epoch [9/30]: 100%|██████████| 501/501 [00:27<00:00, 18.00it/s]
+
+Epoch 9 Results:
+Training - Loss: 0.3160, CER: 0.0984, WER: 0.2678
+Validation - Loss: 0.7395, CER: 0.1837, WER: 0.4306
+Training Epoch [10/30]: 100%|██████████| 2378/2378 [02:12<00:00, 17.88it/s]
+Validation Epoch [10/30]: 100%|██████████| 501/501 [00:16<00:00, 29.69it/s]
+
+Epoch 10 Results:
+Training - Loss: 0.2769, CER: 0.0912, WER: 0.2561
+Validation - Loss: 0.7352, CER: 0.1753, WER: 0.4158
+Training Epoch [11/30]: 100%|██████████| 2378/2378 [01:53<00:00, 20.97it/s]
+Validation Epoch [11/30]: 100%|██████████| 501/501 [00:16<00:00, 30.09it/s]
+
+Epoch 11 Results:
+Training - Loss: 0.3383, CER: 0.1024, WER: 0.2816
+Validation - Loss: 0.8195, CER: 0.1906, WER: 0.4446
+Training Epoch [12/30]: 100%|██████████| 2378/2378 [01:53<00:00, 20.87it/s]
+Validation Epoch [12/30]: 100%|██████████| 501/501 [00:17<00:00, 29.27it/s]
+
+Epoch 12 Results:
+Training - Loss: 0.3759, CER: 0.1084, WER: 0.2962
+Validation - Loss: 0.8659, CER: 0.2029, WER: 0.4561
+Training Epoch [13/30]: 100%|██████████| 2378/2378 [01:57<00:00, 20.16it/s]
+Validation Epoch [13/30]: 100%|██████████| 501/501 [00:17<00:00, 28.36it/s]
+
+Epoch 13 Results:
+Training - Loss: 0.3352, CER: 0.0962, WER: 0.2725
+Validation - Loss: 0.8663, CER: 0.1939, WER: 0.4488
+Training Epoch [14/30]: 100%|██████████| 2378/2378 [02:03<00:00, 19.31it/s]
+Validation Epoch [14/30]: 100%|██████████| 501/501 [00:16<00:00, 30.47it/s]
+
+Epoch 14 Results:
+Training - Loss: 0.2973, CER: 0.0865, WER: 0.2497
+Validation - Loss: 0.8866, CER: 0.1968, WER: 0.4517
+Training Epoch [15/30]: 100%|██████████| 2378/2378 [01:57<00:00, 20.18it/s]
+Validation Epoch [15/30]: 100%|██████████| 501/501 [00:16<00:00, 29.69it/s]
+
+Epoch 15 Results:
+Training - Loss: 0.2897, CER: 0.0853, WER: 0.2479
+Validation - Loss: 0.9241, CER: 0.2011, WER: 0.4588
+Training Epoch [16/30]: 100%|██████████| 2378/2378 [01:53<00:00, 20.86it/s]
+Validation Epoch [16/30]: 100%|██████████| 501/501 [00:16<00:00, 29.97it/s]
+
+Epoch 16 Results:
+Training - Loss: 0.2782, CER: 0.0809, WER: 0.2386
+Validation - Loss: 0.9293, CER: 0.1995, WER: 0.4534
+Training Epoch [17/30]: 100%|██████████| 2378/2378 [01:55<00:00, 20.53it/s]
+Validation Epoch [17/30]: 100%|██████████| 501/501 [00:17<00:00, 29.11it/s]
+
+Epoch 17 Results:
+Training - Loss: 0.2579, CER: 0.0752, WER: 0.2257
+Validation - Loss: 0.9363, CER: 0.2002, WER: 0.4565
+Training Epoch [18/30]: 100%|██████████| 2378/2378 [01:58<00:00, 20.13it/s]
+Validation Epoch [18/30]: 100%|██████████| 501/501 [00:16<00:00, 30.61it/s]
+
+Epoch 18 Results:
+Training - Loss: 0.2588, CER: 0.0752, WER: 0.2264
+Validation - Loss: 0.9469, CER: 0.1989, WER: 0.4533
+Training Epoch [19/30]: 100%|██████████| 2378/2378 [01:59<00:00, 19.90it/s]
+Validation Epoch [19/30]: 100%|██████████| 501/501 [00:16<00:00, 30.11it/s]
+
+Epoch 19 Results:
+Training - Loss: 0.2699, CER: 0.0779, WER: 0.2338
+Validation - Loss: 0.9893, CER: 0.1994, WER: 0.4588
+Training Epoch [20/30]: 100%|██████████| 2378/2378 [02:00<00:00, 19.73it/s]
+Validation Epoch [20/30]: 100%|██████████| 501/501 [00:16<00:00, 29.62it/s]
+
+Epoch 20 Results:
+Training - Loss: 0.2691, CER: 0.0765, WER: 0.2308
+Validation - Loss: 1.0168, CER: 0.2033, WER: 0.4647
+Training Epoch [21/30]:   5%|▌         | 120/2378 [00:05<01:51, 20.25it/s]
+Training interrupted by user.
+Model saved as cnn_lstm_ctc_handwritten_v1_word_21ep_CNN-BiLSTM-CTC_CNN_V0_36-start-filters.pth
+Time elapsed: 2797.015763282776
+Start time: 1745237688.9471745
+End time: 1745240485.9629378
+Console output logged to cnn_lstm_ctc_handwritten_v1_22ep_CNN-BiLSTM-CTC_CNN_V0_36-start-filters.txt

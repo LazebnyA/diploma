@@ -15,6 +15,7 @@ from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training, logger_hyperparameters_tuning
 from nn.transform import get_simple_train_transform_v0
 from nn.v0.models import CNN_LSTM_CTC_V0
+from nn.v1.models import CNN_LSTM_CTC_V1_CNN_deeper_vgg16like
 
 torch.manual_seed(42)
 
@@ -62,10 +63,13 @@ def train_model(model, train_loader, val_loader, optimizer, criterion,
         'train_cer': [],
         'val_cer': [],
         'train_wer': [],
-        'val_wer': []
+        'val_wer': [],
+        'epoch_times': []  # Track time per epoch
     }
 
     for epoch in range(epochs):
+        epoch_start_time = time.time()  # Start time measurement
+
         # Training
         model.train()
         train_loss = 0.0
@@ -142,6 +146,10 @@ def train_model(model, train_loader, val_loader, optimizer, criterion,
         avg_val_loss = val_loss / len(val_loader)
         val_cer, val_wer = calculate_metrics(val_predictions, val_ground_truths)
 
+        # Calculate epoch time
+        epoch_time = time.time() - epoch_start_time
+        history['epoch_times'].append(epoch_time)
+
         # Update history
         history['train_loss'].append(avg_train_loss)
         history['val_loss'].append(avg_val_loss)
@@ -154,6 +162,10 @@ def train_model(model, train_loader, val_loader, optimizer, criterion,
         print(f"Epoch {epoch + 1}/{epochs}:")
         print(f"  Train Loss: {avg_train_loss:.4f}, CER: {train_cer:.4f}, WER: {train_wer:.4f}")
         print(f"  Val Loss: {avg_val_loss:.4f}, CER: {val_cer:.4f}, WER: {val_wer:.4f}")
+        print(f"  Time: {epoch_time:.2f} seconds")
+
+    # Add total training time to history
+    history['total_time'] = sum(history['epoch_times'])
 
     return history
 
@@ -236,22 +248,24 @@ def create_datasets(paths, mapping_files, img_height, label_converter, batch_siz
     return train_loader, val_loader
 
 
-def create_model(img_height, num_channels, n_classes, n_h, device):
+def create_model(img_height, num_channels, n_classes, n_h, device, start_filters=24):
     """
     Create and return a model instance with preloaded initial random weights.
     """
-    model = CNN_LSTM_CTC_V0(
+    model = CNN_LSTM_CTC_V1_CNN_deeper_vgg16like(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
-        n_h=n_h
+        n_h=n_h,
+        lstm_layers=2,
+        start_filters=start_filters
     )
     model.to(device)
 
-    weights_path = f"cnn_lstm_ctc_handwritten_v0_initial_imH{img_height}.pth"
+    # weights_path = f"cnn_lstm_ctc_handwritten_v0_initial_imH{img_height}.pth"
 
-    model.load_state_dict(torch.load(weights_path, map_location=device))
-    print(f"Loaded initial random weights from {weights_path}")
+    # model.load_state_dict(torch.load(weights_path, map_location=device))
+    # print(f"Loaded initial random weights from {weights_path}")
 
     return model
 
@@ -622,6 +636,74 @@ def tune_batch_size(paths, label_converter, mapping_files, output_dir,
     return batch_size_results
 
 
+def tune_num_filters(paths, label_converter, mapping_files, output_dir,
+                    num_filters_lst, num_epochs=5, fixed_params=None):
+    """Run batch size hyperparameter tuning"""
+    if fixed_params is None:
+        fixed_params = {
+            'img_height': 32,
+            'n_h': 256,
+            'optimizer': 'Adam'
+        }
+
+    print("\n=== Порівняння для різних кількостей фільтрів ===")
+    num_filters_results = {}
+
+    n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
+    num_channels = 1
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    criterion = nn.CTCLoss(blank=0, zero_infinity=True)
+
+    for num_filters in num_filters_lst:
+        print(f"\nНавчання з num_filters={num_filters}")
+
+        # Create datasets with current batch size
+        train_loader, val_loader = create_datasets(
+            paths,
+            mapping_files,
+            fixed_params['img_height'],
+            label_converter,
+            fixed_params['batch_size']
+        )
+
+        # Create model
+        model = create_model(
+            img_height=fixed_params['img_height'],
+            num_channels=num_channels,
+            n_classes=n_classes,
+            n_h=fixed_params['n_h'],
+            device=device,
+            start_filters=num_filters
+        )
+
+        # Create optimizer
+        optimizer = create_optimizer(model, fixed_params['optimizer'])
+
+        # Train the model and get history
+        history = train_model(
+            model=model,
+            train_loader=train_loader,
+            val_loader=val_loader,
+            optimizer=optimizer,
+            criterion=criterion,
+            device=device,
+            label_converter=label_converter,
+            epochs=num_epochs
+        )
+
+        # Save history
+        num_filters_results[num_filters] = history
+
+    # Plot and save batch_size comparison
+    plot_parameter_comparison(
+        num_filters_results,
+        "Number of Filters",
+        output_dir / "num_filters_comparison.png"
+    )
+
+    return num_filters_results
+
+
 def setup_environment():
     """Setup environment and return common objects"""
     # Create output directory
@@ -661,11 +743,12 @@ def run_hyperparameter_tuning(fixed_params, params_to_tune=None, num_epochs=5):
     paths, label_converter, mapping_files, output_dir, test_mapping_file = setup_environment()
 
     # Parameters to tune with default values
-    img_heights = [16, 32, 64, 96]
+    img_heights = [64, 72, 96]
     hidden_sizes = [128, 256, 512]
     optimizers = ["Adam", "SGD", "RMSprop"]
     batch_sizes = [4, 8, 16, 32]
     learning_rates = [0.0001, 0.001]  # Використовуємо тільки два значення
+    num_filters = [24, 36, 48, 64]
 
     # Store all results
     all_results = {}
@@ -710,164 +793,18 @@ def run_hyperparameter_tuning(fixed_params, params_to_tune=None, num_epochs=5):
         )
         all_results["learning_rate"] = learning_rate_results
 
+    if 'num_filters' in params_to_tune:
+        num_filters_results = tune_num_filters(
+            paths, label_converter, mapping_files, output_dir,
+            num_filters, num_epochs, fixed_params=fixed_params
+        )
+        all_results["learning_rate"] = num_filters_results
+
     # Save all results to a single JSON file
     with open(output_dir / "all_hyperparameter_results.json", "w") as f:
         json.dump(all_results, f, indent=4)
 
     print(f"\nAll results saved to {output_dir}")
-
-def evaluate_best_model(best_params=None):
-    """
-    Evaluate the best model on the test set
-
-    Args:
-        best_params: Dictionary with best parameters. If None, use default values.
-    """
-    if best_params is None:
-        best_params = {
-            'img_height': 64,
-            'n_h': 256,
-            'batch_size': 8,
-            'optimizer': 'Adam'
-        }
-
-    paths, label_converter, mapping_files, output_dir, test_mapping_file = setup_environment()
-    train_mapping_file = mapping_files[0]
-
-    # Define model with best parameters
-    n_classes = len(label_converter.chars) + 1
-    num_channels = 1
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-    model = create_model(
-        img_height=best_params['img_height'],
-        num_channels=num_channels,
-        n_classes=n_classes,
-        n_h=best_params['n_h'],
-        device=device
-    )
-
-    # Create datasets
-    train_dataset = IAMDataset(
-        mapping_file=train_mapping_file,
-        paths=paths,
-        transform=get_simple_train_transform_v0(best_params['img_height']),
-        label_converter=label_converter
-    )
-
-    test_dataset = IAMDataset(
-        mapping_file=test_mapping_file,
-        paths=paths,
-        transform=get_simple_train_transform_v0(best_params['img_height']),
-        label_converter=label_converter
-    )
-
-    train_loader = DataLoader(
-        train_dataset,
-        batch_size=best_params['batch_size'],
-        shuffle=True,
-        collate_fn=collate_fn
-    )
-
-    # Create test loader with batch_size=1 for per-example metrics
-    test_loader = DataLoader(
-        test_dataset,
-        batch_size=1,
-        shuffle=False,
-        collate_fn=collate_fn
-    )
-
-    # Define optimizer and criterion
-    optimizer = create_optimizer(model, best_params['optimizer'])
-    criterion = nn.CTCLoss(blank=0, zero_infinity=True)
-
-    # Train model for 5 epochs
-    print("Training best model on full training set...")
-    history = train_model(
-        model=model,
-        train_loader=train_loader,
-        val_loader=test_loader,  # Use test set as validation for final evaluation
-        optimizer=optimizer,
-        criterion=criterion,
-        device=device,
-        label_converter=label_converter,
-        epochs=5
-    )
-
-    # Save model
-    torch.save(model.state_dict(), output_dir / "best_model.pth")
-
-    # Evaluate on test set with batch_size=1
-    print("Evaluating on test set...")
-    model.eval()
-
-    test_cers = []
-    test_wers = []
-    predictions = []
-    ground_truths = []
-
-    with torch.no_grad():
-        for i, (images, targets, target_lengths, input_lengths) in enumerate(
-                tqdm(test_loader, desc="Testing")):
-            images = images.to(device)
-
-            outputs = model(images)
-            outputs = F.log_softmax(outputs, dim=2)
-
-            pred = greedy_decoder(outputs, label_converter)[0]
-            gt = test_loader.dataset.samples[i][1]
-
-            predictions.append(pred)
-            ground_truths.append(gt)
-
-            # Calculate metrics for this example
-            cer, wer = calculate_metrics([pred], [gt])
-            test_cers.append(cer)
-            test_wers.append(wer)
-
-    # Calculate average metrics
-    avg_cer = sum(test_cers) / len(test_cers)
-    avg_wer = sum(test_wers) / len(test_wers)
-
-    # Plot per-example metrics
-    plt.figure(figsize=(12, 5))
-
-    plt.subplot(1, 2, 1)
-    plt.plot(test_cers)
-    plt.title(f"CER per Example (Avg: {avg_cer:.4f})")
-    plt.xlabel("Example Index")
-    plt.ylabel("CER")
-    plt.grid(True)
-
-    plt.subplot(1, 2, 2)
-    plt.plot(test_wers)
-    plt.title(f"WER per Example (Avg: {avg_wer:.4f})")
-    plt.xlabel("Example Index")
-    plt.ylabel("WER")
-    plt.grid(True)
-
-    plt.tight_layout()
-    plt.savefig(output_dir / "test_metrics_per_example.png")
-    plt.close()
-
-    # Save test results
-    test_results = {
-        "avg_cer": avg_cer,
-        "avg_wer": avg_wer,
-        "per_example_cer": test_cers,
-        "per_example_wer": test_wers,
-        "predictions": predictions,
-        "ground_truths": ground_truths
-    }
-
-    with open(output_dir / "test_results.json", "w") as f:
-        json.dump(test_results, f, indent=4)
-
-    # Print summary
-    print("\nTest Set Evaluation Results:")
-    print(f"Average CER: {avg_cer:.4f}")
-    print(f"Average WER: {avg_wer:.4f}")
-    print(f"Results saved to {output_dir / 'test_results.json'}")
 
 
 if __name__ == "__main__":
@@ -900,10 +837,11 @@ if __name__ == "__main__":
 
     fixed_params = {
         'img_height': 32,
-        'n_h': 256,
+        'n_h': 512,
         'optimizer': 'Adam',
-        'batch_size': 8
+        'batch_size': 32,
+        'num_filters': 24
     }
 
     # За замовчуванням запускаємо налаштування тільки оптимізатора
-    run_hyperparameter_tuning(fixed_params, ['batch_size'], num_epochs=10)
+    run_hyperparameter_tuning(fixed_params, ['batch_size'], num_epochs=3)

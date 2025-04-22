@@ -1,6 +1,5 @@
 import sys
 import json
-from pathlib import Path
 
 import torch
 from torch import nn as nn, optim as optim
@@ -8,13 +7,15 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
+from nn.dataset_2 import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training
 from nn.transform import get_simple_train_transform_v0
 from nn.utils import execution_time_decorator
-from nn.v0.models import CNN_LSTM_CTC_V0, CNN_LSTM_CTC_V2_CNN_more_filters_deeper_vgg16like, \
-    CNN_LSTM_CTC_V0_CNN_48_start_filters
-from nn.v1.models import CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like
+from nn.v0.models import CNN_LSTM_CTC_V0
+from nn.v1.models import CNN_LSTM_CTC_V0_CNN_36_start_filters, CNN_LSTM_CTC_V0_CNN_48_start_filters, \
+    CNN_LSTM_CTC_V0_CNN_64_start_filters, CNN_LSTM_CTC_V1_CNN_deeper_vgg16like, \
+    CNN_LSTM_CTC_V1_CNN_deeper_vgg16like_batch_norm, CNN_LSTM_CTC_V1_CNN_deeper_vgg16like_batch_norm_dropout
+from nn.v2.models import resnet18_htr_sequential
 
 torch.manual_seed(42)
 
@@ -52,19 +53,19 @@ def calculate_metrics(predictions, ground_truths):
     return total_cer, total_wer
 
 
-@logger_model_training(version="1", additional="CNN-BiLSTM-CTC_CNN_V0_48-start-filters")
+@logger_model_training(version="1", additional="CNN-BiLSTM-CTC_CNN_V2_resnet18")
 @execution_time_decorator
 def main(version, additional):
     # Initialize nn paths
     paths = ProjectPaths()
 
     # Use relative paths from nn root
-    mapping_file = "dataset/writer_independent_word_splits/train_word_mappings.txt"
+    mapping_file = "dataset/writer_independent_word_splits/preprocessed/train_word_mappings.txt"
 
     # Initialize converter and dataset
     label_converter = LabelConverter(mapping_file, paths)
 
-    img_height = 32
+    img_height = 64
 
     dataset = IAMDataset(
         mapping_file=mapping_file,
@@ -82,7 +83,7 @@ def main(version, additional):
                             collate_fn=collate_fn,
                             )
 
-    validation_mapping_file = "dataset/writer_independent_word_splits/val_word_mappings.txt"
+    validation_mapping_file = "dataset/writer_independent_word_splits/preprocessed/val_word_mappings.txt"
 
     validation_dataset = IAMDataset(
         mapping_file=validation_mapping_file,
@@ -104,11 +105,13 @@ def main(version, additional):
     num_channels = 1
     n_h = 256
 
-    model = CNN_LSTM_CTC_V0_CNN_48_start_filters(
+    model = resnet18_htr_sequential(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
-        n_h=n_h
+        n_h=n_h,
+        out_channels=64,
+        lstm_layers=2
     )
 
     # Device configuration.
@@ -117,12 +120,12 @@ def main(version, additional):
     model.to(device)
     print(f"Device: {device}")
 
-    base_filename = f"cnn_lstm_ctc_handwritten_v1_initial_48_start_filters"
+    base_filename = f"{additional}_initial_weights"
     model_filename = f"{base_filename}.pth"
     torch.save(model.state_dict(), model_filename)
 
     # Load initial random weights (hardcoded path)
-    # weights_path = "cnn_lstm_ctc_handwritten_v1_initial_imH32.pth"
+    # weights_path = "v1/deeper/1_vgg16like/parameters/CNN-BiLSTM-CTC_CNN_V1_vgg16like_initial_weights.pth"
     # model.load_state_dict(torch.load(weights_path, map_location=device))
     # print(f"Loaded initial random weights from {weights_path}")
 
@@ -132,7 +135,7 @@ def main(version, additional):
     lr = 0.001
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
-    num_epochs = 30
+    num_epochs = 10
 
     model.train()
 
@@ -162,7 +165,7 @@ def main(version, additional):
         "num_epochs": num_epochs,
         "batch_size": batch_size,
         "transform": "Resize with aspect ratio. Simple Transform",
-        "dataset": "IAM Lines Dataset (writer-independent split)"
+        "dataset": "IAM Lines Dataset (writer-independent split). Cleaned dataset"
     }
 
     # Print hyperparameters to the console
@@ -179,6 +182,7 @@ def main(version, additional):
             train_predictions = []
             train_ground_truths = []
 
+            # batch_counter = 0
             for images, targets, target_lengths, input_lengths in tqdm(dataloader,
                                                                        desc=f"Training Epoch [{epoch + 1}/{num_epochs}]",
                                                                        file=sys.__stdout__):
@@ -189,6 +193,13 @@ def main(version, additional):
                 optimizer.zero_grad()
                 outputs = model(images)
                 outputs = F.log_softmax(outputs, dim=2)
+
+                # print('-'*50)
+                # print(batch_counter)
+                # print("Model output shape:", outputs.shape)
+                # print("Target length:", target_lengths)
+                # print("Input length:", input_lengths)
+                # batch_counter += 1
 
                 loss = criterion(outputs, targets, input_lengths, target_lengths)
                 loss.backward()

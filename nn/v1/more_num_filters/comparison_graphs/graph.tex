@@ -1,0 +1,253 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\definecolor{model1Color}{RGB}{31,119,180}    % Blue for model 24-48-96
+\definecolor{model2Color}{RGB}{255,127,14}    % Orange for model 36-72-144
+\definecolor{model3Color}{RGB}{44,160,44}     % Green for model 48-96-192
+\definecolor{model4Color}{RGB}{148,103,189}   % Purple for model 64-128-256
+
+\begin{document}
+\begin{tikzpicture}[remember picture]
+
+    % Графік 1: Loss
+    \begin{axis}[
+        name=plot1,
+        width=8cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={Loss},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=10.5,
+        ymin=0, ymax=2.5,
+        xtick={1,2,3,4,5,6,7,8,9,10},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={Loss},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers},
+        legend to name=commonlegend,
+        legend columns=4,
+        legend style={
+            draw=none,
+            fill=none,
+            font=\footnotesize,
+            column sep=0.1cm
+        }
+    ]
+        % Model 1 (24-48-96) Train
+        \addplot[color=model1Color, thick] coordinates {
+            (1,2.314288) (2,0.902615) (3,0.586842) (4,0.453556) (5,0.356148)
+            (6,0.297283) (7,0.257317) (8,0.227457) (9,0.211801) (10,0.188474)
+        };
+
+        % Model 1 (24-48-96) Validation
+        \addplot[color=model1Color, thick, dashed] coordinates {
+            (1,1.275323) (2,0.762703) (3,0.653733) (4,0.626852) (5,0.614828)
+            (6,0.618869) (7,0.659192) (8,0.669937) (9,0.697867) (10,0.698217)
+        };
+
+        % Model 2 (36-72-144) Train
+        \addplot[color=model2Color, thick] coordinates {
+            (1,2.144459) (2,0.979116) (3,0.706262) (4,0.571555) (5,0.472559)
+            (6,0.401286) (7,0.356641) (8,0.318656) (9,0.292782) (10,0.274387)
+        };
+
+        % Model 2 (36-72-144) Validation
+        \addplot[color=model2Color, thick, dashed] coordinates {
+            (1,1.206527) (2,0.885646) (3,0.798705) (4,0.752632) (5,0.766335)
+            (6,0.741681) (7,0.763252) (8,0.788145) (9,0.795109) (10,0.830445)
+        };
+
+        % Model 3 (48-96-192) Train
+        \addplot[color=model3Color, thick] coordinates {
+            (1,2.231421) (2,1.004873) (3,0.710524) (4,0.568852) (5,0.476372)
+            (6,0.406512) (7,0.354801) (8,0.317921) (9,0.290891) (10,0.272177)
+        };
+
+        % Model 3 (48-96-192) Validation
+        \addplot[color=model3Color, thick, dashed] coordinates {
+            (1,1.354494) (2,0.903754) (3,0.766640) (4,0.737197) (5,0.728181)
+            (6,0.716127) (7,0.747501) (8,0.773714) (9,0.802505) (10,0.825543)
+        };
+
+        % Model 4 (64-128-256) Train
+        \addplot[color=model4Color, thick] coordinates {
+            (1,2.260106) (2,0.997853) (3,0.722615) (4,0.577881) (5,0.481288)
+            (6,0.419996) (7,0.362619) (8,0.335543) (9,0.298974) (10,0.273695)
+        };
+
+        % Model 4 (64-128-256) Validation
+        \addplot[color=model4Color, thick, dashed] coordinates {
+            (1,1.279464) (2,0.888590) (3,0.767131) (4,0.730647) (5,0.737932)
+            (6,0.719889) (7,0.766261) (8,0.745941) (9,0.771339) (10,0.803966)
+        };
+
+        \legend{24-48-96 Tr, 24-48-96 Val, 36-72-144 Tr, 36-72-144 Val, 48-96-192 Tr, 48-96-192 Val, 64-128-256 Tr, 64-128-256 Val}
+    \end{axis}
+
+    % Графік 2: CER
+    \begin{axis}[
+        name=plot2,
+        at={($(plot1.east)+(1.5cm,0)$)},
+        anchor=west,
+        width=8cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={CER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=10.5,
+        ymin=0, ymax=0.8,
+        xtick={1,2,3,4,5,6,7,8,9,10},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={CER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % Model 1 (24-48-96) Train
+        \addplot[color=model1Color, thick] coordinates {
+            (1,0.721719) (2,0.292335) (3,0.189937) (4,0.150887) (5,0.122420)
+            (6,0.105859) (7,0.093266) (8,0.085033) (9,0.079428) (10,0.073257)
+        };
+
+        % Model 1 (24-48-96) Validation
+        \addplot[color=model1Color, thick, dashed] coordinates {
+            (1,0.430005) (2,0.237777) (3,0.196247) (4,0.185662) (5,0.175214)
+            (6,0.170627) (7,0.172545) (8,0.170765) (9,0.170167) (10,0.169124)
+        };
+
+        % Model 2 (36-72-144) Train
+        \addplot[color=model2Color, thick] coordinates {
+            (1,0.662689) (2,0.293407) (3,0.207060) (4,0.167863) (5,0.141713)
+            (6,0.121207) (7,0.107826) (8,0.097132) (9,0.090020) (10,0.084213)
+        };
+
+        % Model 2 (36-72-144) Validation
+        \addplot[color=model2Color, thick, dashed] coordinates {
+            (1,0.373288) (2,0.257613) (3,0.225366) (4,0.203995) (5,0.200252)
+            (6,0.189666) (7,0.189543) (8,0.189835) (9,0.188531) (10,0.186920)
+        };
+
+        % Model 3 (48-96-192) Train
+        \addplot[color=model3Color, thick] coordinates {
+            (1,0.694735) (2,0.312413) (3,0.355045) (4,0.170161) (5,0.216091)
+            (6,0.121325) (7,0.107032) (8,0.099097) (9,0.089272) (10,0.083712)
+        };
+
+        % Model 3 (48-96-192) Validation
+        \addplot[color=model3Color, thick, dashed] coordinates {
+            (1,0.430526) (2,0.261755) (3,0.213844) (4,0.200252) (5,0.192335)
+            (6,0.184895) (7,0.189405) (8,0.186935) (9,0.195511) (10,0.189651)
+        };
+
+        % Model 4 (64-128-256) Train
+        \addplot[color=model4Color, thick] coordinates {
+            (1,0.694801) (2,0.300385) (3,0.216378) (4,0.264351) (5,0.153946)
+            (6,0.125126) (7,0.114772) (8,0.102839) (9,0.090788) (10,0.083454)
+        };
+
+        % Model 4 (64-128-256) Validation
+        \addplot[color=model4Color, thick, dashed] coordinates {
+            (1,0.402452) (2,0.253502) (3,0.216759) (4,0.316294) (5,0.200098)
+            (6,0.188607) (7,0.224568) (8,0.182149) (9,0.184358) (10,0.184066)
+        };
+    \end{axis}
+
+    % Графік 3: WER
+    \begin{axis}[
+        name=plot3,
+        at={($(plot2.east)+(1.5cm,0)$)},
+        anchor=west,
+        width=8cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={WER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=10.5,
+        ymin=0, ymax=1.1,
+        xtick={1,2,3,4,5,6,7,8,9,10},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={WER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % Model 1 (24-48-96) Train
+        \addplot[color=model1Color, thick] coordinates {
+            (1,0.797549) (2,0.523378) (3,0.405612) (4,0.348201) (5,0.302469)
+            (6,0.274538) (7,0.251534) (8,0.236701) (9,0.227518) (10,0.216023)
+        };
+
+        % Model 1 (24-48-96) Validation
+        \addplot[color=model1Color, thick, dashed] coordinates {
+            (1,0.635347) (2,0.483663) (3,0.425251) (4,0.409883) (5,0.402699)
+            (6,0.393265) (7,0.395140) (8,0.389142) (9,0.388767) (10,0.388642)
+        };
+
+        % Model 2 (36-72-144) Train
+        \addplot[color=model2Color, thick] coordinates {
+            (1,0.771891) (2,0.539879) (3,0.437471) (4,0.383200) (5,0.340528)
+            (6,0.305779) (7,0.283353) (8,0.263594) (9,0.251416) (10,0.240695)
+        };
+
+        % Model 2 (36-72-144) Validation
+        \addplot[color=model2Color, thick, dashed] coordinates {
+            (1,0.613357) (2,0.509964) (3,0.472981) (4,0.446242) (5,0.440120)
+            (6,0.425189) (7,0.430999) (8,0.426501) (9,0.423752) (10,0.424814)
+        };
+
+        % Model 3 (48-96-192) Train
+        \addplot[color=model3Color, thick] coordinates {
+            (1,0.785882) (2,0.562621) (3,0.621005) (4,0.390084) (5,0.499205)
+            (6,0.306318) (7,0.281737) (8,0.266695) (9,0.248026) (10,0.238357)
+        };
+
+        % Model 3 (48-96-192) Validation
+        \addplot[color=model3Color, thick, dashed] coordinates {
+            (1,0.654589) (2,0.515337) (3,0.452927) (4,0.443993) (5,0.425876)
+            (6,0.419566) (7,0.425439) (8,0.420504) (9,0.430936) (10,0.428125)
+        };
+
+        % Model 4 (64-128-256) Train
+        \addplot[color=model4Color, thick] coordinates {
+            (1,0.785160) (2,0.544596) (3,0.457362) (4,0.528909) (5,0.368696)
+            (6,0.314384) (7,0.302679) (8,0.279281) (9,0.253413) (10,0.238528)
+        };
+
+        % Model 4 (64-128-256) Validation
+        \addplot[color=model4Color, thick, dashed] coordinates {
+            (1,0.636472) (2,0.509839) (3,0.462548) (4,0.729618) (5,0.437434)
+            (6,0.425376) (7,0.486287) (8,0.420066) (9,0.416255) (10,0.418442)
+        };
+    \end{axis}
+
+    % Легенда
+    \node at ($(plot1.south)!0.5!(plot3.south)+(0,-1.8cm)$) {\pgfplotslegendfromname{commonlegend}};
+
+\end{tikzpicture}
+\end{document}

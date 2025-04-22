@@ -4,7 +4,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
-from torchvision import transforms
 import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
@@ -13,14 +12,12 @@ import json
 
 import seaborn as sns
 import pandas as pd
-from pathlib import Path
 
 from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.transform import get_simple_train_transform_v0
 from nn.utils import execution_time_decorator
 from nn.logger import evaluation_logger  # Assuming you have this
-from nn.v0.models import CNN_LSTM_CTC_V0, CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_more_imH
-from nn.v1.models import CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like
+from nn.v0.models import CNN_LSTM_CTC_V0
 
 MODEL_NAME = "cnn_lstm_ctc_handwritten_v8_75ep_2-Layered-BiLSTM-ResNet-CNN-Shortcut"
 MODEL_PATH = f"archive/v5/better_features/{MODEL_NAME}.pth"

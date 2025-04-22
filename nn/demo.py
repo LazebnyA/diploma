@@ -1,12 +1,11 @@
 import torch
 import torch.nn.functional as F
-from torchvision import transforms
 from PIL import Image
 import matplotlib.pyplot as plt
 
 from nn.dataset import ProjectPaths, LabelConverter
 from nn.transform import get_simple_recognize_transform
-from nn.v1.models import CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like
+from nn.v2.models import CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like
 
 # Load the trained model_params
 model_path = "cnn_lstm_ctc_handwritten_v1_lines_18ep_CNN-BiLSTM-CTC_CNN-VGG16_BiLSTM-1dim.pth"

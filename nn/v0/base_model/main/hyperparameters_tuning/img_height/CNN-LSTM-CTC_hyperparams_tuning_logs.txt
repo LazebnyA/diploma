@@ -1,0 +1,176 @@
+
+=== Порівняння різної висоти зображень ===
+
+Навчання з img_height=16
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH16.pth
+
+Epoch 1/10:
+  Train Loss: 2.2730, CER: 0.9631, WER: 0.9662
+  Val Loss: 1.5331, CER: 1.0766, WER: 0.9946
+
+Epoch 2/10:
+  Train Loss: 1.2081, CER: 0.9765, WER: 0.9892
+  Val Loss: 1.0027, CER: 0.8762, WER: 0.9953
+
+Epoch 3/10:
+  Train Loss: 0.8664, CER: 0.8443, WER: 0.9919
+  Val Loss: 0.8549, CER: 0.7018, WER: 0.9916
+
+Epoch 4/10:
+  Train Loss: 0.7097, CER: 0.6252, WER: 0.9884
+  Val Loss: 0.7646, CER: 0.5551, WER: 0.9888
+
+Epoch 5/10:
+  Train Loss: 0.6116, CER: 0.5865, WER: 0.9854
+  Val Loss: 0.7633, CER: 0.6209, WER: 0.9851
+
+Epoch 6/10:
+  Train Loss: 0.5346, CER: 0.5915, WER: 0.9818
+  Val Loss: 0.7166, CER: 0.6349, WER: 0.9814
+
+Epoch 7/10:
+  Train Loss: 0.4738, CER: 0.5672, WER: 0.9776
+  Val Loss: 0.6970, CER: 0.5564, WER: 0.9843
+
+Epoch 8/10:
+  Train Loss: 0.4296, CER: 0.6113, WER: 0.9698
+  Val Loss: 0.7020, CER: 0.5234, WER: 0.9837
+
+Epoch 9/10:
+  Train Loss: 0.3870, CER: 0.5980, WER: 0.9647
+  Val Loss: 0.6993, CER: 0.6445, WER: 0.9791
+
+Epoch 10/10:
+  Train Loss: 0.3501, CER: 0.6226, WER: 0.9596
+  Val Loss: 0.7152, CER: 0.6657, WER: 0.9753
+
+Навчання з img_height=32
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH32.pth
+
+Epoch 1/10:
+  Train Loss: 2.4782, CER: 0.7598, WER: 0.8396
+  Val Loss: 1.4117, CER: 0.4631, WER: 0.6981
+
+Epoch 2/10:
+  Train Loss: 1.0411, CER: 0.3259, WER: 0.5765
+  Val Loss: 0.8737, CER: 0.2651, WER: 0.5219
+
+Epoch 3/10:
+  Train Loss: 0.7440, CER: 0.2932, WER: 0.5885
+  Val Loss: 0.7257, CER: 0.5227, WER: 0.8413
+
+Epoch 4/10:
+  Train Loss: 0.6091, CER: 0.2678, WER: 0.5931
+  Val Loss: 0.6906, CER: 0.3886, WER: 0.8929
+
+Epoch 5/10:
+  Train Loss: 0.5239, CER: 0.5813, WER: 0.9178
+  Val Loss: 0.6721, CER: 0.2008, WER: 0.4429
+
+Epoch 6/10:
+  Train Loss: 0.4970, CER: 0.3522, WER: 0.6577
+  Val Loss: 0.7230, CER: 0.2035, WER: 0.4538
+
+Epoch 7/10:
+  Train Loss: 0.4569, CER: 0.1426, WER: 0.3463
+  Val Loss: 0.6942, CER: 0.1914, WER: 0.4306
+
+Epoch 8/10:
+  Train Loss: 0.4021, CER: 0.1298, WER: 0.3236
+  Val Loss: 0.6660, CER: 0.1835, WER: 0.4246
+
+Epoch 9/10:
+  Train Loss: 0.3688, CER: 0.1221, WER: 0.3088
+  Val Loss: 0.6940, CER: 0.1834, WER: 0.4273
+
+Epoch 10/10:
+  Train Loss: 0.3333, CER: 0.1105, WER: 0.2879
+  Val Loss: 0.7112, CER: 0.1878, WER: 0.4316
+
+Навчання з img_height=64
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH64.pth
+
+Epoch 1/10:
+  Train Loss: 3.9218, CER: 1.0001, WER: 1.0000
+  Val Loss: 3.7188, CER: 1.0000, WER: 1.0000
+
+Epoch 2/10:
+  Train Loss: 3.6457, CER: 0.9817, WER: 0.9675
+  Val Loss: 3.5931, CER: 0.9890, WER: 0.9554
+
+Epoch 3/10:
+  Train Loss: 3.6054, CER: 0.9740, WER: 0.9615
+  Val Loss: 3.5849, CER: 0.9267, WER: 0.9751
+
+Epoch 4/10:
+  Train Loss: 3.5821, CER: 0.9715, WER: 0.9607
+  Val Loss: 3.5491, CER: 0.9267, WER: 0.9751
+
+Epoch 5/10:
+  Train Loss: 3.5699, CER: 0.9717, WER: 0.9617
+  Val Loss: 3.5373, CER: 0.9882, WER: 0.9519
+
+Epoch 6/10:
+  Train Loss: 3.5645, CER: 0.9724, WER: 0.9607
+  Val Loss: 3.5389, CER: 0.9882, WER: 0.9519
+
+Epoch 7/10:
+  Train Loss: 3.5582, CER: 0.9708, WER: 0.9621
+  Val Loss: 3.5230, CER: 0.9882, WER: 0.9519
+
+Epoch 8/10:
+  Train Loss: 3.5553, CER: 0.9711, WER: 0.9625
+  Val Loss: 3.5387, CER: 0.9882, WER: 0.9519
+
+Epoch 9/10:
+  Train Loss: 3.5546, CER: 0.9721, WER: 0.9612
+  Val Loss: 3.5212, CER: 0.9871, WER: 0.9535
+
+Epoch 10/10:
+  Train Loss: 3.5529, CER: 0.9696, WER: 0.9636
+  Val Loss: 3.5248, CER: 0.9878, WER: 0.9506
+
+Навчання з img_height=96
+Loaded initial random weights from cnn_lstm_ctc_handwritten_v0_initial_imH96.pth
+
+Epoch 1/10:
+  Train Loss: 3.9679, CER: 1.0002, WER: 1.0000
+  Val Loss: 3.7913, CER: 1.0000, WER: 1.0000
+
+Epoch 2/10:
+  Train Loss: 3.1824, CER: 0.9028, WER: 0.9368
+  Val Loss: 2.2207, CER: 0.7211, WER: 0.9302
+
+Epoch 3/10:
+  Train Loss: 1.5512, CER: 0.4733, WER: 0.7208
+  Val Loss: 1.1565, CER: 0.3526, WER: 0.6321
+
+Epoch 4/10:
+  Train Loss: 0.9742, CER: 0.2932, WER: 0.5619
+  Val Loss: 0.9294, CER: 0.2795, WER: 0.5604
+
+Epoch 5/10:
+  Train Loss: 0.7767, CER: 0.2363, WER: 0.4925
+  Val Loss: 0.8451, CER: 0.2528, WER: 0.5235
+
+Epoch 6/10:
+  Train Loss: 0.6561, CER: 0.2015, WER: 0.4472
+  Val Loss: 0.8060, CER: 0.2354, WER: 0.5090
+
+Epoch 7/10:
+  Train Loss: 0.5760, CER: 0.1788, WER: 0.4114
+  Val Loss: 0.7680, CER: 0.2221, WER: 0.4863
+
+Epoch 8/10:
+  Train Loss: 0.4893, CER: 0.1564, WER: 0.3746
+  Val Loss: 0.7652, CER: 0.2169, WER: 0.4859
+
+Epoch 9/10:
+  Train Loss: 0.4267, CER: 0.1389, WER: 0.3460
+  Val Loss: 0.7838, CER: 0.2202, WER: 0.4897
+
+Epoch 10/10:
+  Train Loss: 0.3635, CER: 0.1229, WER: 0.3172
+  Val Loss: 0.7805, CER: 0.2150, WER: 0.4837
+
+All results saved to comparison_results

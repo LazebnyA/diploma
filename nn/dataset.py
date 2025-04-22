@@ -143,18 +143,19 @@ def collate_fn(batch):
             img = F.pad(img, (0, pad_width), value=255)
         padded_images.append(img)
     images_tensor = torch.stack(padded_images, dim=0)
+    padded_width = images_tensor.shape[3]
 
     # Concatenate labels into one long tensor & record individual lengths
     targets = []
-    target_lenghts = []
+    target_lengths = []
     for label in labels:
         targets.extend(label)
-        target_lenghts.append(len(label))
+        target_lengths.append(len(label))
     targets_tensor = torch.tensor(targets, dtype=torch.long)
-    targets_lengths_tensor = torch.tensor(target_lenghts, dtype=torch.long)
+    targets_lengths_tensor = torch.tensor(target_lengths, dtype=torch.long)
 
-    # Assuming our CNN downsamples the width by a factor of 4
-    input_lengths = [w // 4 for w in widths]
-    input_lengths_tensor = torch.tensor(input_lengths, dtype=torch.long)
+    # Assuming CNN downsamples width by a factor of 4
+    input_length = padded_width // 4
+    input_lengths_tensor = torch.full(size=(len(images),), fill_value=input_length, dtype=torch.long)
 
     return images_tensor, targets_tensor, targets_lengths_tensor, input_lengths_tensor

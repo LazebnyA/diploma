@@ -30,7 +30,7 @@ def resize_width_height_aspect_ratio_add_padding(img):
     return img
 
 
-def resize_height_aspect_ratio_add_padding(img, img_height):
+def resize_height_aspect_ratio(img, img_height):
     original_width, original_height = img.size
     target_height = img_height
     ratio = target_height / original_height
@@ -71,8 +71,7 @@ def random_distortion(image):
 
 def get_simple_train_transform_v0(img_height):
     transform = transforms.Compose([
-        transforms.Grayscale(num_output_channels=1),
-        transforms.Lambda(lambda img: resize_height_aspect_ratio_add_padding(img, img_height)),
+        # transforms.Lambda(lambda img: resize_height_aspect_ratio(img, img_height)),
         transforms.ToTensor()
     ])
     return transform

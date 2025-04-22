@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.3) (preloaded format=pdflatex 2025.3.19)  20 APR 2025 20:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.3) (preloaded format=pdflatex 2025.3.19)  22 APR 2025 16:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -632,8 +632,12 @@ Package: array 2024/10/17 v2.6g Tabular extension package (FMi)
 yer/tikz/libraries\tikzlibrarycalc.code.tex
 File: tikzlibrarycalc.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
+(C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendla
+yer/tikz/libraries\tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
 Package translations Info: No language package found. I am going to use `englis
-h' as default language. on input line 11.
+h' as default language. on input line 12.
 
 (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3back
 end-pdftex.def
@@ -643,20 +647,20 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 ) (C:/uni\Diploma\auxil\graph.aux)
 \openout1 = `graph.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
 
 (C:\Users\Professional\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp
 -pdf.mkii
@@ -693,216 +697,218 @@ File: translations-basic-dictionary-english.trsl (english translation file `tra
 nslations-basic-dictionary')
 )
 Package translations Info: loading dictionary `translations-basic-dictionary' f
-or `english'. on input line 11.
+or `english'. on input line 12.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 70.
+(Font)              <8> on input line 72.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 70.
+(Font)              <6> on input line 72.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 70.
+(Font)              <5> on input line 72.
 
 
-graph.tex:70: LaTeX Error: Unicode character Е (U+0415)
+graph.tex:72: LaTeX Error: Unicode character Е (U+0415)
                not set up for use with LaTeX.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.70     \end{axis}
+l.72     \end{axis}
                    
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
 
-graph.tex:70: LaTeX Error: Unicode character п (U+043F)
+graph.tex:72: LaTeX Error: Unicode character п (U+043F)
                not set up for use with LaTeX.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.70     \end{axis}
+l.72     \end{axis}
                    
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
 
-graph.tex:70: LaTeX Error: Unicode character о (U+043E)
+graph.tex:72: LaTeX Error: Unicode character о (U+043E)
                not set up for use with LaTeX.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.70     \end{axis}
+l.72     \end{axis}
                    
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
 
-graph.tex:70: LaTeX Error: Unicode character х (U+0445)
+graph.tex:72: LaTeX Error: Unicode character х (U+0445)
                not set up for use with LaTeX.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.70     \end{axis}
+l.72     \end{axis}
                    
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
 
-graph.tex:70: LaTeX Error: Unicode character а (U+0430)
+graph.tex:72: LaTeX Error: Unicode character а (U+0430)
                not set up for use with LaTeX.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.70     \end{axis}
+l.72     \end{axis}
                    
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
 
-graph.tex:125: LaTeX Error: Unicode character Е (U+0415)
+graph.tex:123: LaTeX Error: Unicode character Е (U+0415)
                not set up for use with LaTeX.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.125     \end{axis}
+l.123     \end{axis}
                     
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
 
-graph.tex:125: LaTeX Error: Unicode character п (U+043F)
+graph.tex:123: LaTeX Error: Unicode character п (U+043F)
                not set up for use with LaTeX.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.125     \end{axis}
+l.123     \end{axis}
                     
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
 
-graph.tex:125: LaTeX Error: Unicode character о (U+043E)
+graph.tex:123: LaTeX Error: Unicode character о (U+043E)
                not set up for use with LaTeX.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.125     \end{axis}
+l.123     \end{axis}
                     
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
 
-graph.tex:125: LaTeX Error: Unicode character х (U+0445)
+graph.tex:123: LaTeX Error: Unicode character х (U+0445)
                not set up for use with LaTeX.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.125     \end{axis}
+l.123     \end{axis}
                     
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
 
-graph.tex:125: LaTeX Error: Unicode character а (U+0430)
+graph.tex:123: LaTeX Error: Unicode character а (U+0430)
                not set up for use with LaTeX.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.125     \end{axis}
+l.123     \end{axis}
                     
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
 
-graph.tex:180: LaTeX Error: Unicode character Е (U+0415)
+graph.tex:174: LaTeX Error: Unicode character Е (U+0415)
                not set up for use with LaTeX.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.180     \end{axis}
+l.174     \end{axis}
                     
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
 
-graph.tex:180: LaTeX Error: Unicode character п (U+043F)
+graph.tex:174: LaTeX Error: Unicode character п (U+043F)
                not set up for use with LaTeX.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.180     \end{axis}
+l.174     \end{axis}
                     
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
 
-graph.tex:180: LaTeX Error: Unicode character о (U+043E)
+graph.tex:174: LaTeX Error: Unicode character о (U+043E)
                not set up for use with LaTeX.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.180     \end{axis}
+l.174     \end{axis}
                     
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
 
-graph.tex:180: LaTeX Error: Unicode character х (U+0445)
+graph.tex:174: LaTeX Error: Unicode character х (U+0445)
                not set up for use with LaTeX.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.180     \end{axis}
+l.174     \end{axis}
                     
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
 
-graph.tex:180: LaTeX Error: Unicode character а (U+0430)
+graph.tex:174: LaTeX Error: Unicode character а (U+0430)
                not set up for use with LaTeX.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.180     \end{axis}
+l.174     \end{axis}
                     
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
+Package pgfplots info on input line 211: Using 'lua backend=false' for axis: x 
+coord trafo unsupported.
 
 
 [1
 
 
 Non-PDF special ignored!
-<special> papersize=536.15628pt,225.48576pt
+<special> papersize=667.52043pt,225.50713pt
 {C:/Users/Professional/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
 (C:/uni\Diploma\auxil\graph.aux)
  ***********
@@ -915,19 +921,19 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 27321 strings out of 473523
- 747781 string characters out of 5711242
- 1211752 words of memory out of 5000000
- 50172 multiletter control sequences out of 15000+600000
+ 27431 strings out of 473523
+ 750699 string characters out of 5711242
+ 1230185 words of memory out of 5000000
+ 50279 multiletter control sequences out of 15000+600000
  561267 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,18n,105p,18934b,1993s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,18n,105p,6956b,2256s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Professional/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
 nts/cm/cmbx9.pfb><C:/Users/Professional/AppData/Local/Programs/MiKTeX/fonts/typ
 e1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Professional/AppData/Local/Programs/M
 iKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Professional/AppData/Lo
 cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb>
-Output written on C:/uni\Diploma\out\graph.pdf (1 page, 46682 bytes).
+Output written on C:/uni\Diploma\out\graph.pdf (1 page, 51510 bytes).
 PDF statistics:
  29 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
