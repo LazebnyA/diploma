@@ -5,7 +5,7 @@ torch.manual_seed(42)
 
 
 class CNN_LSTM_CTC_V0(nn.Module):
-    def __init__(self, img_height, num_channels, n_classes, n_h, lstm_layers=1):
+    def __init__(self, img_height, num_channels, n_classes, n_h, lstm_layers=1, out_channels=24):
         """
         img_height: image height (after resize)
         num_channels: number of input channels (1 for grayscale)
@@ -16,25 +16,25 @@ class CNN_LSTM_CTC_V0(nn.Module):
 
         # CNN Module
         self.cnn = nn.Sequential(
-            nn.Conv2d(num_channels, 24, kernel_size=3, stride=1, padding=1),
+            nn.Conv2d(num_channels, out_channels, kernel_size=3, stride=1, padding=1),
             nn.ReLU(True),
-            nn.Conv2d(24, 24, kernel_size=3, stride=1, padding=1),
+            nn.Conv2d(out_channels, out_channels, kernel_size=3, stride=1, padding=1),
             nn.ReLU(True),
             nn.MaxPool2d(2, 2),  # downsample height & width by 2
-            nn.Conv2d(24, 48, kernel_size=3, stride=1, padding=1),
+            nn.Conv2d(out_channels, 2*out_channels, kernel_size=3, stride=1, padding=1),
             nn.ReLU(True),
-            nn.Conv2d(48, 48, kernel_size=3, stride=1, padding=1),
+            nn.Conv2d(2*out_channels, 2*out_channels, kernel_size=3, stride=1, padding=1),
             nn.ReLU(True),
             nn.MaxPool2d(2, 2),  # downsample height by 4
-            nn.Conv2d(48, 96, kernel_size=3, stride=1, padding=1),
+            nn.Conv2d(2*out_channels, 4*out_channels, kernel_size=3, stride=1, padding=1),
             nn.ReLU(True),
-            nn.Conv2d(96, 96, kernel_size=3, stride=1, padding=1),
+            nn.Conv2d(4*out_channels, 4*out_channels, kernel_size=3, stride=1, padding=1),
             nn.ReLU(True),
             nn.MaxPool2d((2, 1))  # downsample height by 8
         )
 
         # After CNN, height becomes img_height // 8
-        self.lstm_input_size = 96 * (img_height // 8)
+        self.lstm_input_size = 4*out_channels * (img_height // 8)
 
         # One directional LSTM
         self.lstm = nn.LSTM(self.lstm_input_size, n_h, num_layers=lstm_layers, batch_first=True, bidirectional=True)

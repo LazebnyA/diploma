@@ -53,7 +53,7 @@ def calculate_metrics(predictions, ground_truths):
     return total_cer, total_wer
 
 
-@logger_model_training(version="1", additional="CNN-BiLSTM-CTC_CNN_V2_resnet18")
+@logger_model_training(version="0", additional="CNN-BiLSTM-CTC_CNN_V0")
 @execution_time_decorator
 def main(version, additional):
     # Initialize nn paths
@@ -105,13 +105,13 @@ def main(version, additional):
     num_channels = 1
     n_h = 256
 
-    model = resnet18_htr_sequential(
+    model = CNN_LSTM_CTC_V0(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
         n_h=n_h,
-        out_channels=64,
-        lstm_layers=2
+        out_channels=24,
+        lstm_layers=1
     )
 
     # Device configuration.
