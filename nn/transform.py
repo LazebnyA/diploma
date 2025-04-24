@@ -8,27 +8,6 @@ import random
 from PIL import ImageEnhance, Image, ImageOps
 from PIL.Image import Resampling
 
-TARGET_WIDTH = 300
-
-
-def resize_width_height_aspect_ratio_add_padding(img):
-    # 3. Resize maintaining aspect ratio based on height
-    original_width, original_height = img.size
-    target_height = 64
-    ratio = target_height / original_height
-    new_width = int(original_width * ratio)
-    new_height = target_height
-    img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
-
-    # 4. Add right padding to reach 600px width
-    if new_width < TARGET_WIDTH:
-        right_pad = TARGET_WIDTH - new_width
-        img = ImageOps.expand(img, border=(0, 0, right_pad, 0), fill=255)
-    elif new_width > TARGET_WIDTH:
-        img = img.crop((0, 0, TARGET_WIDTH, new_height))
-
-    return img
-
 
 def resize_height_aspect_ratio(img, img_height):
     original_width, original_height = img.size

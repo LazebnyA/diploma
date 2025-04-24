@@ -1,7 +1,6 @@
 import os
 
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
@@ -15,9 +14,10 @@ import pandas as pd
 
 from nn.archive.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.transform import get_simple_train_transform_v0
-from nn.utils import execution_time_decorator
+from nn.utils import execution_time_decorator, calculate_metrics
 from nn.logger import evaluation_logger  # Assuming you have this
 from nn.v0.models import CNN_LSTM_CTC_V0
+from nn.utils import greedy_decoder
 
 # Hyperparameters
 IMG_HEIGHT = 32
@@ -26,39 +26,6 @@ N_H = 256
 BATCH_SIZE = 8
 
 torch.manual_seed(42)
-
-
-def greedy_decoder(output, label_converter):
-    """
-    Greedy decoder for CTC output.
-    Args:
-        output (Tensor): Log probabilities with shape (T, batch, n_classes)
-        label_converter (LabelConverter): Instance to decode indices to text
-    Returns:
-        List of decoded strings (one per sample in batch)
-    """
-    # Change shape to (batch, T, n_classes)
-    output = output.permute(1, 0, 2)
-    arg_maxes = torch.argmax(output, dim=2)
-    decoded_preds = []
-    for pred in arg_maxes:
-        pred = pred.cpu().numpy().tolist()
-        decoded = label_converter.decode(pred)
-        decoded_preds.append(decoded)
-    return decoded_preds
-
-
-def calculate_metrics(predictions, ground_truths):
-    """
-    Calculate CER and WER metrics for a batch of predictions.
-    """
-    from jiwer import wer as calculate_wer
-    from jiwer import cer as calculate_cer
-
-    total_cer = calculate_cer(ground_truths, predictions)
-    total_wer = calculate_wer(ground_truths, predictions)
-
-    return total_cer, total_wer
 
 
 def calculate_individual_metrics(predictions, ground_truths):

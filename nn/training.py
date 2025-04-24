@@ -10,47 +10,10 @@ from tqdm import tqdm
 from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training
 from nn.transform import get_simple_train_transform_v0
-from nn.utils import execution_time_decorator
-from nn.v0.models import CNN_LSTM_CTC_V0
-from nn.v1.models import CNN_LSTM_CTC_V0_CNN_36_start_filters, CNN_LSTM_CTC_V0_CNN_48_start_filters, \
-    CNN_LSTM_CTC_V0_CNN_64_start_filters, CNN_LSTM_CTC_V1_CNN_deeper_vgg16like, \
-    CNN_LSTM_CTC_V1_CNN_deeper_vgg16like_batch_norm, CNN_LSTM_CTC_V1_CNN_deeper_vgg16like_batch_norm_dropout
+from nn.utils import execution_time_decorator, greedy_decoder, calculate_metrics
 from nn.v2.models import resnet18_htr_sequential
 
 torch.manual_seed(42)
-
-
-def greedy_decoder(output, label_converter):
-    """
-    Greedy decoder for CTC output.
-    Args:
-        output (Tensor): Log probabilities with shape (T, batch, n_classes)
-        label_converter (LabelConverter): Instance to decode indices to text
-    Returns:
-        List of decoded strings (one per sample in batch)
-    """
-    # Change shape to (batch, T, n_classes)
-    output = output.permute(1, 0, 2)
-    arg_maxes = torch.argmax(output, dim=2)
-    decoded_preds = []
-    for pred in arg_maxes:
-        pred = pred.cpu().numpy().tolist()
-        decoded = label_converter.decode(pred)
-        decoded_preds.append(decoded)
-    return decoded_preds
-
-
-def calculate_metrics(predictions, ground_truths):
-    """
-    Calculate CER and WER metrics for a batch of predictions.
-    """
-    from jiwer import wer as calculate_wer
-    from jiwer import cer as calculate_cer
-
-    total_cer = calculate_cer(ground_truths, predictions)
-    total_wer = calculate_wer(ground_truths, predictions)
-
-    return total_cer, total_wer
 
 
 @logger_model_training(version="0", additional="CNN-BiLSTM-CTC_CNN_V0")
