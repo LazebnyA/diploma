@@ -1,6 +1,7 @@
 import torch
 from torch import nn as nn
 
+
 class CNN_LSTM_CTC_V1_CNN_deeper_vgg16like(nn.Module):
     def __init__(self, img_height, num_channels, n_classes, n_h, lstm_layers=1, out_channels=24):
         """
@@ -69,7 +70,7 @@ class CNN_LSTM_CTC_V1_CNN_deeper_vgg16like(nn.Module):
 
 
 class CNN_LSTM_CTC_V1_CNN_deeper_vgg16like_batch_norm(nn.Module):
-    def __init__(self, img_height, num_channels, n_classes, n_h, lstm_layers=1, start_filters=24):
+    def __init__(self, img_height, num_channels, n_classes, n_h, lstm_layers=1, out_channels=24):
         """
         img_height: image height (after resize)
         num_channels: number of input channels (1 for grayscale)
@@ -80,41 +81,41 @@ class CNN_LSTM_CTC_V1_CNN_deeper_vgg16like_batch_norm(nn.Module):
 
         # CNN Module
         self.cnn = nn.Sequential(
-            nn.Conv2d(num_channels, start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(start_filters),
+            nn.Conv2d(num_channels, out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(out_channels),
             nn.ReLU(True),
-            nn.Conv2d(start_filters, start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(start_filters),
+            nn.Conv2d(out_channels, out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(out_channels),
             nn.ReLU(True),
             nn.MaxPool2d(2, 2),  # downsample height & width by 2
-            nn.Conv2d(start_filters, 2*start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(2*start_filters),
+            nn.Conv2d(out_channels, 2*out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(2*out_channels),
             nn.ReLU(True),
-            nn.Conv2d(2*start_filters, 2*start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(2*start_filters),
+            nn.Conv2d(2*out_channels, 2*out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(2*out_channels),
             nn.ReLU(True),
             nn.MaxPool2d(2, 2),  # downsample height by 4
-            nn.Conv2d(2*start_filters, 4*start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(4*start_filters),
+            nn.Conv2d(2*out_channels, 4*out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(4*out_channels),
             nn.ReLU(True),
-            nn.Conv2d(4*start_filters, 4*start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(4*start_filters),
+            nn.Conv2d(4*out_channels, 4*out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(4*out_channels),
             nn.ReLU(True),
             nn.MaxPool2d((2, 1)),  # downsample height by 8
-            nn.Conv2d(4*start_filters, 8*start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(8*start_filters),
+            nn.Conv2d(4*out_channels, 8*out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(8*out_channels),
             nn.ReLU(True),
-            nn.Conv2d(8*start_filters, 8*start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(8*start_filters),
+            nn.Conv2d(8*out_channels, 8*out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(8*out_channels),
             nn.ReLU(True),
-            nn.Conv2d(8 * start_filters, 8 * start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(8*start_filters),
+            nn.Conv2d(8 * out_channels, 8 * out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(8*out_channels),
             nn.ReLU(True),
             nn.MaxPool2d((2, 1)),  # downsample height by 16
         )
 
         # After CNN, height becomes img_height // 16
-        self.lstm_input_size = 8*start_filters * (img_height // 16)
+        self.lstm_input_size = 8*out_channels * (img_height // 16)
 
         # Bidirectional LSTM
         self.lstm = nn.LSTM(self.lstm_input_size, n_h, bidirectional=True, num_layers=lstm_layers, batch_first=True)
@@ -145,7 +146,7 @@ class CNN_LSTM_CTC_V1_CNN_deeper_vgg16like_batch_norm(nn.Module):
 
 
 class CNN_LSTM_CTC_V1_CNN_deeper_vgg16like_batch_norm_dropout(nn.Module):
-    def __init__(self, img_height, num_channels, n_classes, n_h, lstm_layers=1, start_filters=24):
+    def __init__(self, img_height, num_channels, n_classes, n_h, lstm_layers=1, out_channels=24):
         """
         img_height: image height (after resize)
         num_channels: number of input channels (1 for grayscale)
@@ -156,43 +157,43 @@ class CNN_LSTM_CTC_V1_CNN_deeper_vgg16like_batch_norm_dropout(nn.Module):
 
         # CNN Module
         self.cnn = nn.Sequential(
-            nn.Conv2d(num_channels, start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(start_filters),
+            nn.Conv2d(num_channels, out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(out_channels),
             nn.ReLU(True),
-            nn.Conv2d(start_filters, start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(start_filters),
+            nn.Conv2d(out_channels, out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(out_channels),
             nn.ReLU(True),
             nn.MaxPool2d(2, 2),  # downsample height & width by 2
-            nn.Conv2d(start_filters, 2*start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(2*start_filters),
+            nn.Conv2d(out_channels, 2*out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(2*out_channels),
             nn.ReLU(True),
-            nn.Conv2d(2*start_filters, 2*start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(2*start_filters),
+            nn.Conv2d(2*out_channels, 2*out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(2*out_channels),
             nn.ReLU(True),
             nn.MaxPool2d(2, 2),  # downsample height by 4
-            nn.Conv2d(2*start_filters, 4*start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(4*start_filters),
+            nn.Conv2d(2*out_channels, 4*out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(4*out_channels),
             nn.ReLU(True),
-            nn.Conv2d(4*start_filters, 4*start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(4*start_filters),
+            nn.Conv2d(4*out_channels, 4*out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(4*out_channels),
             nn.ReLU(True),
             nn.MaxPool2d((2, 1)),  # downsample height by 8
-            nn.Conv2d(4*start_filters, 8*start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(8*start_filters),
+            nn.Conv2d(4*out_channels, 8*out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(8*out_channels),
             nn.ReLU(True),
             nn.Dropout(0.2),
-            nn.Conv2d(8*start_filters, 8*start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(8*start_filters),
+            nn.Conv2d(8*out_channels, 8*out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(8*out_channels),
             nn.ReLU(True),
             nn.Dropout(0.2),
-            nn.Conv2d(8 * start_filters, 8 * start_filters, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm2d(8*start_filters),
+            nn.Conv2d(8 * out_channels, 8 * out_channels, kernel_size=3, stride=1, padding=1),
+            nn.BatchNorm2d(8*out_channels),
             nn.ReLU(True),
             nn.MaxPool2d((2, 1)),  # downsample height by 16
         )
 
         # After CNN, height becomes img_height // 16
-        self.lstm_input_size = 8*start_filters * (img_height // 16)
+        self.lstm_input_size = 8*out_channels * (img_height // 16)
 
         # Bidirectional LSTM
         self.lstm = nn.LSTM(self.lstm_input_size, n_h, bidirectional=True, num_layers=lstm_layers, batch_first=True)

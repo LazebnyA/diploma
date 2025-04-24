@@ -6,10 +6,9 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
-from torchvision import transforms
 from tqdm import tqdm
 
-from nn.dataset import ProjectPaths, LabelConverter, IAMDataset
+from nn.archive.dataset import ProjectPaths, LabelConverter, IAMDataset
 from nn.logger import logger_model_training
 from nn.transform import get_augment_transform
 

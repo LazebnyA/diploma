@@ -7,49 +7,15 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from nn.dataset_2 import ProjectPaths, LabelConverter, IAMDataset, collate_fn
+from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training
 from nn.transform import get_simple_train_transform_v0
-from nn.utils import execution_time_decorator
+from nn.utils import execution_time_decorator, greedy_decoder, calculate_metrics
 from nn.v0.models import CNN_LSTM_CTC_V0
-from nn.v1.models import CNN_LSTM_CTC_V1_CNN_deeper_vgg16like, \
-    CNN_LSTM_CTC_V1_CNN_deeper_vgg16like_batch_norm, CNN_LSTM_CTC_V1_CNN_deeper_vgg16like_batch_norm_dropout
+from nn.v1.models import CNN_LSTM_CTC_V1_CNN_deeper_vgg16like
 from nn.v2.models import resnet18_htr_sequential
 
 torch.manual_seed(42)
-
-
-def greedy_decoder(output, label_converter):
-    """
-    Greedy decoder for CTC output.
-    Args:
-        output (Tensor): Log probabilities with shape (T, batch, n_classes)
-        label_converter (LabelConverter): Instance to decode indices to text
-    Returns:
-        List of decoded strings (one per sample in batch)
-    """
-    # Change shape to (batch, T, n_classes)
-    output = output.permute(1, 0, 2)
-    arg_maxes = torch.argmax(output, dim=2)
-    decoded_preds = []
-    for pred in arg_maxes:
-        pred = pred.cpu().numpy().tolist()
-        decoded = label_converter.decode(pred)
-        decoded_preds.append(decoded)
-    return decoded_preds
-
-
-def calculate_metrics(predictions, ground_truths):
-    """
-    Calculate CER and WER metrics for a batch of predictions.
-    """
-    from jiwer import wer as calculate_wer
-    from jiwer import cer as calculate_cer
-
-    total_cer = calculate_cer(ground_truths, predictions)
-    total_wer = calculate_wer(ground_truths, predictions)
-
-    return total_cer, total_wer
 
 
 @logger_model_training(version="0", additional="CNN-BiLSTM-CTC_CNN_V0")
@@ -79,7 +45,7 @@ def main(version, additional):
     dataloader = DataLoader(dataset,
                             batch_size=batch_size,
                             shuffle=True,
-                            collate_fn=collate_fn
+                            collate_fn=collate_fn,
                             )
 
     validation_mapping_file = "dataset/writer_independent_word_splits/preprocessed/val_word_mappings.txt"
@@ -101,12 +67,10 @@ def main(version, additional):
     # Define model_params parameters.
     n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
 
-
-
     num_channels = 1
     n_h = 256
 
-    model = CNN_LSTM_CTC_V1_CNN_deeper_vgg16like(
+    model = CNN_LSTM_CTC_V0(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
@@ -134,9 +98,9 @@ def main(version, additional):
     criterion = nn.CTCLoss(blank=0, zero_infinity=True)
 
     lr = 0.001
-    optimizer = optim.Adam(model.parameters(), lr=lr)
+    optimizer = optim.RMSprop(model.parameters(), lr=lr)
 
-    num_epochs = 3
+    num_epochs = 10
 
     model.train()
 

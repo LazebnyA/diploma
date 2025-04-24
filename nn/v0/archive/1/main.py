@@ -9,7 +9,7 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 from tqdm import tqdm
 
-from nn.dataset import ProjectPaths, LabelConverter, IAMDataset
+from nn.archive.dataset import ProjectPaths, LabelConverter, IAMDataset
 from nn.logger import logger_model_training
 from nn.v0.models import CNN_LSTM_CTC_V0
 

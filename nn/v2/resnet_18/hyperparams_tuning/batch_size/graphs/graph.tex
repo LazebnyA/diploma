@@ -1,0 +1,225 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+% Define colors for batch sizes
+\definecolor{batch4Color}{RGB}{31,119,180}   % Blue for batch size 4
+\definecolor{batch8Color}{RGB}{255,127,14}   % Orange for batch size 8
+\definecolor{batch16Color}{RGB}{44,160,44}   % Green for batch size 16
+\definecolor{batch32Color}{RGB}{148,103,189} % Purple for batch size 32
+
+\begin{document}
+\begin{tikzpicture}[remember picture]
+
+    % Графік 1: Loss
+    \begin{axis}[
+        name=plot1,
+        width=9cm, % Increased width for better visibility
+        height=10cm,
+        xlabel={Епоха},
+        ylabel={Loss},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=5.5,
+        ymin=0, ymax=4.5, % Adjusted based on data range
+        xtick={1,2,3,4,5},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={Loss},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers},
+        legend to name=commonlegend,
+        legend columns=4,
+        legend style={draw=none, fill=none, font=\footnotesize, column sep=0.1cm}
+    ]
+        % Batch size 4 Train
+        \addplot[color=batch4Color, thick] coordinates {
+            (1,1.71658) (2,0.73035) (3,0.54187) (4,0.45092) (5,0.38718)
+        };
+
+        % Batch size 4 Validation
+        \addplot[color=batch4Color, thick, dashed] coordinates {
+            (1,0.88751) (2,0.60800) (3,0.94055) (4,0.50072) (5,0.45384)
+        };
+
+        % Batch size 8 Train
+        \addplot[color=batch8Color, thick] coordinates {
+            (1,1.93757) (2,0.81365) (3,0.59074) (4,0.48587) (5,0.41506)
+        };
+
+        % Batch size 8 Validation
+        \addplot[color=batch8Color, thick, dashed] coordinates {
+            (1,1.07028) (2,0.66183) (3,0.57533) (4,0.50975) (5,0.49267)
+        };
+
+        % Batch size 16 Train
+        \addplot[color=batch16Color, thick] coordinates {
+            (1,1.84537) (2,0.74021) (3,0.56564) (4,0.47494) (5,0.41319)
+        };
+
+        % Batch size 16 Validation
+        \addplot[color=batch16Color, thick, dashed] coordinates {
+            (1,1.30498) (2,0.65339) (3,0.54122) (4,0.50841) (5,0.48827)
+        };
+
+        % Batch size 32 Train
+        \addplot[color=batch32Color, thick] coordinates {
+            (1,2.40736) (2,0.94748) (3,0.64386) (4,0.52577) (5,0.45487)
+        };
+
+        % Batch size 32 Validation
+        \addplot[color=batch32Color, thick, dashed] coordinates {
+            (1,1.90749) (2,0.86917) (3,0.67620) (4,3.90004) (5,0.49963)
+        };
+
+        \legend{BS4 Tr, BS4 Val, BS8 Tr, BS8 Val, BS16 Tr, BS16 Val, BS32 Tr, BS32 Val}
+    \end{axis}
+
+    % Графік 2: CER
+    \begin{axis}[
+        name=plot2,
+        at={($(plot1.east)+(2cm,0)$)}, % Increased spacing for better visibility
+        anchor=west,
+        width=9cm,
+        height=10cm,
+        xlabel={Епоха},
+        ylabel={CER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=5.5,
+        ymin=0, ymax=1.0, % Adjusted based on data range
+        xtick={1,2,3,4,5},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={CER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % Batch size 4 Train
+        \addplot[color=batch4Color, thick] coordinates {
+            (1,0.56446) (2,0.21688) (3,0.15918) (4,0.13291) (5,0.11508)
+        };
+
+        % Batch size 4 Validation
+        \addplot[color=batch4Color, thick, dashed] coordinates {
+            (1,0.27469) (2,0.17864) (3,0.17722) (4,0.14091) (5,0.12885)
+        };
+
+        % Batch size 8 Train
+        \addplot[color=batch8Color, thick] coordinates {
+            (1,0.63026) (2,0.24458) (3,0.17631) (4,0.14556) (5,0.12561)
+        };
+
+        % Batch size 8 Validation
+        \addplot[color=batch8Color, thick, dashed] coordinates {
+            (1,0.32775) (2,0.20129) (3,0.17014) (4,0.15162) (5,0.14735)
+        };
+
+        % Batch size 16 Train
+        \addplot[color=batch16Color, thick] coordinates {
+            (1,0.59015) (2,0.22201) (3,0.16880) (4,0.14205) (5,0.12513)
+        };
+
+        % Batch size 16 Validation
+        \addplot[color=batch16Color, thick, dashed] coordinates {
+            (1,0.37000) (2,0.19619) (3,0.15691) (4,0.14557) (5,0.14561)
+        };
+
+        % Batch size 32 Train
+        \addplot[color=batch32Color, thick] coordinates {
+            (1,0.76346) (2,0.29374) (3,0.19297) (4,0.15802) (5,0.13833)
+        };
+
+        % Batch size 32 Validation
+        \addplot[color=batch32Color, thick, dashed] coordinates {
+            (1,0.65460) (2,0.27274) (3,0.20866) (4,0.89399) (5,0.14458)
+        };
+    \end{axis}
+
+    % Графік 3: WER
+    \begin{axis}[
+        name=plot3,
+        at={($(plot2.east)+(2cm,0)$)},
+        anchor=west,
+        width=9cm,
+        height=10cm,
+        xlabel={Епоха},
+        ylabel={WER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=5.5,
+        ymin=0.25, ymax=0.9, % Adjusted based on data range
+        xtick={1,2,3,4,5},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={WER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % Batch size 4 Train
+        \addplot[color=batch4Color, thick] coordinates {
+            (1,0.71116) (2,0.46064) (3,0.37685) (4,0.33123) (5,0.29948)
+        };
+
+        % Batch size 4 Validation
+        \addplot[color=batch4Color, thick, dashed] coordinates {
+            (1,0.53677) (2,0.42032) (3,0.44556) (4,0.35966) (5,0.33835)
+        };
+
+        % Batch size 8 Train
+        \addplot[color=batch8Color, thick] coordinates {
+            (1,0.73652) (2,0.49430) (3,0.40183) (4,0.35358) (5,0.31795)
+        };
+
+        % Batch size 8 Validation
+        \addplot[color=batch8Color, thick, dashed] coordinates {
+            (1,0.60755) (2,0.44693) (3,0.40551) (4,0.36834) (5,0.36047)
+        };
+
+        % Batch size 16 Train
+        \addplot[color=batch16Color, thick] coordinates {
+            (1,0.73824) (2,0.46779) (3,0.39182) (4,0.34789) (5,0.31667)
+        };
+
+        % Batch size 16 Validation
+        \addplot[color=batch16Color, thick, dashed] coordinates {
+            (1,0.66808) (2,0.44156) (3,0.38358) (4,0.36222) (5,0.36322)
+        };
+
+        % Batch size 32 Train
+        \addplot[color=batch32Color, thick] coordinates {
+            (1,0.82684) (2,0.54389) (3,0.42885) (4,0.37451) (5,0.34085)
+        };
+
+        % Batch size 32 Validation
+        \addplot[color=batch32Color, thick, dashed] coordinates {
+            (1,0.75479) (2,0.54276) (3,0.46117) (4,0.85688) (5,0.36765)
+        };
+    \end{axis}
+
+    % Легенда
+    \node at ($(plot1.south)!0.5!(plot3.south)+(0,-2cm)$) {\pgfplotslegendfromname{commonlegend}};
+
+\end{tikzpicture}
+\end{document}

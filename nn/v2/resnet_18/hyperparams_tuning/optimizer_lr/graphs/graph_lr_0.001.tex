@@ -1,0 +1,193 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\definecolor{adamColor}{RGB}{31,119,180}    % Blue for Adam
+\definecolor{sgdColor}{RGB}{255,127,14}     % Orange for SGD
+\definecolor{rmspropColor}{RGB}{44,160,44}  % Green for RMSprop
+
+\begin{document}
+\begin{tikzpicture}[remember picture]
+
+    % Графік 1: Loss (lr=0.001)
+    \begin{axis}[
+        name=plot1,
+        width=8cm,
+        height=10cm,
+        xlabel={Епоха},
+        ylabel={Loss},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=5.5,
+        ymin=0, ymax=4.0,
+        xtick={1,2,3,4,5},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={Loss (lr=0.001)},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers},
+        legend to name=commonlegend,
+        legend columns=3,
+        legend style={draw=none, fill=none, font=\footnotesize, column sep=0.1cm}
+    ]
+        % Adam lr=0.001 Train
+        \addplot[color=adamColor, thick] coordinates {
+            (1,2.58998) (2,1.37317) (3,0.79075) (4,0.61890) (5,0.53279)
+        };
+
+        % Adam lr=0.001 Validation
+        \addplot[color=adamColor, thick, dashed] coordinates {
+            (1,1.86683) (2,1.82546) (3,3.75773) (4,0.59568) (5,0.55446)
+        };
+
+        % SGD lr=0.001 Train
+        \addplot[color=sgdColor, thick] coordinates {
+            (1,2.61803) (2,1.09546) (3,0.72933) (4,0.59387) (5,0.51466)
+        };
+
+        % SGD lr=0.001 Validation
+        \addplot[color=sgdColor, thick, dashed] coordinates {
+            (1,1.70181) (2,0.80665) (3,0.65022) (4,0.59662) (5,0.54458)
+        };
+
+        % RMSprop lr=0.001 Train
+        \addplot[color=rmspropColor, thick] coordinates {
+            (1,2.26876) (2,1.05576) (3,0.75325) (4,0.63803) (5,0.57839)
+        };
+
+        % RMSprop lr=0.001 Validation
+        \addplot[color=rmspropColor, thick, dashed] coordinates {
+            (1,1.73286) (2,0.87135) (3,0.84179) (4,3.39187) (5,0.59275)
+        };
+
+        \legend{Adam Tr, Adam Val, SGD Tr, SGD Val, RMSprop Tr, RMSprop Val}
+    \end{axis}
+
+    % Графік 2: CER (lr=0.001)
+    \begin{axis}[
+        name=plot2,
+        at={($(plot1.east)+(1.5cm,0)$)},
+        anchor=west,
+        width=8cm,
+        height=10cm,
+        xlabel={Епоха},
+        ylabel={CER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=5.5,
+        ymin=0, ymax=1.2,
+        xtick={1,2,3,4,5},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={CER (lr=0.001)},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % Adam lr=0.001 Train
+        \addplot[color=adamColor, thick] coordinates {
+            (1,0.81144) (2,0.45912) (3,0.23955) (4,0.18596) (5,0.16057)
+        };
+
+        % Adam lr=0.001 Validation
+        \addplot[color=adamColor, thick, dashed] coordinates {
+            (1,0.64012) (2,0.43987) (3,0.68584) (4,0.17589) (5,0.16517)
+        };
+
+        % SGD lr=0.001 Train
+        \addplot[color=sgdColor, thick] coordinates {
+            (1,0.79882) (2,0.32908) (3,0.21367) (4,0.17531) (5,0.15254)
+        };
+
+        % SGD lr=0.001 Validation
+        \addplot[color=sgdColor, thick, dashed] coordinates {
+            (1,0.61964) (2,0.24091) (3,0.19519) (4,0.17630) (5,0.15908)
+        };
+
+        % RMSprop lr=0.001 Train
+        \addplot[color=rmspropColor, thick] coordinates {
+            (1,0.73164) (2,0.33977) (3,0.22885) (4,0.19252) (5,0.17391)
+        };
+
+        % RMSprop lr=0.001 Validation
+        \addplot[color=rmspropColor, thick, dashed] coordinates {
+            (1,0.58566) (2,0.27055) (3,0.24308) (4,0.36795) (5,0.17290)
+        };
+    \end{axis}
+
+    % Графік 3: WER (lr=0.001)
+    \begin{axis}[
+        name=plot3,
+        at={($(plot2.east)+(1.5cm,0)$)},
+        anchor=west,
+        width=8cm,
+        height=10cm,
+        xlabel={Епоха},
+        ylabel={WER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=5.5,
+        ymin=0.3, ymax=1.1,
+        xtick={1,2,3,4,5},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={WER (lr=0.001)},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % Adam lr=0.001 Train
+        \addplot[color=adamColor, thick] coordinates {
+            (1,0.85102) (2,0.66104) (3,0.48958) (4,0.41626) (5,0.37786)
+        };
+
+        % Adam lr=0.001 Validation
+        \addplot[color=adamColor, thick, dashed] coordinates {
+            (1,0.74892) (2,0.81164) (3,0.97476) (4,0.41120) (5,0.39077)
+        };
+
+        % SGD lr=0.001 Train
+        \addplot[color=sgdColor, thick] coordinates {
+            (1,0.86384) (2,0.59085) (3,0.46193) (4,0.40626) (5,0.36873)
+        };
+
+        % SGD lr=0.001 Validation
+        \addplot[color=sgdColor, thick, dashed] coordinates {
+            (1,0.78210) (2,0.50959) (3,0.44324) (4,0.41832) (5,0.39633)
+        };
+
+        % RMSprop lr=0.001 Train
+        \addplot[color=rmspropColor, thick] coordinates {
+            (1,0.80673) (2,0.57904) (3,0.46999) (4,0.41822) (5,0.39289)
+        };
+
+        % RMSprop lr=0.001 Validation
+        \addplot[color=rmspropColor, thick, dashed] coordinates {
+            (1,0.73387) (2,0.52202) (3,0.50678) (4,0.74130) (5,0.39676)
+        };
+    \end{axis}
+
+    % Легенда
+    \node at ($(plot1.south)!0.5!(plot3.south)+(0,-1.8cm)$) {\pgfplotslegendfromname{commonlegend}};
+
+\end{tikzpicture}
+\end{document}

@@ -4,6 +4,9 @@ import torch
 from PIL import Image
 from torch.utils.data import Dataset
 
+import torch
+import random
+
 import torch.nn.functional as F
 
 
@@ -115,6 +118,7 @@ class IAMDataset(Dataset):
 
         # Load image in grayscale
         image = Image.open(img_path).convert('L')
+
         if self.transform is not None:
             image = self.transform(image)
 
@@ -126,24 +130,13 @@ class IAMDataset(Dataset):
 def collate_fn(batch):
     """
     batch: list of (image, label) tuples.
-    Pads images to the same width and concatenates labels.
-    Also computes target lengths and input lengths (after CNN downsampling).
+    Since images are already resized to 1200x64 in __getitem__,
+    we just need to stack them and process labels.
     """
     images, labels = zip(*batch)
 
-    # images are tensors of shape (C - channels, H - height, W - width)
-    widths = [img.size(2) for img in images]
-    max_width = max(widths)
-
-    padded_images = []
-    for img in images:
-        pad_width = max_width - img.size(2)
-        if pad_width > 0:
-            # pad the right side of the width dimension
-            img = F.pad(img, (0, pad_width), value=255)
-        padded_images.append(img)
-    images_tensor = torch.stack(padded_images, dim=0)
-    padded_width = images_tensor.shape[3]
+    # Stack images (they should all be the same size now)
+    images_tensor = torch.stack(images, dim=0)
 
     # Concatenate labels into one long tensor & record individual lengths
     targets = []
@@ -154,8 +147,9 @@ def collate_fn(batch):
     targets_tensor = torch.tensor(targets, dtype=torch.long)
     targets_lengths_tensor = torch.tensor(target_lengths, dtype=torch.long)
 
-    # Assuming CNN downsamples width by a factor of 4
-    input_length = padded_width // 4
-    input_lengths_tensor = torch.full(size=(len(images),), fill_value=input_length, dtype=torch.long)
+    # Assuming our CNN downsamples the width by a factor of 4
+    # Since all images are now 300px wide, input length is 300//4 = 75
+    input_lengths = [75] * len(images)
+    input_lengths_tensor = torch.tensor(input_lengths, dtype=torch.long)
 
     return images_tensor, targets_tensor, targets_lengths_tensor, input_lengths_tensor
