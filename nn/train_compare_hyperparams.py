@@ -20,6 +20,7 @@ from nn.v2.models import resnet18_htr_sequential
 
 torch.manual_seed(42)
 
+
 def greedy_decoder(output, label_converter):
     """
     Greedy decoder for CTC output.
@@ -264,7 +265,6 @@ def create_model(img_height, num_channels, n_classes, n_h, device, start_filters
     model.to(device)
 
     # weights_path = f"cnn_lstm_ctc_handwritten_v0_initial_imH{img_height}.pth"
-
     # model.load_state_dict(torch.load(weights_path, map_location=device))
     # print(f"Loaded initial random weights from {weights_path}")
 
@@ -283,426 +283,6 @@ def create_optimizer(model, opt_name, learning_rate=0.0001):
         return optim.RMSprop(model.parameters(), lr=learning_rate)
     else:
         raise ValueError(f"Unsupported optimizer: {opt_name}")
-
-def tune_learning_rate(paths, label_converter, mapping_files, output_dir,
-                      learning_rates, num_epochs=5, fixed_params=None):
-    """Run learning rate hyperparameter tuning"""
-    if fixed_params is None:
-        fixed_params = {
-            'img_height': 32,
-            'n_h': 256,
-            'batch_size': 8,
-            'optimizer': 'Adam'
-        }
-
-    print("\n=== Порівняння для різних швидкостей навчання (learning rates) ===")
-    learning_rate_results = {}
-
-    n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
-    num_channels = 1
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    criterion = nn.CTCLoss(blank=0, zero_infinity=True)
-
-    for lr in learning_rates:
-        print(f"\nНавчання з learning_rate={lr}")
-
-        # Create datasets
-        train_loader, val_loader = create_datasets(
-            paths,
-            mapping_files,
-            fixed_params['img_height'],
-            label_converter,
-            fixed_params['batch_size']
-        )
-
-        # Create model
-        model = create_model(
-            img_height=fixed_params['img_height'],
-            num_channels=num_channels,
-            n_classes=n_classes,
-            n_h=fixed_params['n_h'],
-            device=device
-        )
-
-        # Create optimizer with current learning rate
-        if fixed_params['optimizer'] == "Adam":
-            optimizer = optim.Adam(model.parameters(), lr=lr)
-        elif fixed_params['optimizer'] == "SGD":
-            optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.9)
-        elif fixed_params['optimizer'] == "RMSprop":
-            optimizer = optim.RMSprop(model.parameters(), lr=lr)
-        else:
-            raise ValueError(f"Unsupported optimizer: {fixed_params['optimizer']}")
-
-        # Train the model and get history
-        history = train_model(
-            model=model,
-            train_loader=train_loader,
-            val_loader=val_loader,
-            optimizer=optimizer,
-            criterion=criterion,
-            device=device,
-            label_converter=label_converter,
-            epochs=num_epochs
-        )
-
-        # Save history
-        learning_rate_results[lr] = history
-
-    # Plot and save learning rate comparison
-    plot_parameter_comparison(
-        learning_rate_results,
-        "Learning Rate",
-        output_dir / "learning_rate_comparison.png"
-    )
-
-    return learning_rate_results
-
-def tune_img_height(paths, label_converter, mapping_files, output_dir,
-                    img_heights, num_epochs=5, fixed_params=None):
-    """Run image height hyperparameter tuning"""
-    if fixed_params is None:
-        fixed_params = {
-            'n_h': 256,
-            'batch_size': 8,
-            'optimizer': 'Adam'
-        }
-
-    print("\n=== Порівняння різної висоти зображень ===")
-    img_height_results = {}
-
-    n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
-    num_channels = 1
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    criterion = nn.CTCLoss(blank=0, zero_infinity=True)
-
-    for img_height in img_heights:
-        print(f"\nНавчання з img_height={img_height}")
-
-        # Create datasets with current img_height
-        train_loader, val_loader = create_datasets(
-            paths,
-            mapping_files,
-            img_height,
-            label_converter,
-            fixed_params['batch_size']
-        )
-
-        # Create model with current img_height
-        model = create_model(
-            img_height=img_height,
-            num_channels=num_channels,
-            n_classes=n_classes,
-            n_h=fixed_params['n_h'],
-            device=device
-        )
-
-        # Create optimizer
-        optimizer = create_optimizer(model, fixed_params['optimizer'])
-
-        # Train the model and get history
-        history = train_model(
-            model=model,
-            train_loader=train_loader,
-            val_loader=val_loader,
-            optimizer=optimizer,
-            criterion=criterion,
-            device=device,
-            label_converter=label_converter,
-            epochs=num_epochs
-        )
-
-        # Save history
-        img_height_results[img_height] = history
-
-    # Plot and save img_height comparison
-    plot_parameter_comparison(
-        img_height_results,
-        "Image Height",
-        output_dir / "img_height_comparison.png"
-    )
-
-    return img_height_results
-
-
-def tune_hidden_size(paths, label_converter, mapping_files, output_dir,
-                     hidden_sizes, num_epochs=5, fixed_params=None):
-    """Run hidden size hyperparameter tuning"""
-    if fixed_params is None:
-        fixed_params = {
-            'img_height': 32,
-            'batch_size': 8,
-            'optimizer': 'Adam'
-        }
-
-    print("\n=== Порівняння різних розмірностей вектору схованого стану h - n_h ===")
-    hidden_size_results = {}
-
-    n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
-    num_channels = 1
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    criterion = nn.CTCLoss(blank=0, zero_infinity=True)
-
-    for n_h in hidden_sizes:
-        print(f"\nНавчання з hidden_size={n_h}")
-
-        # Create datasets
-        train_loader, val_loader = create_datasets(
-            paths,
-            mapping_files,
-            fixed_params['img_height'],
-            label_converter,
-            fixed_params['batch_size']
-        )
-
-        # Create model with current hidden size
-        model = create_model(
-            img_height=fixed_params['img_height'],
-            num_channels=num_channels,
-            n_classes=n_classes,
-            n_h=n_h,
-            device=device
-        )
-
-        # Create optimizer
-        optimizer = create_optimizer(model, fixed_params['optimizer'])
-
-        # Train the model and get history
-        history = train_model(
-            model=model,
-            train_loader=train_loader,
-            val_loader=val_loader,
-            optimizer=optimizer,
-            criterion=criterion,
-            device=device,
-            label_converter=label_converter,
-            epochs=num_epochs
-        )
-
-        # Save history
-        hidden_size_results[n_h] = history
-
-    # Plot and save hidden_size comparison
-    plot_parameter_comparison(
-        hidden_size_results,
-        "Hidden Size",
-        output_dir / "hidden_size_comparison.png"
-    )
-
-    return hidden_size_results
-
-
-def tune_optimizer(paths, label_converter, mapping_files, output_dir,
-                   optimizers, learning_rates, num_epochs=5, fixed_params=None):
-    """Run optimizer hyperparameter tuning with different learning rates for each optimizer"""
-    if fixed_params is None:
-        fixed_params = {
-            'img_height': 32,
-            'n_h': 256,
-            'batch_size': 8
-        }
-
-    print("\n=== Порівняння різних алгоритмів оптимізації з різними швидкостями навчання ===")
-    optimizer_results = {}
-
-    n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
-    num_channels = 1
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    criterion = nn.CTCLoss(blank=0, zero_infinity=True)
-
-    for opt_name in optimizers:
-        for lr in learning_rates:
-            print(f"\nНавчання з оптимізатором {opt_name}, learning_rate={lr}")
-
-            # Create key for this configuration
-            config_key = f"{opt_name}_lr_{lr}"
-
-            # Create datasets
-            train_loader, val_loader = create_datasets(
-                paths,
-                mapping_files,
-                fixed_params['img_height'],
-                label_converter,
-                fixed_params['batch_size']
-            )
-
-            # Create model
-            model = create_model(
-                img_height=fixed_params['img_height'],
-                num_channels=num_channels,
-                n_classes=n_classes,
-                n_h=fixed_params['n_h'],
-                device=device
-            )
-
-            # Create optimizer based on name with specified learning rate
-            if opt_name == "Adam":
-                optimizer = optim.Adam(model.parameters(), lr=lr)
-            elif opt_name == "SGD":
-                optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.9)
-            elif opt_name == "RMSprop":
-                optimizer = optim.RMSprop(model.parameters(), lr=lr)
-            else:
-                raise ValueError(f"Unsupported optimizer: {opt_name}")
-
-            # Train the model and get history
-            history = train_model(
-                model=model,
-                train_loader=train_loader,
-                val_loader=val_loader,
-                optimizer=optimizer,
-                criterion=criterion,
-                device=device,
-                label_converter=label_converter,
-                epochs=num_epochs
-            )
-
-            # Save history with optimizer name and learning rate
-            optimizer_results[config_key] = history
-
-    # Plot and save optimizer comparison
-    plot_parameter_comparison(
-        optimizer_results,
-        "Optimizer + Learning Rate",
-        output_dir / "optimizer_lr_comparison.png"
-    )
-
-    return optimizer_results
-
-
-def tune_batch_size(paths, label_converter, mapping_files, output_dir,
-                    batch_sizes, num_epochs=5, fixed_params=None):
-    """Run batch size hyperparameter tuning"""
-    if fixed_params is None:
-        fixed_params = {
-            'img_height': 32,
-            'n_h': 256,
-            'optimizer': 'Adam'
-        }
-
-    print("\n=== Порівняння для різних розмірів батчів ===")
-    batch_size_results = {}
-
-    n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
-    num_channels = 1
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    criterion = nn.CTCLoss(blank=0, zero_infinity=True)
-
-    for batch_size in batch_sizes:
-        print(f"\nНавчання з batch_size={batch_size}")
-
-        # Create datasets with current batch size
-        train_loader, val_loader = create_datasets(
-            paths,
-            mapping_files,
-            fixed_params['img_height'],
-            label_converter,
-            batch_size
-        )
-
-        # Create model
-        model = create_model(
-            img_height=fixed_params['img_height'],
-            num_channels=num_channels,
-            n_classes=n_classes,
-            n_h=fixed_params['n_h'],
-            device=device
-        )
-
-        # Create optimizer
-        optimizer = create_optimizer(model, fixed_params['optimizer'])
-
-        # Train the model and get history
-        history = train_model(
-            model=model,
-            train_loader=train_loader,
-            val_loader=val_loader,
-            optimizer=optimizer,
-            criterion=criterion,
-            device=device,
-            label_converter=label_converter,
-            epochs=num_epochs
-        )
-
-        # Save history
-        batch_size_results[batch_size] = history
-
-    # Plot and save batch_size comparison
-    plot_parameter_comparison(
-        batch_size_results,
-        "Batch Size",
-        output_dir / "batch_size_comparison.png"
-    )
-
-    return batch_size_results
-
-
-def tune_num_filters(paths, label_converter, mapping_files, output_dir,
-                    num_filters_lst, num_epochs=5, fixed_params=None):
-    """Run batch size hyperparameter tuning"""
-    if fixed_params is None:
-        fixed_params = {
-            'img_height': 32,
-            'n_h': 256,
-            'optimizer': 'Adam'
-        }
-
-    print("\n=== Порівняння для різних кількостей фільтрів ===")
-    num_filters_results = {}
-
-    n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
-    num_channels = 1
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    criterion = nn.CTCLoss(blank=0, zero_infinity=True)
-
-    for num_filters in num_filters_lst:
-        print(f"\nНавчання з num_filters={num_filters}")
-
-        # Create datasets with current batch size
-        train_loader, val_loader = create_datasets(
-            paths,
-            mapping_files,
-            fixed_params['img_height'],
-            label_converter,
-            fixed_params['batch_size']
-        )
-
-        # Create model
-        model = create_model(
-            img_height=fixed_params['img_height'],
-            num_channels=num_channels,
-            n_classes=n_classes,
-            n_h=fixed_params['n_h'],
-            device=device,
-            start_filters=num_filters
-        )
-
-        # Create optimizer
-        optimizer = create_optimizer(model, fixed_params['optimizer'])
-
-        # Train the model and get history
-        history = train_model(
-            model=model,
-            train_loader=train_loader,
-            val_loader=val_loader,
-            optimizer=optimizer,
-            criterion=criterion,
-            device=device,
-            label_converter=label_converter,
-            epochs=num_epochs
-        )
-
-        # Save history
-        num_filters_results[num_filters] = history
-
-    # Plot and save batch_size comparison
-    plot_parameter_comparison(
-        num_filters_results,
-        "Number of Filters",
-        output_dir / "num_filters_comparison.png"
-    )
-
-    return num_filters_results
 
 
 def setup_environment():
@@ -727,115 +307,195 @@ def setup_environment():
     return paths, label_converter, mapping_files, output_dir, test_mapping_file
 
 
+def train_and_evaluate_config(config, param_name, param_value, paths, label_converter,
+                              mapping_files, device, criterion, num_epochs):
+    """
+    Train and evaluate a model with a specific configuration
+
+    Args:
+        config: Dictionary with all hyperparameters
+        param_name: Name of the parameter being varied
+        param_value: Value of the parameter being varied
+        paths: Project paths object
+        label_converter: Label converter object
+        mapping_files: Tuple of mapping files
+        device: Device to run on
+        criterion: Loss function
+        num_epochs: Number of epochs to train for
+
+    Returns:
+        History of training metrics
+    """
+    print(f"\nTraining with {param_name}={param_value}")
+
+    # Create datasets
+    train_loader, val_loader = create_datasets(
+        paths,
+        mapping_files,
+        config['img_height'],
+        label_converter,
+        config['batch_size']
+    )
+
+    # Create model
+    n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
+    model = create_model(
+        img_height=config['img_height'],
+        num_channels=1,
+        n_classes=n_classes,
+        n_h=config['n_h'],
+        device=device,
+        start_filters=config.get('num_filters', 24)
+    )
+
+    # Create optimizer
+    optimizer = create_optimizer(
+        model,
+        config['optimizer'],
+        config.get('learning_rate', 0.0001)
+    )
+
+    # Train model
+    history = train_model(
+        model=model,
+        train_loader=train_loader,
+        val_loader=val_loader,
+        optimizer=optimizer,
+        criterion=criterion,
+        device=device,
+        label_converter=label_converter,
+        epochs=num_epochs
+    )
+
+    return history
+
+
+def tune_parameter(paths, label_converter, mapping_files, output_dir,
+                   param_name, param_values, base_config, num_epochs=5):
+    """
+    Generic function to tune any hyperparameter
+
+    Args:
+        param_name: Name of the parameter to tune
+        param_values: List of values to try for the parameter
+        base_config: Dictionary with base configuration (fixed parameters)
+        num_epochs: Number of epochs to train for each configuration
+    """
+    print(f"\n=== Comparing different {param_name} values ===")
+
+    # Initialize results dictionary
+    results = {}
+
+    # Set up common variables
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    criterion = nn.CTCLoss(blank=0, zero_infinity=True)
+
+    # Special case for optimizer + learning rate combinations
+    if param_name == "optimizer_with_lr":
+        optimizers = param_values[0]  # First element is list of optimizers
+        learning_rates = param_values[1]  # Second element is list of learning rates
+
+        for opt_name in optimizers:
+            for lr in learning_rates:
+                config_key = f"{opt_name}_lr_{lr}"
+                current_config = base_config.copy()
+                current_config['optimizer'] = opt_name
+                current_config['learning_rate'] = lr
+
+                history = train_and_evaluate_config(
+                    current_config, f"{param_name} ({opt_name}, lr={lr})", config_key,
+                    paths, label_converter, mapping_files, device, criterion, num_epochs
+                )
+
+                results[config_key] = history
+    else:
+        # Handle all other parameters
+        for value in param_values:
+            current_config = base_config.copy()
+            current_config[param_name] = value
+
+            history = train_and_evaluate_config(
+                current_config, param_name, value,
+                paths, label_converter, mapping_files, device, criterion, num_epochs
+            )
+
+            results[value] = history
+
+    # Plot and save results
+    plot_parameter_comparison(
+        results,
+        param_name,
+        output_dir / f"{param_name}_comparison.png"
+    )
+
+    return results
+
+
 @logger_hyperparameters_tuning("CNN-LSTM-CTC")
 def run_hyperparameter_tuning(fixed_params, params_to_tune=None, num_epochs=5):
     """
     Run hyperparameter tuning experiment
 
     Args:
+        fixed_params: Dictionary with fixed hyperparameters
         params_to_tune: List of parameter names to tune. Options are:
-                       'img_height', 'hidden_size', 'optimizer', 'batch_size', 'learning_rate'
+                       'img_height', 'n_h', 'optimizer', 'batch_size', 'learning_rate', 'num_filters'
                        If None, tune all parameters.
         num_epochs: Number of epochs to train for each configuration
     """
     if params_to_tune is None:
-        params_to_tune = ['img_height', 'hidden_size', 'optimizer', 'batch_size', 'learning_rate']
+        params_to_tune = ['img_height', 'n_h', 'optimizer', 'batch_size', 'learning_rate', 'num_filters']
 
     paths, label_converter, mapping_files, output_dir, test_mapping_file = setup_environment()
 
-    # Parameters to tune with default values
-    img_heights = [64, 72, 96]
-    hidden_sizes = [128, 256, 512, 1024]
-    optimizers = ["Adam", "SGD", "RMSprop"]
-    batch_sizes = [4, 8, 16, 32]
-    learning_rates = [0.0001, 0.001]  # Використовуємо тільки два значення
-    num_filters = [24, 36, 48, 64]
+    # Parameter values to try
+    param_configs = {
+        'img_height': [64, 72, 96],
+        'n_h': [128, 256, 512, 1024],
+        'optimizer': ["Adam", "SGD", "RMSprop"],
+        'batch_size': [4, 8, 16, 32],
+        'learning_rate': [0.0001, 0.001],
+        'num_filters': [24, 36, 48, 64],
+        'optimizer_with_lr': [["Adam", "SGD", "RMSprop"], [0.0001, 0.001]]  # Special case
+    }
 
     # Store all results
     all_results = {}
 
-    # Tune image height
-    if 'img_height' in params_to_tune:
-        img_height_results = tune_img_height(
-            paths, label_converter, mapping_files, output_dir,
-            img_heights, num_epochs, fixed_params=fixed_params
-        )
-        all_results["img_height"] = img_height_results
+    # Iterate through parameters to tune
+    for param in params_to_tune:
+        # Skip learning_rate if optimizer_with_lr is being tuned
+        if param == 'learning_rate' and 'optimizer' in params_to_tune:
+            continue
 
-    # Tune hidden size
-    if 'hidden_size' in params_to_tune:
-        hidden_size_results = tune_hidden_size(
-            paths, label_converter, mapping_files, output_dir,
-            hidden_sizes, num_epochs, fixed_params=fixed_params
-        )
-        all_results["hidden_size"] = hidden_size_results
+        # Convert 'hidden_size' to 'n_h' if present (for backward compatibility)
+        if param == 'hidden_size':
+            param = 'n_h'
 
-    # Tune optimizer with different learning rates
-    if 'optimizer' in params_to_tune:
-        optimizer_results = tune_optimizer(
-            paths, label_converter, mapping_files, output_dir,
-            optimizers, learning_rates, num_epochs, fixed_params=fixed_params
-        )
-        all_results["optimizer_with_lr"] = optimizer_results
+        # Get parameter values
+        param_values = param_configs.get(param)
+        if param_values is None:
+            print(f"Warning: No values defined for parameter '{param}'. Skipping.")
+            continue
 
-    # Tune batch size
-    if 'batch_size' in params_to_tune:
-        batch_size_results = tune_batch_size(
+        # Tune the parameter
+        results = tune_parameter(
             paths, label_converter, mapping_files, output_dir,
-            batch_sizes, num_epochs, fixed_params=fixed_params
+            param, param_values, fixed_params, num_epochs
         )
-        all_results["batch_size"] = batch_size_results
 
-    # Tune learning rate (separate tuning, if needed)
-    if 'learning_rate' in params_to_tune and 'optimizer' not in params_to_tune:
-        learning_rate_results = tune_learning_rate(
-            paths, label_converter, mapping_files, output_dir,
-            learning_rates, num_epochs, fixed_params=fixed_params
-        )
-        all_results["learning_rate"] = learning_rate_results
-
-    if 'num_filters' in params_to_tune:
-        num_filters_results = tune_num_filters(
-            paths, label_converter, mapping_files, output_dir,
-            num_filters, num_epochs, fixed_params=fixed_params
-        )
-        all_results["learning_rate"] = num_filters_results
+        all_results[param] = results
 
     # Save all results to a single JSON file
     with open(output_dir / "all_hyperparameter_results.json", "w") as f:
-        json.dump(all_results, f, indent=4)
+        # Convert non-serializable objects to strings
+        serializable_results = {k: {str(k2): v2 for k2, v2 in v.items()} for k, v in all_results.items()}
+        json.dump(serializable_results, f, indent=4)
 
     print(f"\nAll results saved to {output_dir}")
 
 
 if __name__ == "__main__":
-    # Виберіть, який гіперпараметр налаштовувати
-    # Можливі варіанти: 'img_height', 'hidden_size', 'optimizer', 'batch_size'
-    # Або можна налаштовувати всі параметри разом, передавши список усіх параметрів
-
-    # Приклад 1: Налаштування тільки висоти зображення
-    # run_hyperparameter_tuning(['img_height'], num_epochs=3)
-
-    # Приклад 2: Налаштування тільки розміру прихованого стану
-    # run_hyperparameter_tuning(['hidden_size'], num_epochs=3)
-
-    # Приклад 3: Налаштування оптимізатора
-    # run_hyperparameter_tuning(['optimizer'], num_epochs=3)
-
-    # Приклад 4: Налаштування розміру батчу
-    # run_hyperparameter_tuning(['batch_size'], num_epochs=3)
-
-    # Приклад 5: Налаштування всіх гіперпараметрів (займає більше часу)
-    # run_hyperparameter_tuning()
-
-    # Приклад 6: Оцінка моделі з найкращими параметрами
-    # evaluate_best_model({
-    #     'img_height': 64,
-    #     'n_h': 256,
-    #     'batch_size': 8,
-    #     'optimizer': 'Adam'
-    # })
-
     fixed_params = {
         'img_height': 64,
         'n_h': 256,
@@ -844,5 +504,5 @@ if __name__ == "__main__":
         'num_filters': 48
     }
 
-    # За замовчуванням запускаємо налаштування тільки оптимізатора
-    run_hyperparameter_tuning(fixed_params, ['hidden_size'], num_epochs=5)
+    # Run tuning for selected parameters
+    run_hyperparameter_tuning(fixed_params, ['n_h'], num_epochs=5)
