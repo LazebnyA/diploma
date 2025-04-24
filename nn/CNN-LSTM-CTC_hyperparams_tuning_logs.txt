@@ -1,0 +1,5 @@
+
+=== Comparing different batch_size values ===
+
+Training with batch_size=4
+Training interrupted by user.

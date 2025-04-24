@@ -230,7 +230,7 @@ def resnet18_htr_sequential(img_height, num_channels=1, n_classes=80, n_h=256, o
     """
     Створює ResNet18 для HTR з послідовною CNN архітектурою.
     """
-    model = ResNet_BiLSTM_CTC(img_height, num_channels, n_classes, n_h)
+    model = ResNet_BiLSTM_CTC(img_height, num_channels, n_classes, n_h, out_channels=out_channels, lstm_layers=lstm_layers)
     return model
 
 

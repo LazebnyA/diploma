@@ -11,6 +11,8 @@ from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training
 from nn.transform import get_simple_train_transform_v0
 from nn.utils import execution_time_decorator, greedy_decoder, calculate_metrics
+from nn.v0.models import CNN_LSTM_CTC_V0
+from nn.v1.models import CNN_LSTM_CTC_V1_CNN_deeper_vgg16like
 from nn.v2.models import resnet18_htr_sequential
 
 torch.manual_seed(42)
@@ -37,7 +39,7 @@ def main(version, additional):
         label_converter=label_converter
     )
 
-    batch_size = 16
+    batch_size = 8
 
     # Create DataLoader with the custom collate_fn.
     dataloader = DataLoader(dataset,
@@ -66,15 +68,15 @@ def main(version, additional):
     n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
 
     num_channels = 1
-    n_h = 512
+    n_h = 256
 
-    model = resnet18_htr_sequential(
+    model = CNN_LSTM_CTC_V0(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
         n_h=n_h,
-        out_channels=48,
-        lstm_layers=2
+        out_channels=24,
+        lstm_layers=1
     )
 
     # Device configuration.
@@ -95,7 +97,7 @@ def main(version, additional):
     # Define the CTCLoss and optimizer.
     criterion = nn.CTCLoss(blank=0, zero_infinity=True)
 
-    lr = 0.0001
+    lr = 0.001
     optimizer = optim.RMSprop(model.parameters(), lr=lr)
 
     num_epochs = 10
