@@ -153,3 +153,30 @@ def collate_fn(batch):
     input_lengths_tensor = torch.tensor(input_lengths, dtype=torch.long)
 
     return images_tensor, targets_tensor, targets_lengths_tensor, input_lengths_tensor
+
+def collate_imh_32(batch):
+    """
+    batch: list of (image, label) tuples.
+    Since images are already resized to 1200x64 in __getitem__,
+    we just need to stack them and process labels.
+    """
+    images, labels = zip(*batch)
+
+    # Stack images (they should all be the same size now)
+    images_tensor = torch.stack(images, dim=0)
+
+    # Concatenate labels into one long tensor & record individual lengths
+    targets = []
+    target_lengths = []
+    for label in labels:
+        targets.extend(label)
+        target_lengths.append(len(label))
+    targets_tensor = torch.tensor(targets, dtype=torch.long)
+    targets_lengths_tensor = torch.tensor(target_lengths, dtype=torch.long)
+
+    # Assuming our CNN downsamples the width by a factor of 4
+    # Since all images are now 300px wide, input length is 300//4 = 75
+    input_lengths = [37] * len(images)
+    input_lengths_tensor = torch.tensor(input_lengths, dtype=torch.long)
+
+    return images_tensor, targets_tensor, targets_lengths_tensor, input_lengths_tensor

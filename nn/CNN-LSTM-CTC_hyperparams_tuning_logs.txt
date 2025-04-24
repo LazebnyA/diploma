@@ -1,0 +1,72 @@
+
+=== Порівняння для різних кількостей фільтрів ===
+
+Навчання з num_filters=24
+
+Epoch 1/3:
+  Train Loss: 4.0937, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.0289, CER: 1.0000, WER: 1.0000
+  Time: 180.81 seconds
+
+Epoch 2/3:
+  Train Loss: 4.0207, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.0130, CER: 1.0000, WER: 1.0000
+  Time: 172.11 seconds
+
+Epoch 3/3:
+  Train Loss: 4.0105, CER: 1.0000, WER: 1.0000
+  Val Loss: 3.9827, CER: 1.0000, WER: 1.0000
+  Time: 172.59 seconds
+
+Навчання з num_filters=36
+
+Epoch 1/3:
+  Train Loss: 4.1113, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.0540, CER: 1.0000, WER: 1.0000
+  Time: 262.32 seconds
+
+Epoch 2/3:
+  Train Loss: 4.0477, CER: 1.0000, WER: 1.0000
+  Val Loss: 3.9962, CER: 1.0000, WER: 1.0000
+  Time: 262.44 seconds
+
+Epoch 3/3:
+  Train Loss: 4.0426, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.1228, CER: 1.0000, WER: 1.0000
+  Time: 262.57 seconds
+
+Навчання з num_filters=48
+
+Epoch 1/3:
+  Train Loss: 4.1014, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.0162, CER: 1.0000, WER: 1.0000
+  Time: 228.89 seconds
+
+Epoch 2/3:
+  Train Loss: 4.0395, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.0380, CER: 1.0000, WER: 1.0000
+  Time: 228.78 seconds
+
+Epoch 3/3:
+  Train Loss: 4.0294, CER: 1.0000, WER: 1.0000
+  Val Loss: 3.9695, CER: 1.0000, WER: 1.0000
+  Time: 228.66 seconds
+
+Навчання з num_filters=64
+
+Epoch 1/3:
+  Train Loss: 4.1027, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.0475, CER: 1.0000, WER: 1.0000
+  Time: 275.48 seconds
+
+Epoch 2/3:
+  Train Loss: 4.0434, CER: 1.0000, WER: 1.0000
+  Val Loss: 3.9737, CER: 1.0000, WER: 1.0000
+  Time: 275.08 seconds
+
+Epoch 3/3:
+  Train Loss: 3.9974, CER: 0.9998, WER: 0.9992
+  Val Loss: 3.9110, CER: 1.0000, WER: 1.0000
+  Time: 275.50 seconds
+
+All results saved to comparison_results

@@ -7,7 +7,7 @@ from tqdm import tqdm
 BASE_DIR = r'C:\uni\Diploma'
 
 # Output base directory for processed data_preprocessed
-OUTPUT_BASE = os.path.join(BASE_DIR, 'iam_words', 'data_preprocessed')
+OUTPUT_BASE = os.path.join(BASE_DIR, 'iam_words', 'data_preprocessed_imH32')
 
 # Mapping files
 mapping_files = [
@@ -17,7 +17,7 @@ mapping_files = [
 ]
 
 # Target width
-TARGET_WIDTH = 300
+TARGET_WIDTH = 150
 
 
 def process_image(input_path, output_path):
@@ -35,7 +35,7 @@ def process_image(input_path, output_path):
 
         # 3. Resize maintaining aspect ratio based on height
         original_width, original_height = img.size
-        target_height = 64
+        target_height = 32
         ratio = target_height / original_height
         new_width = int(original_width * ratio)
         new_height = target_height

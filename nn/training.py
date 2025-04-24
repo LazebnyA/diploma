@@ -12,8 +12,7 @@ from nn.logger import logger_model_training
 from nn.transform import get_simple_train_transform_v0
 from nn.utils import execution_time_decorator
 from nn.v0.models import CNN_LSTM_CTC_V0
-from nn.v1.models import CNN_LSTM_CTC_V0_CNN_36_start_filters, CNN_LSTM_CTC_V0_CNN_48_start_filters, \
-    CNN_LSTM_CTC_V0_CNN_64_start_filters, CNN_LSTM_CTC_V1_CNN_deeper_vgg16like, \
+from nn.v1.models import CNN_LSTM_CTC_V1_CNN_deeper_vgg16like, \
     CNN_LSTM_CTC_V1_CNN_deeper_vgg16like_batch_norm, CNN_LSTM_CTC_V1_CNN_deeper_vgg16like_batch_norm_dropout
 from nn.v2.models import resnet18_htr_sequential
 
@@ -80,7 +79,7 @@ def main(version, additional):
     dataloader = DataLoader(dataset,
                             batch_size=batch_size,
                             shuffle=True,
-                            collate_fn=collate_fn,
+                            collate_fn=collate_fn
                             )
 
     validation_mapping_file = "dataset/writer_independent_word_splits/preprocessed/val_word_mappings.txt"
@@ -102,10 +101,12 @@ def main(version, additional):
     # Define model_params parameters.
     n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
 
+
+
     num_channels = 1
     n_h = 256
 
-    model = CNN_LSTM_CTC_V0(
+    model = CNN_LSTM_CTC_V1_CNN_deeper_vgg16like(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
@@ -135,7 +136,7 @@ def main(version, additional):
     lr = 0.001
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
-    num_epochs = 10
+    num_epochs = 3
 
     model.train()
 

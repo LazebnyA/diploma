@@ -11,7 +11,7 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
+from nn.dataset_2 import ProjectPaths, LabelConverter, IAMDataset, collate_imh_32
 from nn.logger import logger_model_training, logger_hyperparameters_tuning
 from nn.transform import get_simple_train_transform_v0
 from nn.v0.models import CNN_LSTM_CTC_V0
@@ -235,14 +235,14 @@ def create_datasets(paths, mapping_files, img_height, label_converter, batch_siz
         train_dataset,
         batch_size=batch_size,
         shuffle=True,
-        collate_fn=collate_fn
+        collate_fn=collate_imh_32
     )
 
     val_loader = DataLoader(
         val_dataset,
         batch_size=batch_size,
         shuffle=False,
-        collate_fn=collate_fn
+        collate_fn=collate_imh_32
     )
 
     return train_loader, val_loader
@@ -252,13 +252,13 @@ def create_model(img_height, num_channels, n_classes, n_h, device, start_filters
     """
     Create and return a model instance with preloaded initial random weights.
     """
-    model = CNN_LSTM_CTC_V1_CNN_deeper_vgg16like(
+    model = CNN_LSTM_CTC_V0(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
         n_h=n_h,
-        lstm_layers=2,
-        start_filters=start_filters
+        lstm_layers=1,
+        out_channels=start_filters
     )
     model.to(device)
 
@@ -714,9 +714,9 @@ def setup_environment():
     paths = ProjectPaths()
 
     # Use relative paths from nn root
-    train_mapping_file = "dataset/writer_independent_word_splits/train_word_mappings.txt"
-    validation_mapping_file = "dataset/writer_independent_word_splits/val_word_mappings.txt"
-    test_mapping_file = "dataset/writer_independent_word_splits/test_word_mappings.txt"
+    train_mapping_file = "dataset/writer_independent_word_splits/preprocessed_imH32/train_word_mappings.txt"
+    validation_mapping_file = "dataset/writer_independent_word_splits/preprocessed_imH32/val_word_mappings.txt"
+    test_mapping_file = "dataset/writer_independent_word_splits/preprocessed_imH32/test_word_mappings.txt"
 
     mapping_files = (train_mapping_file, validation_mapping_file)
 
@@ -837,11 +837,11 @@ if __name__ == "__main__":
 
     fixed_params = {
         'img_height': 32,
-        'n_h': 512,
+        'n_h': 256,
         'optimizer': 'Adam',
-        'batch_size': 32,
+        'batch_size': 8,
         'num_filters': 24
     }
 
     # За замовчуванням запускаємо налаштування тільки оптимізатора
-    run_hyperparameter_tuning(fixed_params, ['batch_size'], num_epochs=3)
+    run_hyperparameter_tuning(fixed_params, ['num_filters'], num_epochs=3)
