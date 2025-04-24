@@ -11,11 +11,12 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
+from nn.dataset_2 import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training, logger_hyperparameters_tuning
 from nn.transform import get_simple_train_transform_v0
 from nn.v0.models import CNN_LSTM_CTC_V0
 from nn.v1.models import CNN_LSTM_CTC_V1_CNN_deeper_vgg16like
+from nn.v2.models import resnet18_htr_sequential
 
 torch.manual_seed(42)
 
@@ -252,13 +253,13 @@ def create_model(img_height, num_channels, n_classes, n_h, device, start_filters
     """
     Create and return a model instance with preloaded initial random weights.
     """
-    model = CNN_LSTM_CTC_V1_CNN_deeper_vgg16like(
+    model = resnet18_htr_sequential(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
         n_h=n_h,
         lstm_layers=2,
-        start_filters=start_filters
+        out_channels=start_filters
     )
     model.to(device)
 
@@ -270,7 +271,7 @@ def create_model(img_height, num_channels, n_classes, n_h, device, start_filters
     return model
 
 
-def create_optimizer(model, opt_name, learning_rate=0.001):
+def create_optimizer(model, opt_name, learning_rate=0.0001):
     """
     Create and return optimizer based on name
     """
@@ -714,9 +715,9 @@ def setup_environment():
     paths = ProjectPaths()
 
     # Use relative paths from nn root
-    train_mapping_file = "dataset/writer_independent_word_splits/train_word_mappings.txt"
-    validation_mapping_file = "dataset/writer_independent_word_splits/val_word_mappings.txt"
-    test_mapping_file = "dataset/writer_independent_word_splits/test_word_mappings.txt"
+    train_mapping_file = "dataset/writer_independent_word_splits/preprocessed/train_word_mappings.txt"
+    validation_mapping_file = "dataset/writer_independent_word_splits/preprocessed/val_word_mappings.txt"
+    test_mapping_file = "dataset/writer_independent_word_splits/preprocessed/test_word_mappings.txt"
 
     mapping_files = (train_mapping_file, validation_mapping_file)
 
@@ -744,7 +745,7 @@ def run_hyperparameter_tuning(fixed_params, params_to_tune=None, num_epochs=5):
 
     # Parameters to tune with default values
     img_heights = [64, 72, 96]
-    hidden_sizes = [128, 256, 512]
+    hidden_sizes = [128, 256, 512, 1024]
     optimizers = ["Adam", "SGD", "RMSprop"]
     batch_sizes = [4, 8, 16, 32]
     learning_rates = [0.0001, 0.001]  # Використовуємо тільки два значення
@@ -836,12 +837,12 @@ if __name__ == "__main__":
     # })
 
     fixed_params = {
-        'img_height': 32,
-        'n_h': 512,
-        'optimizer': 'Adam',
-        'batch_size': 32,
-        'num_filters': 24
+        'img_height': 64,
+        'n_h': 256,
+        'optimizer': 'RMSprop',
+        'batch_size': 16,
+        'num_filters': 48
     }
 
     # За замовчуванням запускаємо налаштування тільки оптимізатора
-    run_hyperparameter_tuning(fixed_params, ['batch_size'], num_epochs=3)
+    run_hyperparameter_tuning(fixed_params, ['hidden_size'], num_epochs=5)

@@ -1,0 +1,112 @@
+
+=== Порівняння різних розмірностей вектору схованого стану h - n_h ===
+
+Навчання з hidden_size=128
+
+Epoch 1/5:
+  Train Loss: 2.4165, CER: 0.7427, WER: 0.8358
+  Val Loss: 1.2659, CER: 0.3715, WER: 0.6512
+  Time: 357.39 seconds
+
+Epoch 2/5:
+  Train Loss: 0.9493, CER: 0.2806, WER: 0.5453
+  Val Loss: 0.7662, CER: 0.2298, WER: 0.4873
+  Time: 333.69 seconds
+
+Epoch 3/5:
+  Train Loss: 0.6804, CER: 0.1987, WER: 0.4401
+  Val Loss: 0.6935, CER: 0.2055, WER: 0.4587
+  Time: 321.44 seconds
+
+Epoch 4/5:
+  Train Loss: 0.5688, CER: 0.1666, WER: 0.3905
+  Val Loss: 0.5658, CER: 0.1624, WER: 0.3937
+  Time: 319.24 seconds
+
+Epoch 5/5:
+  Train Loss: 0.4983, CER: 0.1473, WER: 0.3596
+  Val Loss: 0.5337, CER: 0.1591, WER: 0.3876
+  Time: 312.29 seconds
+
+Навчання з hidden_size=256
+
+Epoch 1/5:
+  Train Loss: 1.8117, CER: 0.5738, WER: 0.7334
+  Val Loss: 1.0739, CER: 0.3385, WER: 0.5962
+  Time: 381.51 seconds
+
+Epoch 2/5:
+  Train Loss: 0.7275, CER: 0.2171, WER: 0.4618
+  Val Loss: 0.6346, CER: 0.1873, WER: 0.4283
+  Time: 383.60 seconds
+
+Epoch 3/5:
+  Train Loss: 0.5597, CER: 0.1667, WER: 0.3886
+  Val Loss: 0.5721, CER: 0.1693, WER: 0.4066
+  Time: 389.04 seconds
+
+Epoch 4/5:
+  Train Loss: 0.4701, CER: 0.1412, WER: 0.3468
+  Val Loss: 0.5651, CER: 0.1673, WER: 0.3975
+  Time: 396.15 seconds
+
+Epoch 5/5:
+  Train Loss: 0.4084, CER: 0.1237, WER: 0.3142
+  Val Loss: 0.5136, CER: 0.1440, WER: 0.3651
+  Time: 389.47 seconds
+
+Навчання з hidden_size=512
+
+Epoch 1/5:
+  Train Loss: 1.6919, CER: 0.5497, WER: 0.7014
+  Val Loss: 1.7686, CER: 0.5269, WER: 0.7478
+  Time: 431.00 seconds
+
+Epoch 2/5:
+  Train Loss: 0.6540, CER: 0.1989, WER: 0.4329
+  Val Loss: 0.5814, CER: 0.1797, WER: 0.4159
+  Time: 422.72 seconds
+
+Epoch 3/5:
+  Train Loss: 0.4861, CER: 0.1475, WER: 0.3545
+  Val Loss: 0.4796, CER: 0.1419, WER: 0.3513
+  Time: 422.97 seconds
+
+Epoch 4/5:
+  Train Loss: 0.3972, CER: 0.1221, WER: 0.3084
+  Val Loss: 0.4997, CER: 0.1492, WER: 0.3660
+  Time: 426.27 seconds
+
+Epoch 5/5:
+  Train Loss: 0.3319, CER: 0.1040, WER: 0.2754
+  Val Loss: 0.4289, CER: 0.1225, WER: 0.3250
+  Time: 435.14 seconds
+
+Навчання з hidden_size=1024
+
+Epoch 1/5:
+  Train Loss: 1.6135, CER: 0.5292, WER: 0.6768
+  Val Loss: 0.8142, CER: 0.2477, WER: 0.5014
+  Time: 629.01 seconds
+
+Epoch 2/5:
+  Train Loss: 0.6165, CER: 0.1876, WER: 0.4111
+  Val Loss: 0.5393, CER: 0.1612, WER: 0.3841
+  Time: 629.38 seconds
+
+Epoch 3/5:
+  Train Loss: 0.4404, CER: 0.1343, WER: 0.3289
+  Val Loss: 0.4965, CER: 0.1435, WER: 0.3580
+  Time: 635.49 seconds
+
+Epoch 4/5:
+  Train Loss: 0.3453, CER: 0.1069, WER: 0.2795
+  Val Loss: 0.4337, CER: 0.1246, WER: 0.3210
+  Time: 640.00 seconds
+
+Epoch 5/5:
+  Train Loss: 0.2736, CER: 0.0877, WER: 0.2431
+  Val Loss: 0.4181, CER: 0.1189, WER: 0.3107
+  Time: 626.09 seconds
+
+All results saved to comparison_results
