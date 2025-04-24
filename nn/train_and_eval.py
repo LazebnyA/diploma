@@ -1,7 +1,6 @@
 import sys
 import json
 import os
-from pathlib import Path
 
 import torch
 from torch import nn as nn, optim as optim
@@ -13,11 +12,11 @@ import seaborn as sns
 import pandas as pd
 import numpy as np
 
-from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
+from nn.archive.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training
-from nn.transform import get_augment_transform, get_simple_transform
+from nn.transform import get_simple_transform
 from nn.utils import execution_time_decorator
-from nn.v0.models import CNN_LSTM_CTC_V0, CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm
+from nn.v0.models import CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm
 
 torch.manual_seed(42)
 

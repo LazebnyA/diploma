@@ -3,7 +3,7 @@ import torch.nn.functional as F
 from PIL import Image
 import matplotlib.pyplot as plt
 
-from nn.dataset import ProjectPaths, LabelConverter
+from nn.archive.dataset import ProjectPaths, LabelConverter
 from nn.transform import get_simple_recognize_transform
 from nn.v2.models import CNN_LSTM_CTC_V2_CNN_more_filters_batch_norm_deeper_vgg16like
 

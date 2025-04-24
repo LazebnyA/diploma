@@ -13,7 +13,7 @@ import json
 import seaborn as sns
 import pandas as pd
 
-from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
+from nn.archive.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.transform import get_simple_train_transform_v0
 from nn.utils import execution_time_decorator
 from nn.logger import evaluation_logger  # Assuming you have this

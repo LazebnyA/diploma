@@ -7,7 +7,7 @@ from torch.nn import functional as F
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from nn.dataset_2 import ProjectPaths, LabelConverter, IAMDataset, collate_fn
+from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training
 from nn.transform import get_simple_train_transform_v0
 from nn.utils import execution_time_decorator
