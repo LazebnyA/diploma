@@ -1,8 +1,0 @@
-{
-    "train_loss": [],
-    "val_loss": [],
-    "train_cer": [],
-    "val_cer": [],
-    "train_wer": [],
-    "val_wer": []
-}

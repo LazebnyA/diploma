@@ -254,7 +254,7 @@ def create_model(img_height, num_channels, n_classes, n_h, device, start_filters
     """
     Create and return a model instance with preloaded initial random weights.
     """
-    model = CNN_LSTM_CTC_V0(
+    model = resnet18_htr_sequential(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
@@ -499,11 +499,11 @@ if __name__ == "__main__":
     fixed_params = {
         'img_height': 64,
         'n_h': 256,
-        'optimizer': 'Adam',
+        'optimizer': 'RMSprop',
         'learning_rate': 0.0001,
-        'batch_size': 8,
+        'batch_size': 16,
         'num_filters': 24
     }
 
     # Run tuning for selected parameters
-    run_hyperparameter_tuning(fixed_params, ['batch_size'], num_epochs=5)
+    run_hyperparameter_tuning(fixed_params, ['num_filters'], num_epochs=10)

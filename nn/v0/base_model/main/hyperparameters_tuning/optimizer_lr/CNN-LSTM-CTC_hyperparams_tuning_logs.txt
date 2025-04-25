@@ -1,0 +1,166 @@
+
+=== Comparing different optimizer_with_lr values ===
+
+Training with optimizer_with_lr (Adam, lr=0.0001)=Adam_lr_0.0001
+
+Epoch 1/5:
+  Train Loss: 3.0330, CER: 0.8496, WER: 0.8858
+  Val Loss: 2.0643, CER: 0.7158, WER: 0.8094
+  Time: 232.28 seconds
+
+Epoch 2/5:
+  Train Loss: 1.7121, CER: 0.5786, WER: 0.7404
+  Val Loss: 1.4183, CER: 0.4557, WER: 0.6770
+  Time: 222.44 seconds
+
+Epoch 3/5:
+  Train Loss: 1.1810, CER: 0.3894, WER: 0.6254
+  Val Loss: 1.0568, CER: 0.3373, WER: 0.5861
+  Time: 217.74 seconds
+
+Epoch 4/5:
+  Train Loss: 0.9048, CER: 0.2958, WER: 0.5405
+  Val Loss: 0.8924, CER: 0.2898, WER: 0.5469
+  Time: 243.08 seconds
+
+Epoch 5/5:
+  Train Loss: 0.7416, CER: 0.2427, WER: 0.4828
+  Val Loss: 0.7847, CER: 0.2477, WER: 0.5046
+  Time: 226.09 seconds
+
+Training with optimizer_with_lr (Adam, lr=0.001)=Adam_lr_0.001
+
+Epoch 1/5:
+  Train Loss: 4.1626, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.0564, CER: 1.0000, WER: 1.0000
+  Time: 245.38 seconds
+
+Epoch 2/5:
+  Train Loss: 4.0599, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.1018, CER: 1.0000, WER: 1.0000
+  Time: 205.59 seconds
+
+Epoch 3/5:
+  Train Loss: 4.0463, CER: 1.0000, WER: 1.0000
+  Val Loss: 3.9913, CER: 1.0000, WER: 1.0000
+  Time: 207.72 seconds
+
+Epoch 4/5:
+  Train Loss: 4.0411, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.0125, CER: 1.0000, WER: 1.0000
+  Time: 219.20 seconds
+
+Epoch 5/5:
+  Train Loss: 4.0371, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.0319, CER: 1.0000, WER: 1.0000
+  Time: 239.54 seconds
+
+Training with optimizer_with_lr (SGD, lr=0.0001)=SGD_lr_0.0001
+
+Epoch 1/5:
+  Train Loss: 4.4461, CER: 1.0000, WER: 1.0000
+  Val Loss: 3.8460, CER: 1.0000, WER: 1.0000
+  Time: 214.03 seconds
+
+Epoch 2/5:
+  Train Loss: 3.9709, CER: 1.0000, WER: 1.0000
+  Val Loss: 3.9421, CER: 1.0000, WER: 1.0000
+  Time: 224.52 seconds
+
+Epoch 3/5:
+  Train Loss: 3.8854, CER: 0.9819, WER: 0.9787
+  Val Loss: 3.8429, CER: 0.9878, WER: 0.9506
+  Time: 232.42 seconds
+
+Epoch 4/5:
+  Train Loss: 3.8421, CER: 0.9844, WER: 0.9548
+  Val Loss: 3.8189, CER: 0.9878, WER: 0.9506
+  Time: 235.67 seconds
+
+Epoch 5/5:
+  Train Loss: 3.8270, CER: 0.9862, WER: 0.9539
+  Val Loss: 3.8030, CER: 0.9878, WER: 0.9506
+  Time: 230.94 seconds
+
+Training with optimizer_with_lr (SGD, lr=0.001)=SGD_lr_0.001
+
+Epoch 1/5:
+  Train Loss: 4.2019, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.0556, CER: 1.0000, WER: 1.0000
+  Time: 239.90 seconds
+
+Epoch 2/5:
+  Train Loss: 4.0619, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.0156, CER: 1.0000, WER: 1.0000
+  Time: 236.74 seconds
+
+Epoch 3/5:
+  Train Loss: 4.0573, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.0226, CER: 1.0000, WER: 1.0000
+  Time: 240.32 seconds
+
+Epoch 4/5:
+  Train Loss: 4.0526, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.0193, CER: 1.0000, WER: 1.0000
+  Time: 210.65 seconds
+
+Epoch 5/5:
+  Train Loss: 4.0407, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.0750, CER: 1.0000, WER: 1.0000
+  Time: 209.97 seconds
+
+Training with optimizer_with_lr (RMSprop, lr=0.0001)=RMSprop_lr_0.0001
+
+Epoch 1/5:
+  Train Loss: 2.6959, CER: 0.8357, WER: 0.8633
+  Val Loss: 2.1403, CER: 0.7322, WER: 0.7842
+  Time: 212.04 seconds
+
+Epoch 2/5:
+  Train Loss: 1.8924, CER: 0.6492, WER: 0.7388
+  Val Loss: 1.6689, CER: 0.5776, WER: 0.7108
+  Time: 212.63 seconds
+
+Epoch 3/5:
+  Train Loss: 1.4600, CER: 0.5033, WER: 0.6749
+  Val Loss: 1.3531, CER: 0.4691, WER: 0.6765
+  Time: 211.74 seconds
+
+Epoch 4/5:
+  Train Loss: 1.0863, CER: 0.3684, WER: 0.6065
+  Val Loss: 0.9973, CER: 0.3312, WER: 0.5759
+  Time: 209.45 seconds
+
+Epoch 5/5:
+  Train Loss: 0.8422, CER: 0.2787, WER: 0.5275
+  Val Loss: 0.8655, CER: 0.2686, WER: 0.5355
+  Time: 209.83 seconds
+
+Training with optimizer_with_lr (RMSprop, lr=0.001)=RMSprop_lr_0.001
+
+Epoch 1/5:
+  Train Loss: 4.1227, CER: 1.0000, WER: 1.0000
+  Val Loss: 4.0717, CER: 1.0000, WER: 1.0000
+  Time: 210.55 seconds
+
+Epoch 2/5:
+  Train Loss: 4.0346, CER: 0.9952, WER: 0.9971
+  Val Loss: 3.4093, CER: 0.9111, WER: 0.9531
+  Time: 210.73 seconds
+
+Epoch 3/5:
+  Train Loss: 1.9436, CER: 0.6012, WER: 0.7734
+  Val Loss: 1.1003, CER: 0.3293, WER: 0.6043
+  Time: 212.34 seconds
+
+Epoch 4/5:
+  Train Loss: 0.8704, CER: 0.2545, WER: 0.5128
+  Val Loss: 0.7709, CER: 0.2287, WER: 0.4809
+  Time: 213.61 seconds
+
+Epoch 5/5:
+  Train Loss: 0.6465, CER: 0.1906, WER: 0.4254
+  Val Loss: 0.7474, CER: 0.2143, WER: 0.4730
+  Time: 212.58 seconds
+
+All results saved to comparison_results

@@ -1,0 +1,128 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+% Define colors for the optimizer
+\definecolor{OptimizerColor}{RGB}{31,119,180} % Blue for the optimizer
+
+\begin{document}
+\begin{tikzpicture}[remember picture]
+
+    % Plot 1: Loss
+    \begin{axis}[
+        name=plot1,
+        width=7cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={Loss},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=7.5,
+        ymin=3.8, ymax=4.2, % Adjusted based on data range
+        xtick={1,2,3,4,5,6,7},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={Loss},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers},
+        legend to name=commonlegend,
+        legend columns=2,
+        legend style={draw=none, fill=none, font=\footnotesize, column sep=0.1cm}
+    ]
+        % Train Loss
+        \addplot[color=OptimizerColor, thick] coordinates {
+            (1,4.16761) (2,4.04842) (3,4.03565) (4,4.03328) (5,4.00767) (6,3.93939) (7,3.92534)
+        };
+        % Validation Loss
+        \addplot[color=OptimizerColor, thick, dashed] coordinates {
+            (1,4.00399) (2,4.04752) (3,3.99715) (4,3.99842) (5,3.92962) (6,3.90385) (7,3.88090)
+        };
+        \legend{Train, Validation}
+    \end{axis}
+
+    % Plot 2: CER
+    \begin{axis}[
+        name=plot2,
+        at={($(plot1.east)+(2cm,0)$)},
+        anchor=west,
+        width=7cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={CER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=7.5,
+        ymin=0.95, ymax=1.05, % Adjusted based on data range
+        xtick={1,2,3,4,5,6,7},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={CER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % Train CER
+        \addplot[color=OptimizerColor, thick] coordinates {
+            (1,1.00000) (2,1.0) (3,1.0) (4,1.0) (5,1.0) (6,0.99617) (7,0.98528)
+        };
+        % Validation CER
+        \addplot[color=OptimizerColor, thick, dashed] coordinates {
+            (1,1.0) (2,1.0) (3,1.0) (4,1.0) (5,1.0) (6,0.98783) (7,1.0)
+        };
+    \end{axis}
+
+    % Plot 3: WER
+    \begin{axis}[
+        name=plot3,
+        at={($(plot2.east)+(2cm,0)$)},
+        anchor=west,
+        width=7cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={WER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=7.5,
+        ymin=0.95, ymax=1.05, % Adjusted based on data range
+        xtick={1,2,3,4,5,6,7},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={WER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % Train WER
+        \addplot[color=OptimizerColor, thick] coordinates {
+            (1,1.0) (2,1.0) (3,1.0) (4,1.0) (5,1.0) (6,0.99101) (7,0.97443)
+        };
+        % Validation WER
+        \addplot[color=OptimizerColor, thick, dashed] coordinates {
+            (1,1.0) (2,1.0) (3,1.0) (4,1.0) (5,1.0) (6,0.95058) (7,1.0)
+        };
+    \end{axis}
+
+    % Legend
+    \node at ($(plot1.south)!0.5!(plot3.south)+(0,-2cm)$) {\pgfplotslegendfromname{commonlegend}};
+
+\end{tikzpicture}
+\end{document}
