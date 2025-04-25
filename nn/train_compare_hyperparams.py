@@ -506,4 +506,4 @@ if __name__ == "__main__":
     }
 
     # Run tuning for selected parameters
-    run_hyperparameter_tuning(fixed_params, ['batch_size'], num_epochs=5)
+    run_hyperparameter_tuning(fixed_params, ['num_filters'], num_epochs=10)
