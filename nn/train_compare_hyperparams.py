@@ -502,8 +502,8 @@ if __name__ == "__main__":
         'optimizer': 'RMSprop',
         'learning_rate': 0.0001,
         'batch_size': 16,
-        'num_filters': 24
+        'num_filters': 48
     }
 
     # Run tuning for selected parameters
-    run_hyperparameter_tuning(fixed_params, ['num_filters'], num_epochs=10)
+    run_hyperparameter_tuning(fixed_params, ['hidden_size'], num_epochs=5)
