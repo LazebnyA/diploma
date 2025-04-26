@@ -408,6 +408,23 @@ def tune_parameter(paths, label_converter, mapping_files, output_dir,
                 )
 
                 results[config_key] = history
+
+    # New special case for num_filters + hidden_size combinations
+    elif param_name == "num_filters_with_hidden_size":
+        filter_hidden_pairs = param_values  # List of (num_filters, hidden_size) tuples
+
+        for num_filters, hidden_size in filter_hidden_pairs:
+            config_key = f"filters_{num_filters}_hidden_{hidden_size}"
+            current_config = base_config.copy()
+            current_config['num_filters'] = num_filters
+            current_config['n_h'] = hidden_size
+
+            history = train_and_evaluate_config(
+                current_config, f"{param_name} (filters={num_filters}, hidden={hidden_size})", config_key,
+                paths, label_converter, mapping_files, device, criterion, num_epochs
+            )
+
+            results[config_key] = history
     else:
         # Handle all other parameters
         for value in param_values:
@@ -439,7 +456,8 @@ def run_hyperparameter_tuning(fixed_params, params_to_tune=None, num_epochs=5):
     Args:
         fixed_params: Dictionary with fixed hyperparameters
         params_to_tune: List of parameter names to tune. Options are:
-                       'img_height', 'n_h', 'optimizer', 'batch_size', 'learning_rate', 'num_filters'
+                       'img_height', 'n_h', 'optimizer', 'batch_size', 'learning_rate', 'num_filters',
+                       'num_filters_with_hidden_size'
                        If None, tune all parameters.
         num_epochs: Number of epochs to train for each configuration
     """
@@ -456,7 +474,8 @@ def run_hyperparameter_tuning(fixed_params, params_to_tune=None, num_epochs=5):
         'batch_size': [4, 8, 16, 32],
         'learning_rate': [0.0001, 0.001],
         'num_filters': [24, 36, 48, 64],
-        'optimizer_with_lr': [["Adam", "SGD", "RMSprop"], [0.0001, 0.001]]  # Special case
+        'optimizer_with_lr': [["Adam", "SGD", "RMSprop"], [0.0001, 0.001]],  # Special case
+        'num_filters_with_hidden_size': [(24, 128), (36, 256), (48, 512), (64, 1024)]  # New combined parameter
     }
 
     # Store all results
@@ -466,6 +485,10 @@ def run_hyperparameter_tuning(fixed_params, params_to_tune=None, num_epochs=5):
     for param in params_to_tune:
         # Skip learning_rate if optimizer_with_lr is being tuned
         if param == 'learning_rate' and 'optimizer' in params_to_tune:
+            continue
+
+        # Skip n_h and num_filters if num_filters_with_hidden_size is being tuned
+        if (param == 'n_h' or param == 'num_filters') and 'num_filters_with_hidden_size' in params_to_tune:
             continue
 
         # Convert 'hidden_size' to 'n_h' if present (for backward compatibility)
@@ -505,5 +528,5 @@ if __name__ == "__main__":
         'num_filters': 48
     }
 
-    # Run tuning for selected parameters
-    run_hyperparameter_tuning(fixed_params, ['hidden_size'], num_epochs=5)
+    # Run tuning for the combined parameter num_filters_with_hidden_size
+    run_hyperparameter_tuning(fixed_params, ['num_filters_with_hidden_size'], num_epochs=5)
