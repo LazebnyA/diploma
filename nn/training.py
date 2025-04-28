@@ -18,7 +18,7 @@ from nn.v2.models import resnet18_htr_sequential
 torch.manual_seed(42)
 
 
-@logger_model_training(version="0", additional="CNN-BiLSTM-CTC_CNN_V0-n_h-512_n_f-48_2l")
+@logger_model_training(version="0", additional="CNN-BiLSTM-CTC_CNN_V0")
 @execution_time_decorator
 def main(version, additional):
     # Initialize nn paths
@@ -39,7 +39,7 @@ def main(version, additional):
         label_converter=label_converter
     )
 
-    batch_size = 8
+    batch_size = 16
 
     # Create DataLoader with the custom collate_fn.
     dataloader = DataLoader(dataset,
@@ -68,14 +68,14 @@ def main(version, additional):
     n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
 
     num_channels = 1
-    n_h = 512
+    n_h = 1024
 
-    model = CNN_LSTM_CTC_V0(
+    model = resnet18_htr_sequential(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
         n_h=n_h,
-        out_channels=48,
+        out_channels=64,
         lstm_layers=2
     )
 
@@ -97,7 +97,7 @@ def main(version, additional):
     # Define the CTCLoss and optimizer.
     criterion = nn.CTCLoss(blank=0, zero_infinity=True)
 
-    lr = 0.001
+    lr = 0.0001
     optimizer = optim.RMSprop(model.parameters(), lr=lr)
 
     num_epochs = 10
