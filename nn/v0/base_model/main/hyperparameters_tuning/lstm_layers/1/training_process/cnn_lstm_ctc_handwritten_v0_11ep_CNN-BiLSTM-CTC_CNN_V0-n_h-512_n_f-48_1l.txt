@@ -1,0 +1,94 @@
+Device: cuda
+
+Neural Network Architecture:
+CNN_LSTM_CTC_V0(
+  (cnn): Sequential(
+    (0): Conv2d(1, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ReLU(inplace=True)
+    (2): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (3): ReLU(inplace=True)
+    (4): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (5): Conv2d(48, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (6): ReLU(inplace=True)
+    (7): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (8): ReLU(inplace=True)
+    (9): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (10): Conv2d(96, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (11): ReLU(inplace=True)
+    (12): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (13): ReLU(inplace=True)
+  )
+  (lstm): LSTM(3072, 512, batch_first=True, bidirectional=True)
+  (fc): Linear(in_features=1024, out_features=80, bias=True)
+)
+
+Hyperparameters:
+img_height: 64
+num_channels: 1
+n_classes: 80
+n_h: 512
+optimizer: RMSprop (
+Parameter Group 0
+    alpha: 0.99
+    capturable: False
+    centered: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    lr: 0.001
+    maximize: False
+    momentum: 0
+    weight_decay: 0
+)
+learning_rate: 0.001
+criterion: CTCLoss()
+num_epochs: 10
+batch_size: 8
+transform: Resize with aspect ratio. Simple Transform
+dataset: IAM Lines Dataset (writer-independent split). Cleaned dataset
+Starting training process: 
+
+
+Epoch 1 Results:
+Training - Loss: 4.2755, CER: 1.0000, WER: 1.0000
+Validation - Loss: 4.1604, CER: 1.0000, WER: 1.0000
+
+Epoch 2 Results:
+Training - Loss: 4.1950, CER: 1.0000, WER: 1.0000
+Validation - Loss: 4.1758, CER: 1.0000, WER: 1.0000
+
+Epoch 3 Results:
+Training - Loss: 4.1827, CER: 1.0000, WER: 1.0000
+Validation - Loss: 4.0829, CER: 1.0000, WER: 1.0000
+
+Epoch 4 Results:
+Training - Loss: 4.0964, CER: 0.9892, WER: 0.9877
+Validation - Loss: 3.9741, CER: 0.9878, WER: 0.9506
+
+Epoch 5 Results:
+Training - Loss: 4.0696, CER: 0.9740, WER: 0.9744
+Validation - Loss: 4.0452, CER: 0.9276, WER: 0.9786
+
+Epoch 6 Results:
+Training - Loss: 4.0680, CER: 0.9718, WER: 0.9721
+Validation - Loss: 4.5133, CER: 0.9878, WER: 0.9506
+
+Epoch 7 Results:
+Training - Loss: 4.0677, CER: 0.9713, WER: 0.9723
+Validation - Loss: 3.9922, CER: 0.9276, WER: 0.9786
+
+Epoch 8 Results:
+Training - Loss: 4.0671, CER: 0.9707, WER: 0.9717
+Validation - Loss: 4.0018, CER: 0.9878, WER: 0.9506
+
+Epoch 9 Results:
+Training - Loss: 4.0660, CER: 0.9697, WER: 0.9707
+Validation - Loss: 4.0394, CER: 1.0000, WER: 1.0000
+
+Epoch 10 Results:
+Training - Loss: 4.0631, CER: 0.9702, WER: 0.9705
+Validation - Loss: 4.1139, CER: 0.9959, WER: 0.9922
+Model saved as cnn_lstm_ctc_handwritten_v0_word_10ep_CNN-BiLSTM-CTC_CNN_V0-n_h-512_n_f-48_1l.pth
+Time elapsed: 8411.473574399948
+Start time: 1745812288.8504958
+End time: 1745820700.3240702
