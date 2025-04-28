@@ -39,7 +39,7 @@ def main(version, additional):
         label_converter=label_converter
     )
 
-    batch_size = 8
+    batch_size = 16
 
     # Create DataLoader with the custom collate_fn.
     dataloader = DataLoader(dataset,
@@ -68,15 +68,15 @@ def main(version, additional):
     n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
 
     num_channels = 1
-    n_h = 256
+    n_h = 1024
 
-    model = CNN_LSTM_CTC_V0(
+    model = resnet18_htr_sequential(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
         n_h=n_h,
-        out_channels=24,
-        lstm_layers=1
+        out_channels=64,
+        lstm_layers=2
     )
 
     # Device configuration.
@@ -97,7 +97,7 @@ def main(version, additional):
     # Define the CTCLoss and optimizer.
     criterion = nn.CTCLoss(blank=0, zero_infinity=True)
 
-    lr = 0.001
+    lr = 0.0001
     optimizer = optim.RMSprop(model.parameters(), lr=lr)
 
     num_epochs = 10
