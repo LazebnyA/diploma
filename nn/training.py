@@ -9,7 +9,8 @@ from tqdm import tqdm
 
 from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training
-from nn.transform import get_simple_train_transform_v0, get_contrast_brightness_transform
+from nn.transform import get_simple_train_transform_v0, get_contrast_brightness_transform, \
+    get_contrast_brightness_noise_removal_transform
 from nn.utils import execution_time_decorator, greedy_decoder, calculate_metrics
 from nn.v0.models import CNN_LSTM_CTC_V0
 from nn.v1.models import CNN_LSTM_CTC_V1_CNN_deeper_vgg16like
@@ -35,7 +36,7 @@ def main(version, additional):
     dataset = IAMDataset(
         mapping_file=mapping_file,
         paths=paths,
-        transform=get_contrast_brightness_transform(),
+        transform=get_contrast_brightness_noise_removal_transform(),
         label_converter=label_converter
     )
 
@@ -53,7 +54,7 @@ def main(version, additional):
     validation_dataset = IAMDataset(
         mapping_file=validation_mapping_file,
         paths=paths,
-        transform=get_contrast_brightness_transform(),
+        transform=get_contrast_brightness_noise_removal_transform(),
         label_converter=label_converter
     )
 
@@ -90,7 +91,7 @@ def main(version, additional):
     # torch.save(model.state_dict(), model_filename)
 
     # Load initial random weights (hardcoded path)
-    weights_path = "CNN-BiLSTM-CTC_CNN_V0-n_h-512_n_f-48_2l_initial_weights.pth"
+    weights_path = "v0/base_model/main/hyperparameters_tuning/lstm_layers/2/parameters/CNN-BiLSTM-CTC_CNN_V0-n_h-512_n_f-48_2l_initial_weights.pth"
     model.load_state_dict(torch.load(weights_path, map_location=device))
     print(f"Loaded initial random weights from {weights_path}")
 

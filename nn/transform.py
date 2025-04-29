@@ -170,6 +170,13 @@ def get_contrast_brightness_otsu_transform():
         transforms.ToTensor()
     ])
 
+def get_otsu_noise_removal():
+    return transforms.Compose([
+        transforms.Lambda(lambda img: resize_aspect_ratio_add_padding(img)),
+        transforms.Lambda(remove_noise),
+        transforms.Lambda(otsu_binarization),
+        transforms.ToTensor()
+    ])
 
 def get_otsu_binarization_transform():
     return transforms.Compose([
