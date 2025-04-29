@@ -17,13 +17,13 @@
     % Графік 1: Loss
     \begin{axis}[
         name=plot1,
-        width=9cm, % Increased width for better visibility
-        height=10cm,
+        width=6cm, % Increased width for better visibility
+        height=8cm,
         xlabel={Епоха},
         ylabel={Loss},
         ylabel style={yshift=-0.15cm},
         xmin=0.5, xmax=5.5,
-        ymin=0, ymax=4.5, % Adjusted based on data range
+        ymin=0, ymax=4, % Adjusted based on data range
         xtick={1,2,3,4,5},
         grid=both,
         grid style={line width=.1pt, draw=gray!10},
@@ -89,8 +89,8 @@
         name=plot2,
         at={($(plot1.east)+(2cm,0)$)}, % Increased spacing for better visibility
         anchor=west,
-        width=9cm,
-        height=10cm,
+        width=6cm,
+        height=8cm,
         xlabel={Епоха},
         ylabel={CER},
         ylabel style={yshift=-0.15cm},
@@ -156,8 +156,8 @@
         name=plot3,
         at={($(plot2.east)+(2cm,0)$)},
         anchor=west,
-        width=9cm,
-        height=10cm,
+        width=6cm,
+        height=8cm,
         xlabel={Епоха},
         ylabel={WER},
         ylabel style={yshift=-0.15cm},

@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training
-from nn.transform import get_simple_train_transform_v0
+from nn.transform import get_simple_train_transform_v0, get_contrast_brightness_transform
 from nn.utils import execution_time_decorator, greedy_decoder, calculate_metrics
 from nn.v0.models import CNN_LSTM_CTC_V0
 from nn.v1.models import CNN_LSTM_CTC_V1_CNN_deeper_vgg16like
@@ -18,7 +18,7 @@ from nn.v2.models import resnet18_htr_sequential
 torch.manual_seed(42)
 
 
-@logger_model_training(version="0", additional="CNN-BiLSTM-CTC_CNN_V0")
+@logger_model_training(version="0", additional="CNN-BiLSTM-CTC_resnet18")
 @execution_time_decorator
 def main(version, additional):
     # Initialize nn paths
@@ -35,7 +35,7 @@ def main(version, additional):
     dataset = IAMDataset(
         mapping_file=mapping_file,
         paths=paths,
-        transform=get_simple_train_transform_v0(img_height=img_height),
+        transform=get_contrast_brightness_transform(),
         label_converter=label_converter
     )
 
@@ -53,7 +53,7 @@ def main(version, additional):
     validation_dataset = IAMDataset(
         mapping_file=validation_mapping_file,
         paths=paths,
-        transform=get_simple_train_transform_v0(img_height=img_height),
+        transform=get_contrast_brightness_transform(),
         label_converter=label_converter
     )
 
@@ -85,14 +85,14 @@ def main(version, additional):
     model.to(device)
     print(f"Device: {device}")
 
-    base_filename = f"{additional}_initial_weights"
-    model_filename = f"{base_filename}.pth"
-    torch.save(model.state_dict(), model_filename)
+    # base_filename = f"{additional}_initial_weights"
+    # model_filename = f"{base_filename}.pth"
+    # torch.save(model.state_dict(), model_filename)
 
     # Load initial random weights (hardcoded path)
-    # weights_path = "v1/deeper/1_vgg16like/parameters/CNN-BiLSTM-CTC_CNN_V1_vgg16like_initial_weights.pth"
-    # model.load_state_dict(torch.load(weights_path, map_location=device))
-    # print(f"Loaded initial random weights from {weights_path}")
+    weights_path = "v1/deeper/1_vgg16like/parameters/CNN-BiLSTM-CTC_CNN_V1_vgg16like_initial_weights.pth"
+    model.load_state_dict(torch.load(weights_path, map_location=device))
+    print(f"Loaded initial random weights from {weights_path}")
 
     # Define the CTCLoss and optimizer.
     criterion = nn.CTCLoss(blank=0, zero_infinity=True)
@@ -100,7 +100,7 @@ def main(version, additional):
     lr = 0.0001
     optimizer = optim.RMSprop(model.parameters(), lr=lr)
 
-    num_epochs = 10
+    num_epochs = 3
 
     model.train()
 
@@ -139,6 +139,14 @@ def main(version, additional):
         print(f"{key}: {value}")
 
     print("Starting training process: \n")
+
+    # Early stopping variables
+    patience = 10  # Number of epochs to wait for improvement
+    no_improvement_count = 0
+    best_val_cer = float('inf')
+    best_epoch = 0
+    early_stopping = False
+
     try:
         for epoch in range(num_epochs):
             # ---- TRAINING LOOP ----
@@ -231,22 +239,57 @@ def main(version, additional):
             print(f"Training - Loss: {avg_train_loss:.4f}, CER: {train_cer:.4f}, WER: {train_wer:.4f}")
             print(f"Validation - Loss: {avg_val_loss:.4f}, CER: {val_cer:.4f}, WER: {val_wer:.4f}")
 
+            # Early stopping check
+            if val_cer < best_val_cer:
+                best_val_cer = val_cer
+                best_epoch = epoch
+                no_improvement_count = 0
+
+                # Save the best model
+                best_model_filename = f"cnn_lstm_ctc_handwritten_v{version}_word_best_{additional}.pth"
+                torch.save(model.state_dict(), best_model_filename)
+                print(f"New best model saved with validation CER: {best_val_cer:.4f}")
+            else:
+                no_improvement_count += 1
+                print(
+                    f"No improvement in validation CER for {no_improvement_count} epochs. Best CER: {best_val_cer:.4f} at epoch {best_epoch + 1}")
+
+            if no_improvement_count >= patience:
+                print(
+                    f"\nEarly stopping triggered! No improvement in validation CER for {patience} consecutive epochs.")
+                print(f"Best validation CER: {best_val_cer:.4f} achieved at epoch {best_epoch + 1}")
+                early_stopping = True
+                break
+
     except KeyboardInterrupt:
         print("Training interrupted by user.")
     finally:
-        # Save training history after each epoch
-        base_filename = f"cnn_lstm_ctc_handwritten_v{version}_word_{epoch + 1}ep_{additional}"
+        # Save training history
+        completed_epochs = epoch + 1 if 'epoch' in locals() else 0
+        base_filename = f"cnn_lstm_ctc_handwritten_v{version}_word_{completed_epochs}ep_{additional}"
         history_file = f"{base_filename}.json"
         with open(history_file, 'w') as f:
             json.dump(training_history, f, indent=4)
 
-        # Save the model_params using the number of epochs actually completed.
-        base_filename = f"cnn_lstm_ctc_handwritten_v{version}_word_{epoch + 1}ep_{additional}"
+        # Save the model using the number of epochs actually completed
         model_filename = f"{base_filename}.pth"
         torch.save(model.state_dict(), model_filename)
         print(f"Model saved as {model_filename}")
 
-    return {"completed_epochs": epoch + 1}
+        # Load and return the best model if early stopping was triggered
+        if early_stopping and best_epoch < completed_epochs - 1:
+            best_model_filename = f"cnn_lstm_ctc_handwritten_v{version}_word_best_{additional}.pth"
+            model.load_state_dict(torch.load(best_model_filename))
+            print(f"Loaded best model from epoch {best_epoch + 1}")
+
+    result = {
+        "completed_epochs": completed_epochs,
+        "best_epoch": best_epoch + 1 if 'best_epoch' in locals() else None,
+        "best_val_cer": best_val_cer if 'best_val_cer' in locals() else None,
+        "early_stopping_triggered": early_stopping
+    }
+
+    return result
 
 
 if __name__ == '__main__':

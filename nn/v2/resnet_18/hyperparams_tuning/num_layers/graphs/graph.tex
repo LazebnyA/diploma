@@ -1,0 +1,163 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+% Define colors for different configurations
+\definecolor{config1Color}{RGB}{31,119,180}   % Blue for 1 layer
+\definecolor{config2Color}{RGB}{255,127,14}   % Orange for 2 layers
+
+\begin{document}
+\begin{tikzpicture}[remember picture]
+
+    % Графік 1: Loss
+    \begin{axis}[
+        name=plot1,
+        width=6cm,
+        height=8cm,
+        xlabel={Епоха},
+        ylabel={Loss},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=5.5,
+        ymin=0.2, ymax=1.9,
+        xtick={1,2,3,4,5},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={Loss},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers},
+        legend to name=commonlegend,
+        legend columns=2,
+        legend style={draw=none, fill=none, font=\footnotesize, column sep=0.1cm}
+    ]
+        % 1 Layer Train
+        \addplot[color=config1Color, thick] coordinates {
+            (1,1.30183) (2,0.60721) (3,0.47900) (4,0.40525) (5,0.34270)
+        };
+
+        % 1 Layer Validation
+        \addplot[color=config1Color, thick, dashed] coordinates {
+            (1,0.84384) (2,0.57365) (3,0.50587) (4,0.43817) (5,0.44595)
+        };
+
+        % 2 Layers Train
+        \addplot[color=config2Color, thick] coordinates {
+            (1,1.78137) (2,0.64947) (3,0.46367) (4,0.36630) (5,0.29745)
+        };
+
+        % 2 Layers Validation
+        \addplot[color=config2Color, thick, dashed] coordinates {
+            (1,0.97440) (2,0.77302) (3,0.48328) (4,0.71315) (5,0.42349)
+        };
+
+        \legend{1 Layer Tr, 1 Layer Val, 2 Layers Tr, 2 Layers Val}
+    \end{axis}
+
+    % Графік 2: CER
+    \begin{axis}[
+        name=plot2,
+        at={($(plot1.east)+(2cm,0)$)},
+        anchor=west,
+        width=6cm,
+        height=8cm,
+        xlabel={Епоха},
+        ylabel={CER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=5.5,
+        ymin=0.0, ymax=0.6,
+        ytick={0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={CER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % 1 Layer Train
+        \addplot[color=config1Color, thick] coordinates {
+            (1,0.37741) (2,0.17794) (3,0.14158) (4,0.12177) (5,0.10492)
+        };
+
+        % 1 Layer Validation
+        \addplot[color=config1Color, thick, dashed] coordinates {
+            (1,0.26913) (2,0.16426) (3,0.14789) (4,0.12431) (5,0.12672)
+        };
+
+        % 2 Layers Train
+        \addplot[color=config2Color, thick] coordinates {
+            (1,0.58923) (2,0.19422) (3,0.13764) (4,0.11079) (5,0.09240)
+        };
+
+        % 2 Layers Validation
+        \addplot[color=config2Color, thick, dashed] coordinates {
+            (1,0.29736) (2,0.18879) (3,0.13784) (4,0.16483) (5,0.11549)
+        };
+    \end{axis}
+
+    % Графік 3: WER
+    \begin{axis}[
+        name=plot3,
+        at={($(plot2.east)+(2cm,0)$)},
+        anchor=west,
+        width=6cm,
+        height=8cm,
+        xlabel={Епоха},
+        ylabel={WER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=5.5,
+        ymin=0.2, ymax=0.8,
+        ytick={0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={WER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % 1 Layer Train
+        \addplot[color=config1Color, thick] coordinates {
+            (1,0.61969) (2,0.41742) (3,0.35393) (4,0.31551) (5,0.28171)
+        };
+
+        % 1 Layer Validation
+        \addplot[color=config1Color, thick, dashed] coordinates {
+            (1,0.54339) (2,0.40326) (3,0.37340) (4,0.33254) (5,0.33485)
+        };
+
+        % 2 Layers Train
+        \addplot[color=config2Color, thick] coordinates {
+            (1,0.70747) (2,0.42426) (3,0.33720) (4,0.28874) (5,0.25206)
+        };
+
+        % 2 Layers Validation
+        \addplot[color=config2Color, thick, dashed] coordinates {
+            (1,0.55238) (2,0.44537) (3,0.34897) (4,0.41663) (5,0.30587)
+        };
+    \end{axis}
+
+    % Легенда
+    \node at ($(plot1.south)!0.5!(plot3.south)+(0,-1.5cm)$) {\pgfplotslegendfromname{commonlegend}};
+
+\end{tikzpicture}
+\end{document}

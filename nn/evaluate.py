@@ -12,18 +12,20 @@ import json
 import seaborn as sns
 import pandas as pd
 
-from nn.archive.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
-from nn.transform import get_simple_train_transform_v0
+from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
+from nn.transform import get_simple_train_transform_v0, get_simple_recognize_transform
 from nn.utils import execution_time_decorator, calculate_metrics
 from nn.logger import evaluation_logger  # Assuming you have this
 from nn.v0.models import CNN_LSTM_CTC_V0
 from nn.utils import greedy_decoder
+from nn.v2.models import resnet18_htr_sequential
 
 # Hyperparameters
-IMG_HEIGHT = 32
+IMG_HEIGHT = 64
 NUM_CHANNELS = 1
-N_H = 256
-BATCH_SIZE = 8
+OUT_CHANNELS = 64
+N_H = 1024
+BATCH_SIZE = 1
 
 torch.manual_seed(42)
 
@@ -275,6 +277,7 @@ def evaluate():
     img_height = IMG_HEIGHT
     batch_size = BATCH_SIZE
     num_channels = NUM_CHANNELS
+    out_channels = OUT_CHANNELS
     n_h = N_H
 
     paths = ProjectPaths()
@@ -283,14 +286,14 @@ def evaluate():
     print("\n===== Starting Test Set Evaluation =====")
 
     # Create evaluation results directory if it doesn't exist
-    eval_dir = "evaluation_results"
+    eval_dir = "v2/evaluation_on_test_set/evaluation_results"
     os.makedirs(eval_dir, exist_ok=True)
 
     # Load test dataset
-    # test_mapping_file = "tests/test_self_wr_base/dataset/dataset.txt"
-    test_mapping_file = "dataset/writer_independent_word_splits/test_word_mappings.txt"
+    test_mapping_file = "tests/test_self_wr_base/dataset/dataset.txt"
+    # test_mapping_file = "dataset/writer_independent_word_splits/preprocessed/test_word_mappings.txt"
 
-    label_converter_mapping = "dataset/writer_independent_word_splits/train_word_mappings.txt"
+    label_converter_mapping = "dataset/writer_independent_word_splits/preprocessed/train_word_mappings.txt"
 
     label_converter = LabelConverter(label_converter_mapping, paths)
     n_classes = 80
@@ -298,7 +301,7 @@ def evaluate():
     test_dataset = IAMDataset(
         mapping_file=test_mapping_file,
         paths=paths,
-        transform=get_simple_train_transform_v0(img_height),
+        transform=get_simple_recognize_transform(),
         label_converter=label_converter
     )
 
@@ -309,18 +312,20 @@ def evaluate():
         collate_fn=collate_fn
     )
 
-    model = CNN_LSTM_CTC_V0(
+    model = resnet18_htr_sequential(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
-        n_h=n_h
+        out_channels=out_channels,
+        n_h=n_h,
+        lstm_layers=1
     )
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.to(device)
     print(f"Device: {device}")
 
-    weights_path = ("./cnn_lstm_ctc_handwritten_v0_word_16ep_CNN-BiLSTM-CTC_CNN_V0"
+    weights_path = ("cnn_lstm_ctc_handwritten_v0_word_best_resnet18"
                     ".pth")
     model.load_state_dict(torch.load(weights_path, map_location=device))
     print(f"Loaded initial random weights from {weights_path}")

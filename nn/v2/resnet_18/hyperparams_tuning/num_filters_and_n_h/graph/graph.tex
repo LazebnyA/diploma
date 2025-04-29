@@ -1,15 +1,225 @@
-%! Author = Professional
-%! Date = 4/27/2025
+\documentclass[border=5pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
 
-% Preamble
-\documentclass[11pt]{article}
+% Define colors for different configurations
+\definecolor{config1Color}{RGB}{31,119,180}   % Blue for filters 24, hidden 128
+\definecolor{config2Color}{RGB}{255,127,14}   % Orange for filters 36, hidden 256
+\definecolor{config3Color}{RGB}{44,160,44}    % Green for filters 48, hidden 512
+\definecolor{config4Color}{RGB}{148,103,189}  % Purple for filters 64, hidden 1024
 
-% Packages
-\usepackage{amsmath}
-
-% Document
 \begin{document}
+\begin{tikzpicture}[remember picture]
 
+    % Графік 1: Loss
+    \begin{axis}[
+        name=plot1,
+        width=6cm,
+        height=8cm,
+        xlabel={Епоха},
+        ylabel={Loss},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=5.5,
+        ymin=0.25, ymax=2,
+        xtick={1,2,3,4,5},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={Loss},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers},
+        legend to name=commonlegend,
+        legend columns=4,
+        legend style={draw=none, fill=none, font=\footnotesize, column sep=0.1cm}
+    ]
+        % Filters 24, Hidden 128 Train
+        \addplot[color=config1Color, thick] coordinates {
+            (1,1.85809) (2,0.82484) (3,0.66281) (4,0.57495) (5,0.52076)
+        };
 
+        % Filters 24, Hidden 128 Validation
+        \addplot[color=config1Color, thick, dashed] coordinates {
+            (1,0.98934) (2,0.70828) (3,0.64117) (4,0.59452) (5,0.57039)
+        };
 
+        % Filters 36, Hidden 256 Train
+        \addplot[color=config2Color, thick] coordinates {
+            (1,1.54973) (2,0.71554) (3,0.57569) (4,0.49563) (5,0.44427)
+        };
+
+        % Filters 36, Hidden 256 Validation
+        \addplot[color=config2Color, thick, dashed] coordinates {
+            (1,0.86747) (2,0.67285) (3,0.55916) (4,0.51025) (5,0.48157)
+        };
+
+        % Filters 48, Hidden 512 Train
+        \addplot[color=config3Color, thick] coordinates {
+            (1,1.37324) (2,0.65201) (3,0.52062) (4,0.44148) (5,0.38624)
+        };
+
+        % Filters 48, Hidden 512 Validation
+        \addplot[color=config3Color, thick, dashed] coordinates {
+            (1,0.81958) (2,0.60877) (3,0.50600) (4,0.48473) (5,0.56554)
+        };
+
+        % Filters 64, Hidden 1024 Train
+        \addplot[color=config4Color, thick] coordinates {
+            (1,1.34747) (2,0.61169) (3,0.47741) (4,0.39763) (5,0.33764)
+        };
+
+        % Filters 64, Hidden 1024 Validation
+        \addplot[color=config4Color, thick, dashed] coordinates {
+            (1,0.69818) (2,0.58089) (3,0.47485) (4,0.44624) (5,0.44162)
+        };
+
+        \legend{24/128 Tr, 24/128 Val, 36/256 Tr, 36/256 Val, 48/512 Tr, 48/512 Val, 64/1024 Tr, 64/1024 Val}
+    \end{axis}
+
+    % Графік 2: CER
+    \begin{axis}[
+        name=plot2,
+        at={($(plot1.east)+(2cm,0)$)},
+        anchor=west,
+        width=6cm,
+        height=8cm,
+        xlabel={Епоха},
+        ylabel={CER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=5.5,
+        ymin=0.1, ymax=0.6,
+        xtick={1,2,3,4,5},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={CER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % Filters 24, Hidden 128 Train
+        \addplot[color=config1Color, thick] coordinates {
+            (1,0.53043) (2,0.23534) (3,0.19089) (4,0.16803) (5,0.15283)
+        };
+
+        % Filters 24, Hidden 128 Validation
+        \addplot[color=config1Color, thick, dashed] coordinates {
+            (1,0.28225) (2,0.20156) (3,0.18195) (4,0.17187) (5,0.16520)
+        };
+
+        % Filters 36, Hidden 256 Train
+        \addplot[color=config2Color, thick] coordinates {
+            (1,0.44865) (2,0.20665) (3,0.16711) (4,0.14639) (5,0.13133)
+        };
+
+        % Filters 36, Hidden 256 Validation
+        \addplot[color=config2Color, thick, dashed] coordinates {
+            (1,0.25896) (2,0.19726) (3,0.15975) (4,0.14579) (5,0.13523)
+        };
+
+        % Filters 48, Hidden 512 Train
+        \addplot[color=config3Color, thick] coordinates {
+            (1,0.40273) (2,0.19157) (3,0.15298) (4,0.13238) (5,0.11672)
+        };
+
+        % Filters 48, Hidden 512 Validation
+        \addplot[color=config3Color, thick, dashed] coordinates {
+            (1,0.24114) (2,0.18474) (3,0.14493) (4,0.14125) (5,0.16394)
+        };
+
+        % Filters 64, Hidden 1024 Train
+        \addplot[color=config4Color, thick] coordinates {
+            (1,0.39595) (2,0.17832) (3,0.14142) (4,0.11943) (5,0.10336)
+        };
+
+        % Filters 64, Hidden 1024 Validation
+        \addplot[color=config4Color, thick, dashed] coordinates {
+            (1,0.20096) (2,0.16851) (3,0.13464) (4,0.12049) (5,0.12161)
+        };
+    \end{axis}
+
+    % Графік 3: WER
+    \begin{axis}[
+        name=plot3,
+        at={($(plot2.east)+(2cm,0)$)},
+        anchor=west,
+        width=6cm,
+        height=8cm,
+        xlabel={Епоха},
+        ylabel={WER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=5.5,
+        ymin=0.25, ymax=0.8,
+        xtick={1,2,3,4,5},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={WER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % Filters 24, Hidden 128 Train
+        \addplot[color=config1Color, thick] coordinates {
+            (1,0.73204) (2,0.50215) (3,0.43699) (4,0.39754) (5,0.37343)
+        };
+
+        % Filters 24, Hidden 128 Validation
+        \addplot[color=config1Color, thick, dashed] coordinates {
+            (1,0.57300) (2,0.46380) (3,0.42969) (4,0.41432) (5,0.40907)
+        };
+
+        % Filters 36, Hidden 256 Train
+        \addplot[color=config2Color, thick] coordinates {
+            (1,0.67864) (2,0.46084) (3,0.39959) (4,0.36380) (5,0.33525)
+        };
+
+        % Filters 36, Hidden 256 Validation
+        \addplot[color=config2Color, thick, dashed] coordinates {
+            (1,0.53539) (2,0.45686) (3,0.40026) (4,0.36978) (5,0.35509)
+        };
+
+        % Filters 48, Hidden 512 Train
+        \addplot[color=config3Color, thick] coordinates {
+            (1,0.64042) (2,0.43849) (3,0.37403) (4,0.33768) (5,0.30703)
+        };
+
+        % Filters 48, Hidden 512 Validation
+        \addplot[color=config3Color, thick, dashed] coordinates {
+            (1,0.52308) (2,0.43837) (3,0.37003) (4,0.36671) (5,0.40832)
+        };
+
+        % Filters 64, Hidden 1024 Train
+        \addplot[color=config4Color, thick] coordinates {
+            (1,0.63054) (2,0.41613) (3,0.35450) (4,0.31271) (5,0.27988)
+        };
+
+        % Filters 64, Hidden 1024 Validation
+        \addplot[color=config4Color, thick, dashed] coordinates {
+            (1,0.45924) (2,0.41132) (3,0.35216) (4,0.32779) (5,0.32411)
+        };
+    \end{axis}
+
+    % Легенда
+    \node at ($(plot1.south)!0.5!(plot3.south)+(0,-1.5cm)$) {\pgfplotslegendfromname{commonlegend}};
+
+\end{tikzpicture}
 \end{document}
