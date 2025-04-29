@@ -68,14 +68,14 @@ def main(version, additional):
     n_classes = len(label_converter.chars) + 1  # +1 for CTC blank char
 
     num_channels = 1
-    n_h = 1024
+    n_h = 512
 
-    model = resnet18_htr_sequential(
+    model = CNN_LSTM_CTC_V0(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
         n_h=n_h,
-        out_channels=64,
+        out_channels=48,
         lstm_layers=2
     )
 
@@ -90,7 +90,7 @@ def main(version, additional):
     # torch.save(model.state_dict(), model_filename)
 
     # Load initial random weights (hardcoded path)
-    weights_path = "v2/resnet_18/hyperparams_tuning/num_layers/2/parameters/CNN-BiLSTM-CTC_resnet18_initial_weights.pth"
+    weights_path = "CNN-BiLSTM-CTC_CNN_V0-n_h-512_n_f-48_2l_initial_weights.pth"
     model.load_state_dict(torch.load(weights_path, map_location=device))
     print(f"Loaded initial random weights from {weights_path}")
 
