@@ -77,7 +77,7 @@ def resize_with_aspect(img, target_height):
 
 
 # 1. Adjust contrast and brightness
-def adjust_contrast_brightness(img: Image.Image, contrast_factor=2, brightness_factor=2) -> Image.Image:
+def adjust_contrast_brightness(img: Image.Image, contrast_factor=1.5, brightness_factor=1.2) -> Image.Image:
     img = ImageEnhance.Contrast(img).enhance(contrast_factor)
     img = ImageEnhance.Brightness(img).enhance(brightness_factor)
     return img
@@ -146,6 +146,7 @@ def straighten_image_with_hough(img: Image.Image) -> Image.Image:
 
 def get_contrast_brightness_transform(img_height):
     return transforms.Compose([
+        transforms.Grayscale(),
         transforms.Lambda(lambda img: resize_with_aspect(img, img_height)),
         transforms.Lambda(adjust_contrast_brightness),
         transforms.ToTensor()
@@ -154,6 +155,7 @@ def get_contrast_brightness_transform(img_height):
 
 def get_clahe_transform(img_height):
     return transforms.Compose([
+        transforms.Grayscale(),
         transforms.Lambda(lambda img: resize_with_aspect(img, img_height)),
         transforms.Lambda(clahe_contrast_adjustment),
         transforms.ToTensor()
@@ -162,6 +164,7 @@ def get_clahe_transform(img_height):
 
 def get_noise_removal_transform(img_height):
     return transforms.Compose([
+        transforms.Grayscale(),
         transforms.Lambda(lambda img: resize_with_aspect(img, img_height)),
         transforms.Lambda(remove_noise),
         transforms.ToTensor()
@@ -230,7 +233,7 @@ def display_images_vertical(img, img_height):
 # Main script to load image and display all transforms.
 ###############################################
 if __name__ == "__main__":
-    img_path = "img_5.png"
+    img_path = "img_3.png"
     if not os.path.exists(img_path):
         print(f"Image not found at {img_path}. Please ensure the image file 'img.png' is in the current directory.")
     else:

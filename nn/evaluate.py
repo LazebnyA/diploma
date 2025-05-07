@@ -1,4 +1,5 @@
 import os
+import re
 
 import torch
 import torch.nn.functional as F
@@ -14,11 +15,12 @@ import pandas as pd
 
 from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.transform import get_simple_train_transform_v0, get_simple_recognize_transform
+from nn.transform_2 import get_validation_transform
 from nn.utils import execution_time_decorator, calculate_metrics
 from nn.logger import evaluation_logger  # Assuming you have this
 from nn.v0.models import CNN_LSTM_CTC_V0
 from nn.utils import greedy_decoder
-from nn.v2.models import resnet18_htr_sequential
+from nn.v2.models import resnet18_htr_sequential, resnet18_htr_sequential_v2
 
 # Hyperparameters
 IMG_HEIGHT = 64
@@ -28,7 +30,8 @@ N_H = 1024
 BATCH_SIZE = 1
 
 torch.manual_seed(42)
-
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
 
 def calculate_individual_metrics(predictions, ground_truths):
     """
@@ -290,7 +293,8 @@ def evaluate():
     os.makedirs(eval_dir, exist_ok=True)
 
     # Load test dataset
-    test_mapping_file = "tests/test_self_wr_base/dataset/dataset.txt"
+    test_self_wr_mapping_file = "tests/test_self_wr_base/dataset/dataset.txt"
+    # test_online_wr_mapping_file = "tests/test_online_handwriting/dataset.txt"
     # test_mapping_file = "dataset/writer_independent_word_splits/preprocessed/test_word_mappings.txt"
 
     label_converter_mapping = "dataset/writer_independent_word_splits/preprocessed/train_word_mappings.txt"
@@ -299,9 +303,9 @@ def evaluate():
     n_classes = 80
 
     test_dataset = IAMDataset(
-        mapping_file=test_mapping_file,
+        mapping_file=test_self_wr_mapping_file,
         paths=paths,
-        transform=get_simple_recognize_transform(),
+        transform=get_validation_transform(),
         label_converter=label_converter
     )
 
@@ -312,7 +316,7 @@ def evaluate():
         collate_fn=collate_fn
     )
 
-    model = resnet18_htr_sequential(
+    model = resnet18_htr_sequential_v2(
         img_height=img_height,
         num_channels=num_channels,
         n_classes=n_classes,
@@ -325,7 +329,8 @@ def evaluate():
     model.to(device)
     print(f"Device: {device}")
 
-    weights_path = ("cnn_lstm_ctc_handwritten_v0_word_best_resnet18"
+    weights_path = ("v2/resnet_18/data_preprocessing/6_height_by_4/parameters"
+                    "/cnn_lstm_ctc_handwritten_v0_word_best_CNN-BiLSTM-CTC_resnet18"
                     ".pth")
     model.load_state_dict(torch.load(weights_path, map_location=device))
     print(f"Loaded initial random weights from {weights_path}")
@@ -362,7 +367,8 @@ def evaluate():
             start = 0
             for length in target_lengths:
                 gt = targets[start:start + length].cpu().tolist()
-                decoded = label_converter.decode(gt)
+                decoded = label_converter.decode_gt(gt)
+
                 batch_ground_truths.append(decoded)
                 start += length
 

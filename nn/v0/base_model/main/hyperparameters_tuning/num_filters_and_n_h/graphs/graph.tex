@@ -1,0 +1,203 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+% Define colors for different configurations
+\definecolor{Filters24Color}{RGB}{31,119,180}   % Blue for 24 filters
+\definecolor{Filters36Color}{RGB}{44,160,44}    % Green for 36 filters
+\definecolor{Filters48Color}{RGB}{214,39,40}    % Red for 48 filters
+\definecolor{Filters64Color}{RGB}{148,103,189}  % Purple for 64 filters
+
+\begin{document}
+\begin{tikzpicture}[remember picture]
+
+    % Plot 1: Loss
+    \begin{axis}[
+        name=plot1,
+        width=6cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={Loss},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=5.5,
+        ymin=0.2, ymax=4.0,
+        xtick={1,2,3,4,5},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={Loss},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers},
+        legend to name=commonlegend,
+        legend columns=4,
+        legend style={draw=none, fill=none, font=\footnotesize, column sep=0.1cm}
+    ]
+        % 24 filters (128 hidden) Train
+        \addplot[color=Filters24Color, thick] coordinates {
+            (1,3.55446) (2,2.10240) (3,1.53885) (4,1.18899) (5,0.97743)
+        };
+        % 24 filters (128 hidden) Validation
+        \addplot[color=Filters24Color, thick, dashed] coordinates {
+            (1,2.45916) (2,1.79588) (3,1.35510) (4,1.09565) (5,0.96528)
+        };
+        % 36 filters (256 hidden) Train
+        \addplot[color=Filters36Color, thick] coordinates {
+            (1,2.82566) (2,1.46887) (3,0.99252) (4,0.76257) (5,0.62364)
+        };
+        % 36 filters (256 hidden) Validation
+        \addplot[color=Filters36Color, thick, dashed] coordinates {
+            (1,1.85802) (2,1.19820) (3,0.90456) (4,0.76485) (5,0.71271)
+        };
+        % 48 filters (512 hidden) Train
+        \addplot[color=Filters48Color, thick] coordinates {
+            (1,2.41178) (2,1.07436) (3,0.69317) (4,0.52243) (5,0.40732)
+        };
+        % 48 filters (512 hidden) Validation
+        \addplot[color=Filters48Color, thick, dashed] coordinates {
+            (1,1.48476) (2,0.86099) (3,0.67934) (4,0.60844) (5,0.57732)
+        };
+        % 64 filters (1024 hidden) Train
+        \addplot[color=Filters64Color, thick] coordinates {
+            (1,2.34642) (2,0.90880) (3,0.58511) (4,0.41764) (5,0.29131)
+        };
+        % 64 filters (1024 hidden) Validation
+        \addplot[color=Filters64Color, thick, dashed] coordinates {
+            (1,1.23117) (2,0.75093) (3,0.63953) (4,0.56882) (5,0.57797)
+        };
+        \legend{24/128 Tr, 24/128 Val, 36/256 Tr, 36/256 Val, 48/512 Tr, 48/512 Val, 64/1024 Tr, 64/1024 Val}
+    \end{axis}
+
+    % Plot 2: CER
+    \begin{axis}[
+        name=plot2,
+        at={($(plot1.east)+(2cm,0)$)},
+        anchor=west,
+        width=6cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={CER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=5.5,
+        ymin=0.05, ymax=1.0,
+        xtick={1,2,3,4,5},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={CER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % 24 filters (128 hidden) Train
+        \addplot[color=Filters24Color, thick] coordinates {
+            (1,0.91819) (2,0.68718) (3,0.49211) (4,0.37737) (5,0.31224)
+        };
+        % 24 filters (128 hidden) Validation
+        \addplot[color=Filters24Color, thick, dashed] coordinates {
+            (1,0.80736) (2,0.57400) (3,0.41934) (4,0.35090) (5,0.30417)
+        };
+        % 36 filters (256 hidden) Train
+        \addplot[color=Filters36Color, thick] coordinates {
+            (1,0.79921) (2,0.47326) (3,0.31847) (4,0.24360) (5,0.19967)
+        };
+        % 36 filters (256 hidden) Validation
+        \addplot[color=Filters36Color, thick, dashed] coordinates {
+            (1,0.60301) (2,0.38699) (3,0.28836) (4,0.23758) (5,0.22211)
+        };
+        % 48 filters (512 hidden) Train
+        \addplot[color=Filters48Color, thick] coordinates {
+            (1,0.72382) (2,0.35172) (3,0.22230) (4,0.16920) (5,0.13514)
+        };
+        % 48 filters (512 hidden) Validation
+        \addplot[color=Filters48Color, thick, dashed] coordinates {
+            (1,0.51489) (2,0.27771) (3,0.20780) (4,0.18781) (5,0.17061)
+        };
+        % 64 filters (1024 hidden) Train
+        \addplot[color=Filters64Color, thick] coordinates {
+            (1,0.69651) (2,0.29914) (3,0.19114) (4,0.13907) (5,0.10204)
+        };
+        % 64 filters (1024 hidden) Validation
+        \addplot[color=Filters64Color, thick, dashed] coordinates {
+            (1,0.40879) (2,0.24373) (3,0.20426) (4,0.17305) (5,0.16794)
+        };
+    \end{axis}
+
+    % Plot 3: WER
+    \begin{axis}[
+        name=plot3,
+        at={($(plot2.east)+(2cm,0)$)},
+        anchor=west,
+        width=6cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={WER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=5.5,
+        ymin=0.2, ymax=1.0,
+        xtick={1,2,3,4,5},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={WER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % 24 filters (128 hidden) Train
+        \addplot[color=Filters24Color, thick] coordinates {
+            (1,0.93386) (2,0.80557) (3,0.70746) (4,0.63031) (5,0.57278)
+        };
+        % 24 filters (128 hidden) Validation
+        \addplot[color=Filters24Color, thick, dashed] coordinates {
+            (1,0.87274) (2,0.75042) (3,0.65846) (4,0.61061) (5,0.57038)
+        };
+        % 36 filters (256 hidden) Train
+        \addplot[color=Filters36Color, thick] coordinates {
+            (1,0.86643) (2,0.69155) (3,0.57374) (4,0.49270) (5,0.43539)
+        };
+        % 36 filters (256 hidden) Validation
+        \addplot[color=Filters36Color, thick, dashed] coordinates {
+            (1,0.76548) (2,0.63535) (3,0.55126) (4,0.49029) (5,0.47186)
+        };
+        % 48 filters (512 hidden) Train
+        \addplot[color=Filters48Color, thick] coordinates {
+            (1,0.82016) (2,0.59577) (3,0.46110) (4,0.38574) (5,0.32881)
+        };
+        % 48 filters (512 hidden) Validation
+        \addplot[color=Filters48Color, thick, dashed] coordinates {
+            (1,0.71537) (2,0.53695) (3,0.45480) (4,0.42881) (5,0.40845)
+        };
+        % 64 filters (1024 hidden) Train
+        \addplot[color=Filters64Color, thick] coordinates {
+            (1,0.80530) (2,0.54836) (3,0.41952) (4,0.33837) (5,0.27128)
+        };
+        % 64 filters (1024 hidden) Validation
+        \addplot[color=Filters64Color, thick, dashed] coordinates {
+            (1,0.64947) (2,0.49478) (3,0.45543) (4,0.40826) (5,0.40626)
+        };
+    \end{axis}
+
+    % Legend
+    \node at ($(plot1.south)!0.5!(plot3.south)+(0,-2cm)$) {\pgfplotslegendfromname{commonlegend}};
+
+\end{tikzpicture}
+\end{document}

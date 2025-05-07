@@ -1,0 +1,141 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+% Define colors for different configurations
+\definecolor{config1Color}{RGB}{31,119,180}   % Blue for training
+\definecolor{config2Color}{RGB}{255,127,14}   % Orange for validation
+
+\begin{document}
+\begin{tikzpicture}[remember picture]
+
+    % Графік 1: Loss
+    \begin{axis}[
+        name=plot1,
+        width=6cm,
+        height=8cm,
+        xlabel={Епоха},
+        ylabel={Loss},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=10.5,
+        ymin=0.3, ymax=2.6,
+        xtick={1,2,3,4,5,6,7,8,9,10},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={Loss},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers},
+        legend to name=commonlegend,
+        legend columns=2,
+        legend style={draw=none, fill=none, font=\footnotesize, column sep=0.1cm}
+    ]
+        % Train Loss
+        \addplot[color=config1Color, thick] coordinates {
+            (1,2.53265) (2,1.26245) (3,0.74155) (4,0.59300) (5,0.51177)
+            (6,0.45805) (7,0.41730) (8,0.38286) (9,0.35813) (10,0.33386)
+        };
+
+        % Validation Loss
+        \addplot[color=config2Color, thick, dashed] coordinates {
+            (1,1.74065) (2,0.89508) (3,0.65114) (4,0.56471) (5,0.53839)
+            (6,0.51759) (7,0.49380) (8,0.50672) (9,0.47933) (10,0.49620)
+        };
+
+        \legend{Training, Validation}
+    \end{axis}
+
+    % Графік 2: CER
+    \begin{axis}[
+        name=plot2,
+        at={($(plot1.east)+(2cm,0)$)},
+        anchor=west,
+        width=6cm,
+        height=8cm,
+        xlabel={Епоха},
+        ylabel={CER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=10.5,
+        ymin=0.0, ymax=0.9,
+        xtick={1,2,3,4,5,6,7,8,9,10},
+        ytick={0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={CER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % Train CER
+        \addplot[color=config1Color, thick] coordinates {
+            (1,0.80088) (2,0.41209) (3,0.22191) (4,0.17606) (5,0.15331)
+            (6,0.13889) (7,0.12796) (8,0.11768) (9,0.11183) (10,0.10578)
+        };
+
+        % Validation CER
+        \addplot[color=config2Color, thick, dashed] coordinates {
+            (1,0.61251) (2,0.27762) (3,0.19183) (4,0.16421) (5,0.15598)
+            (6,0.14587) (7,0.14168) (8,0.14031) (9,0.13353) (10,0.13698)
+        };
+    \end{axis}
+
+    % Графік 3: WER
+    \begin{axis}[
+        name=plot3,
+        at={($(plot2.east)+(2cm,0)$)},
+        anchor=west,
+        width=6cm,
+        height=8cm,
+        xlabel={Епоха},
+        ylabel={WER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=10.5,
+        ymin=0.2, ymax=0.9,
+        xtick={1,2,3,4,5,6,7,8,9,10},
+        ytick={0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={WER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % Train WER
+        \addplot[color=config1Color, thick] coordinates {
+            (1,0.84672) (2,0.63390) (3,0.46938) (4,0.40371) (5,0.36631)
+            (6,0.34220) (7,0.32238) (8,0.30384) (9,0.29205) (10,0.27956)
+        };
+
+        % Validation WER
+        \addplot[color=config2Color, thick, dashed] coordinates {
+            (1,0.72550) (2,0.54326) (3,0.43975) (4,0.39470) (5,0.38258)
+            (6,0.36547) (7,0.35703) (8,0.36178) (9,0.34223) (10,0.35091)
+        };
+    \end{axis}
+
+    % Легенда
+    \node at ($(plot1.south)!0.5!(plot3.south)+(0,-1.5cm)$) {\pgfplotslegendfromname{commonlegend}};
+
+\end{tikzpicture}
+\end{document}

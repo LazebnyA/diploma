@@ -1,0 +1,644 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+% Define colors for different configurations
+\definecolor{config1Color}{RGB}{31,119,180}   % Blue for no preprocessing
+\definecolor{config2Color}{RGB}{255,127,14}   % Orange for preprocessing
+\definecolor{config3Color}{RGB}{44,160,44}    % Green for preprocessing del 1 max pool
+
+\begin{document}
+\begin{tikzpicture}[remember picture]
+
+    % Графік 1: Loss
+    \begin{axis}[
+        name=plot1,
+        width=6cm,
+        height=8cm,
+        xlabel={Епоха},
+        ylabel={Loss},
+        ylabel style={yshift=-0.15cm},
+        xmin=1, xmax=26,
+        ymin=0, ymax=2.5,
+        xtick={5,10,15,20,25,30,35},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={Loss},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers},
+        legend to name=commonlegend,
+        legend columns=3,
+        legend style={draw=none, fill=none, font=\footnotesize, column sep=0.1cm}
+    ]
+        % No Preprocessing Train
+        \addplot[color=config1Color, thick] table {
+            1 1.30116
+            2 0.61406
+            3 0.48404
+            4 0.40497
+            5 0.34333
+            6 0.29369
+            7 0.24775
+            8 0.20953
+            9 0.17083
+            10 0.14210
+            11 0.11796
+            12 0.09762
+            13 0.08473
+            14 0.07445
+            15 0.06620
+            16 0.05769
+            17 0.05389
+            18 0.04702
+            19 0.04085
+            20 0.03733
+            21 0.03362
+            22 0.03053
+            23 0.02736
+            24 0.02374
+            25 0.02233
+            26 0.02015
+        };
+
+        % No Preprocessing Validation
+        \addplot[color=config1Color, thick, dashed] table {
+            1 0.81156
+            2 0.56169
+            3 0.51164
+            4 0.50097
+            5 0.42847
+            6 0.75217
+            7 0.41831
+            8 0.42509
+            9 0.40778
+            10 0.52101
+            11 0.45369
+            12 0.46288
+            13 0.49964
+            14 0.52492
+            15 0.67540
+            16 0.50931
+            17 0.54859
+            18 0.56264
+            19 0.61753
+            20 0.59036
+            21 0.61369
+            22 0.63757
+            23 0.62683
+            24 0.63759
+            25 0.64999
+            26 0.65084
+        };
+
+        % Preprocessing Train
+        \addplot[color=config2Color, thick] table {
+            1 1.90957
+            2 1.02504
+            3 0.85812
+            4 0.76283
+            5 0.69554
+            6 0.64724
+            7 0.61361
+            8 0.58521
+            9 0.55447
+            10 0.52763
+            11 0.50514
+            12 0.47908
+            13 0.46625
+            14 0.44714
+            15 0.43207
+            16 0.42167
+            17 0.40275
+            18 0.39336
+            19 0.37950
+            20 0.36757
+            21 0.35759
+            22 0.34791
+            23 0.33908
+            24 0.33075
+            25 0.31821
+            26 0.31661
+        };
+
+        % Preprocessing Validation
+        \addplot[color=config2Color, thick, dashed] table {
+            1 0.89070
+            2 0.65732
+            3 0.62258
+            4 0.54343
+            5 0.51344
+            6 0.48350
+            7 0.44507
+            8 0.45144
+            9 0.44093
+            10 0.41130
+            11 0.41353
+            12 0.40360
+            13 0.41724
+            14 0.40939
+            15 0.40215
+            16 0.40325
+            17 0.39161
+            18 0.39598
+            19 0.39520
+            20 0.41014
+            21 0.41567
+            22 0.40605
+            23 0.39620
+            24 0.40360
+            25 0.39932
+            26 0.40380
+        };
+
+        % Preprocessing Del 1 Max Pool Train
+        \addplot[color=config3Color, thick] table {
+            1 2.03013
+            2 1.10753
+            3 0.92360
+            4 0.82544
+            5 0.75291
+            6 0.70224
+            7 0.67217
+            8 0.63190
+            9 0.60465
+            10 0.58097
+            11 0.55317
+            12 0.53291
+            13 0.52326
+            14 0.50370
+            15 0.48539
+            16 0.47154
+            17 0.46012
+            18 0.44637
+            19 0.43769
+            20 0.42756
+            21 0.41416
+            22 0.40585
+            23 0.39307
+            24 0.38384
+            25 0.37803
+            26 0.37059
+        };
+
+        % Preprocessing Del 1 Max Pool Validation
+        \addplot[color=config3Color, thick, dashed] table {
+            1 1.09128
+            2 0.71793
+            3 0.64088
+            4 0.58225
+            5 0.52067
+            6 0.51795
+            7 0.49221
+            8 0.47069
+            9 0.45656
+            10 0.44761
+            11 0.43835
+            12 0.43066
+            13 0.42594
+            14 0.41291
+            15 0.40454
+            16 0.41331
+            17 0.39535
+            18 0.40827
+            19 0.40873
+            20 0.42304
+            21 0.41947
+            22 0.40775
+            23 0.39794
+            24 0.39814
+            25 0.41076
+            26 0.40929
+        };
+
+        \legend{No Prep Tr, No Prep Val, Prep v1 Tr, Prep v1 Val, Prep v2 Tr, Prep v2 Val}
+    \end{axis}
+
+    % Графік 2: CER
+    \begin{axis}[
+        name=plot2,
+        at={($(plot1.east)+(2cm,0)$)},
+        anchor=west,
+        width=6cm,
+        height=8cm,
+        xlabel={Епоха},
+        ylabel={CER},
+        ylabel style={yshift=-0.15cm},
+        xmin=1, xmax=26,
+        ymin=0, ymax=0.7,
+        xtick={5,10,15,20,25,30,35},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={CER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % No Preprocessing Train
+        \addplot[color=config1Color, thick] table {
+            1 0.37750
+            2 0.17884
+            3 0.14295
+            4 0.12129
+            5 0.10427
+            6 0.09131
+            7 0.08002
+            8 0.07034
+            9 0.06013
+            10 0.05281
+            11 0.04687
+            12 0.04203
+            13 0.03867
+            14 0.03624
+            15 0.03443
+            16 0.03251
+            17 0.03159
+            18 0.03056
+            19 0.02943
+            20 0.02881
+            21 0.02812
+            22 0.02764
+            23 0.02696
+            24 0.02667
+            25 0.02642
+            26 0.02598
+        };
+
+        % No Preprocessing Validation
+        \addplot[color=config1Color, thick, dashed] table {
+            1 0.25438
+            2 0.15998
+            3 0.15041
+            4 0.13260
+            5 0.11966
+            6 0.17135
+            7 0.11380
+            8 0.11061
+            9 0.10604
+            10 0.13422
+            11 0.10662
+            12 0.10777
+            13 0.11195
+            14 0.11057
+            15 0.13902
+            16 0.10492
+            17 0.11026
+            18 0.10636
+            19 0.11254
+            20 0.10702
+            21 0.10892
+            22 0.11093
+            23 0.11017
+            24 0.10842
+            25 0.10853
+            26 0.10949
+        };
+
+        % Preprocessing Train
+        \addplot[color=config2Color, thick] table {
+            1 0.56957
+            2 0.31705
+            3 0.26714
+            4 0.24007
+            5 0.22134
+            6 0.20580
+            7 0.19676
+            8 0.18932
+            9 0.17899
+            10 0.17208
+            11 0.16491
+            12 0.15850
+            13 0.15511
+            14 0.15004
+            15 0.14502
+            16 0.14286
+            17 0.13767
+            18 0.13433
+            19 0.13039
+            20 0.12667
+            21 0.12460
+            22 0.12188
+            23 0.11942
+            24 0.11684
+            25 0.11383
+            26 0.11300
+        };
+
+        % Preprocessing Validation
+        \addplot[color=config2Color, thick, dashed] table {
+            1 0.27809
+            2 0.19654
+            3 0.18744
+            4 0.16392
+            5 0.15030
+            6 0.14268
+            7 0.13077
+            8 0.12971
+            9 0.12789
+            10 0.11888
+            11 0.11706
+            12 0.11316
+            13 0.11698
+            14 0.11491
+            15 0.11253
+            16 0.11057
+            17 0.10745
+            18 0.10704
+            19 0.10725
+            20 0.10811
+            21 0.10995
+            22 0.10409
+            23 0.10475
+            24 0.10448
+            25 0.10455
+            26 0.10357
+        };
+
+        % Preprocessing Del 1 Max Pool Train
+        \addplot[color=config3Color, thick] table {
+            1 0.60630
+            2 0.32865
+            3 0.27441
+            4 0.24380
+            5 0.22321
+            6 0.20855
+            7 0.19841
+            8 0.18666
+            9 0.17823
+            10 0.17061
+            11 0.16239
+            12 0.15648
+            13 0.15308
+            14 0.14806
+            15 0.14283
+            16 0.13794
+            17 0.13452
+            18 0.13092
+            19 0.12839
+            20 0.12601
+            21 0.12147
+            22 0.11880
+            23 0.11538
+            24 0.11310
+            25 0.11095
+            26 0.10979
+        };
+
+        % Preprocessing Del 1 Max Pool Validation
+        \addplot[color=config3Color, thick, dashed] table {
+            1 0.30963
+            2 0.20351
+            3 0.17748
+            4 0.15554
+            5 0.13973
+            6 0.13908
+            7 0.12394
+            8 0.12136
+            9 0.11192
+            10 0.11542
+            11 0.10952
+            12 0.10542
+            13 0.10353
+            14 0.09634
+            15 0.09463
+            16 0.09786
+            17 0.09087
+            18 0.09306
+            19 0.09199
+            20 0.09325
+            21 0.08705
+            22 0.08966
+            23 0.08479
+            24 0.08548
+            25 0.08615
+            26 0.08546
+        };
+    \end{axis}
+
+    % Графік 3: WER
+    \begin{axis}[
+        name=plot3,
+        at={($(plot2.east)+(2cm,0)$)},
+        anchor=west,
+        width=6cm,
+        height=8cm,
+        xlabel={Епоха},
+        ylabel={WER},
+        ylabel style={yshift=-0.15cm},
+        xmin=1, xmax=26,
+        ymin=0, ymax=0.9,
+        xtick={5,10,15,20,25,30,35},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={WER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=1mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % No Preprocessing Train
+        \addplot[color=config1Color, thick] table {
+            1 0.62041
+            2 0.41768
+            3 0.35669
+            4 0.31560
+            5 0.28114
+            6 0.25464
+            7 0.23070
+            8 0.20897
+            9 0.18536
+            10 0.16765
+            11 0.15377
+            12 0.14081
+            13 0.13260
+            14 0.12601
+            15 0.12164
+            16 0.11639
+            17 0.11429
+            18 0.11099
+            19 0.10768
+            20 0.10590
+            21 0.10389
+            22 0.10236
+            23 0.09980
+            24 0.09870
+            25 0.09831
+            26 0.09676
+        };
+
+        % No Preprocessing Validation
+        \addplot[color=config1Color, thick, dashed] table {
+            1 0.51759
+            2 0.39733
+            3 0.37933
+            4 0.35272
+            5 0.32555
+            6 0.45905
+            7 0.31143
+            8 0.30518
+            9 0.29568
+            10 0.35772
+            11 0.30074
+            12 0.30218
+            13 0.30943
+            14 0.30655
+            15 0.38121
+            16 0.29556
+            17 0.30374
+            18 0.29643
+            19 0.31043
+            20 0.29562
+            21 0.30037
+            22 0.30618
+            23 0.30693
+            24 0.30149
+            25 0.30131
+            26 0.30287
+        };
+
+        % Preprocessing Train
+        \addplot[color=config2Color, thick] table {
+            1 0.75038
+            2 0.55598
+            3 0.49926
+            4 0.46134
+            5 0.43396
+            6 0.41152
+            7 0.39676
+            8 0.38573
+            9 0.36919
+            10 0.35774
+            11 0.34888
+            12 0.34032
+            13 0.33102
+            14 0.32264
+            15 0.31712
+            16 0.30991
+            17 0.30171
+            18 0.29607
+            19 0.29183
+            20 0.28334
+            21 0.28099
+            22 0.27646
+            23 0.27162
+            24 0.26675
+            25 0.26213
+            26 0.25931
+        };
+
+        % Preprocessing Validation
+        \addplot[color=config2Color, thick, dashed] table {
+            1 0.54245
+            2 0.44381
+            3 0.42844
+            4 0.38945
+            5 0.36553
+            6 0.35335
+            7 0.32686
+            8 0.33011
+            9 0.32661
+            10 0.30993
+            11 0.31043
+            12 0.29987
+            13 0.30574
+            14 0.30387
+            15 0.29818
+            16 0.29200
+            17 0.28438
+            18 0.28594
+            19 0.28275
+            20 0.28719
+            21 0.28887
+            22 0.27938
+            23 0.28400
+            24 0.27907
+            25 0.28069
+            26 0.27663
+        };
+
+        % Preprocessing Del 1 Max Pool Train
+        \addplot[color=config3Color, thick] table {
+            1 0.77760
+            2 0.57372
+            3 0.50769
+            4 0.46394
+            5 0.43438
+            6 0.41018
+            7 0.39419
+            8 0.37354
+            9 0.36190
+            10 0.34798
+            11 0.33223
+            12 0.32478
+            13 0.31826
+            14 0.30888
+            15 0.29889
+            16 0.29180
+            17 0.28546
+            18 0.27872
+            19 0.27178
+            20 0.26766
+            21 0.25938
+            22 0.25498
+            23 0.24777
+            24 0.24352
+            25 0.23958
+            26 0.23714
+        };
+
+        % Preprocessing Del 1 Max Pool Validation
+        \addplot[color=config3Color, thick, dashed] table {
+            1 0.61130
+            2 0.45380
+            3 0.41326
+            4 0.37671
+            5 0.34291
+            6 0.34010
+            7 0.31542
+            8 0.30724
+            9 0.28775
+            10 0.29006
+            11 0.27732
+            12 0.27051
+            13 0.26994
+            14 0.25320
+            15 0.24827
+            16 0.25776
+            17 0.24214
+            18 0.24439
+            19 0.24727
+            20 0.24958
+            21 0.23533
+            22 0.24158
+            23 0.22896
+            24 0.23146
+            25 0.23102
+            26 0.23177
+        };
+    \end{axis}
+
+    % Легенда
+    \node at ($(plot1.south)!0.5!(plot3.south)+(0,-1.5cm)$) {\pgfplotslegendfromname{commonlegend}};
+
+\end{tikzpicture}
+\end{document}

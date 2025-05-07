@@ -1,3 +1,4 @@
+import os
 import sys
 import json
 
@@ -9,18 +10,16 @@ from tqdm import tqdm
 
 from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training
-from nn.transform import get_simple_train_transform_v0, get_contrast_brightness_transform, \
-    get_contrast_brightness_noise_removal_transform
+from nn.transform_2 import get_training_transform, get_validation_transform
 from nn.utils import execution_time_decorator, greedy_decoder, calculate_metrics
 from nn.v0.models import CNN_LSTM_CTC_V0
 from nn.v1.models import CNN_LSTM_CTC_V1_CNN_deeper_vgg16like
-from nn.v2.models import resnet18_htr_sequential
+from nn.v2.models import resnet18_htr_sequential, resnet18_htr_sequential_v2
 
 torch.manual_seed(42)
 
 
-@logger_model_training(version="0", additional="CNN-BiLSTM-CTC_resnet18")
-@execution_time_decorator
+@logger_model_training(version="0", additional="CNN-BiLSTM-CTC_V0")
 def main(version, additional):
     # Initialize nn paths
     paths = ProjectPaths()
@@ -36,11 +35,11 @@ def main(version, additional):
     dataset = IAMDataset(
         mapping_file=mapping_file,
         paths=paths,
-        transform=get_contrast_brightness_noise_removal_transform(),
+        transform=get_training_transform(),
         label_converter=label_converter
     )
 
-    batch_size = 16
+    batch_size = 8
 
     # Create DataLoader with the custom collate_fn.
     dataloader = DataLoader(dataset,
@@ -49,12 +48,12 @@ def main(version, additional):
                             collate_fn=collate_fn,
                             )
 
-    validation_mapping_file = "dataset/writer_independent_word_splits/preprocessed/val_word_mappings.txt"
+    validation_mapping_file = "dataset/writer_independent_word_splits/preprocessed_80_10_10/val_word_mappings.txt"
 
     validation_dataset = IAMDataset(
         mapping_file=validation_mapping_file,
         paths=paths,
-        transform=get_contrast_brightness_noise_removal_transform(),
+        transform=get_validation_transform(),
         label_converter=label_converter
     )
 
@@ -77,7 +76,7 @@ def main(version, additional):
         n_classes=n_classes,
         n_h=n_h,
         out_channels=48,
-        lstm_layers=2
+        lstm_layers=1
     )
 
     # Device configuration.
@@ -86,12 +85,12 @@ def main(version, additional):
     model.to(device)
     print(f"Device: {device}")
 
-    # base_filename = f"{additional}_initial_weights"
-    # model_filename = f"{base_filename}.pth"
-    # torch.save(model.state_dict(), model_filename)
+    base_filename = f"{additional}_initial_weights"
+    model_filename = f"{base_filename}.pth"
+    torch.save(model.state_dict(), model_filename)
 
     # Load initial random weights (hardcoded path)
-    weights_path = "v0/base_model/main/hyperparameters_tuning/lstm_layers/2/parameters/CNN-BiLSTM-CTC_CNN_V0-n_h-512_n_f-48_2l_initial_weights.pth"
+    weights_path = "parameters/CNN-BiLSTM-CTC_V0_initial_weights.pth"
     model.load_state_dict(torch.load(weights_path, map_location=device))
     print(f"Loaded initial random weights from {weights_path}")
 
@@ -101,7 +100,18 @@ def main(version, additional):
     lr = 0.0001
     optimizer = optim.RMSprop(model.parameters(), lr=lr)
 
-    num_epochs = 3
+    start_epoch = 0
+    checkpoint_path = 'checkpoint.pth'
+    if os.path.exists(checkpoint_path):
+        checkpoint = torch.load(checkpoint_path, map_location=device)
+        model.load_state_dict(checkpoint['model_state_dict'])
+        optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+        start_epoch = checkpoint.get('epoch', 0) + 1  # Resume from next epoch
+        print(f"Resuming training from checkpoint at epoch {start_epoch}")
+    else:
+        print("No checkpoint found. Starting training from scratch.")
+
+    num_epochs = 100
 
     model.train()
 
@@ -130,7 +140,7 @@ def main(version, additional):
         "criterion": str(criterion),
         "num_epochs": num_epochs,
         "batch_size": batch_size,
-        "transform": "Resize with aspect ratio. Simple Transform",
+        "transform": "Resize with aspect ratio. Data Preprocessing + Augmentation",
         "dataset": "IAM Lines Dataset (writer-independent split). Cleaned dataset"
     }
 
@@ -149,7 +159,7 @@ def main(version, additional):
     early_stopping = False
 
     try:
-        for epoch in range(num_epochs):
+        for epoch in range(start_epoch, num_epochs):
             # ---- TRAINING LOOP ----
             model.train()
             train_loss = 0
@@ -187,7 +197,7 @@ def main(version, additional):
                 start = 0
                 for length in target_lengths:
                     gt = targets[start:start + length].cpu().tolist()
-                    decoded = label_converter.decode(gt)
+                    decoded = label_converter.decode_gt(gt)
                     train_ground_truths.append(decoded)
                     start += length
 
@@ -220,7 +230,7 @@ def main(version, additional):
                     start = 0
                     for length in target_lengths:
                         gt = targets[start:start + length].cpu().tolist()
-                        decoded = label_converter.decode(gt)
+                        decoded = label_converter.decode_gt(gt)
                         val_ground_truths.append(decoded)
                         start += length
 
@@ -249,6 +259,13 @@ def main(version, additional):
                 # Save the best model
                 best_model_filename = f"cnn_lstm_ctc_handwritten_v{version}_word_best_{additional}.pth"
                 torch.save(model.state_dict(), best_model_filename)
+                checkpoint = {
+                    'epoch': epoch,
+                    'model_state_dict': model.state_dict(),
+                    'optimizer_state_dict': optimizer.state_dict(),
+                    'loss': avg_train_loss
+                }
+                torch.save(checkpoint, 'checkpoint.pth')
                 print(f"New best model saved with validation CER: {best_val_cer:.4f}")
             else:
                 no_improvement_count += 1

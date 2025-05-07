@@ -6,12 +6,14 @@ from PIL import Image
 # Base directory
 BASE_DIR = r'C:\uni\Diploma'
 
+
 def get_form_id_from_image_path(image_path):
     filename = os.path.basename(image_path)
     parts = filename.split('-')
     if len(parts) < 2:
         raise ValueError(f"Unexpected filename format: {filename}")
     return '-'.join(parts[:2])
+
 
 def build_form_to_writer_map(metadata_folder):
     form_to_writer = {}
@@ -32,10 +34,12 @@ def build_form_to_writer_map(metadata_folder):
             print(f"Error parsing {fname}: {e}")
     return form_to_writer
 
+
 def is_suspicious(width, height, word):
     return (width > 700 and height < 280 and len(word) < 8) or width > 1207
 
-def writer_independent_split(word_mappings_file, metadata_folder, output_dir, ratios=(0.7, 0.15, 0.15)):
+
+def writer_independent_split(word_mappings_file, metadata_folder, output_dir, ratios=(0.8, 0.1, 0.1)):
     if sum(ratios) != 1.0:
         raise ValueError("Split ratios must sum to 1.0")
 
@@ -171,6 +175,7 @@ def writer_independent_split(word_mappings_file, metadata_folder, output_dir, ra
             for line in suspicious_log:
                 f_log.write(f"{line}\n")
         print(f"Filtered {len(suspicious_log)} suspicious entries (saved to 'suspicious_filtered.txt').")
+
 
 if __name__ == "__main__":
     WORD_MAPPINGS_FILE = "word_mappings.txt"

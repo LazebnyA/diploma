@@ -110,9 +110,23 @@ def get_augment_transform():
 # ----- Image preprocessing modifications ----- #
 
 # 1. Adjust contrast and brightness
-def adjust_contrast_brightness(img: Image.Image, contrast_factor=2, brightness_factor=2) -> Image.Image:
+def adjust_contrast_brightness_sharpness(
+    img: Image.Image,
+    contrast_factor: float = 1.5,
+    brightness_factor: float = 1.2,
+    sharpness_factor: float = 1.3
+) -> Image.Image:
+    """
+    Покращує контраст і яскравість зображення.
+
+    :param img: Вхідне зображення PIL.
+    :param contrast_factor: Фактор контрасту (1.0 — без змін).
+    :param brightness_factor: Фактор яскравості (1.0 — без змін).
+    :return: Модифіковане зображення.
+    """
     img = ImageEnhance.Contrast(img).enhance(contrast_factor)
     img = ImageEnhance.Brightness(img).enhance(brightness_factor)
+    img = ImageEnhance.Sharpness(img).enhance(sharpness_factor)
     return img
 
 
@@ -186,12 +200,23 @@ def get_otsu_binarization_transform():
     ])
 
 
-def get_full_transform():
+def get_augmented_and_preprocessed_training_transform():
     return transforms.Compose([
-        transforms.Grayscale(num_output_channels=1),
+        transforms.Lambda(remove_noise),  # легке згладження
+        transforms.RandomRotation(degrees=5),
+        transforms.RandomAffine(degrees=0, translate=(0.05, 0.05)),
+        transforms.ColorJitter(brightness=0.2, contrast=0.2),
+        transforms.Lambda(lambda img: random_distortion(img)),
+        transforms.ToTensor(),
+        transforms.Lambda(lambda t: add_gaussian_noise(t, std=0.02))
+    ])
+
+
+def get_validation_transform():
+    return transforms.Compose([
         transforms.Lambda(lambda img: resize_aspect_ratio_add_padding(img)),
-        transforms.Lambda(remove_noise),
-        transforms.Lambda(adjust_contrast_brightness),
-        transforms.Lambda(otsu_binarization),
+        transforms.Lambda(remove_noise),                 # зменшення шуму
+        transforms.Lambda(adjust_contrast_brightness),  # покращення видимості тексту
+        transforms.Lambda(otsu_binarization),           # бінаризація зображення
         transforms.ToTensor()
     ])

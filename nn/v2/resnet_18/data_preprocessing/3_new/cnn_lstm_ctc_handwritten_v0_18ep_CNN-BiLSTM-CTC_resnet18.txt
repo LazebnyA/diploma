@@ -1,0 +1,218 @@
+Device: cuda
+Loaded initial random weights from v2/resnet_18/hyperparams_tuning/num_layers/1/parameters/CNN-BiLSTM-CTC_CNN_V0_initial_weights.pth
+
+Neural Network Architecture:
+ResNet_BiLSTM_CTC(
+  (cnn): Sequential(
+    (0): Conv2d(1, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+    (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): ResidualBlock(
+      (conv_path): Sequential(
+        (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (shortcut): Identity()
+    )
+    (4): ResidualBlock(
+      (conv_path): Sequential(
+        (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (shortcut): Identity()
+    )
+    (5): MaxPool2d(kernel_size=2, stride=(2, 2), padding=0, dilation=1, ceil_mode=False)
+    (6): ResidualBlock(
+      (conv_path): Sequential(
+        (0): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (shortcut): Sequential(
+        (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (7): ResidualBlock(
+      (conv_path): Sequential(
+        (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (4): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (shortcut): Identity()
+    )
+    (8): MaxPool2d(kernel_size=2, stride=(2, 2), padding=0, dilation=1, ceil_mode=False)
+    (9): ResidualBlock(
+      (conv_path): Sequential(
+        (0): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (shortcut): Sequential(
+        (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (10): ResidualBlock(
+      (conv_path): Sequential(
+        (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (shortcut): Identity()
+    )
+    (11): MaxPool2d(kernel_size=(2, 1), stride=(2, 1), padding=0, dilation=1, ceil_mode=False)
+    (12): ResidualBlock(
+      (conv_path): Sequential(
+        (0): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (4): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (shortcut): Sequential(
+        (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+        (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+    )
+    (13): ResidualBlock(
+      (conv_path): Sequential(
+        (0): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (4): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (shortcut): Identity()
+    )
+    (14): Identity()
+  )
+  (lstm): LSTM(4096, 1024, batch_first=True, bidirectional=True)
+  (fc): Linear(in_features=2048, out_features=80, bias=True)
+)
+
+Hyperparameters:
+img_height: 64
+num_channels: 1
+n_classes: 80
+n_h: 1024
+optimizer: RMSprop (
+Parameter Group 0
+    alpha: 0.99
+    capturable: False
+    centered: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    lr: 0.0001
+    maximize: False
+    momentum: 0
+    weight_decay: 0
+)
+learning_rate: 0.0001
+criterion: CTCLoss()
+num_epochs: 100
+batch_size: 16
+transform: Resize with aspect ratio. Data Preprocessing + Augmentation
+dataset: IAM Lines Dataset (writer-independent split). Cleaned dataset
+Starting training process: 
+
+
+Epoch 1 Results:
+Training - Loss: 3.4566, CER: 0.9288, WER: 0.9506
+Validation - Loss: 3.1713, CER: 0.8797, WER: 0.9379
+New best model saved with validation CER: 0.8797
+
+Epoch 2 Results:
+Training - Loss: 3.0251, CER: 0.8039, WER: 0.9139
+Validation - Loss: 2.8100, CER: 0.7434, WER: 0.8831
+New best model saved with validation CER: 0.7434
+
+Epoch 3 Results:
+Training - Loss: 2.8268, CER: 0.7325, WER: 0.8756
+Validation - Loss: 2.6547, CER: 0.6746, WER: 0.8378
+New best model saved with validation CER: 0.6746
+
+Epoch 4 Results:
+Training - Loss: 2.7235, CER: 0.6939, WER: 0.8487
+Validation - Loss: 2.5973, CER: 0.6458, WER: 0.8185
+New best model saved with validation CER: 0.6458
+
+Epoch 5 Results:
+Training - Loss: 2.6642, CER: 0.6750, WER: 0.8324
+Validation - Loss: 2.5544, CER: 0.6382, WER: 0.8057
+New best model saved with validation CER: 0.6382
+
+Epoch 6 Results:
+Training - Loss: 2.6224, CER: 0.6603, WER: 0.8208
+Validation - Loss: 2.5460, CER: 0.6325, WER: 0.8026
+New best model saved with validation CER: 0.6325
+
+Epoch 7 Results:
+Training - Loss: 2.5890, CER: 0.6495, WER: 0.8101
+Validation - Loss: 2.5173, CER: 0.6193, WER: 0.7887
+New best model saved with validation CER: 0.6193
+
+Epoch 8 Results:
+Training - Loss: 2.5651, CER: 0.6423, WER: 0.8027
+Validation - Loss: 2.4906, CER: 0.6117, WER: 0.7835
+New best model saved with validation CER: 0.6117
+
+Epoch 9 Results:
+Training - Loss: 2.5423, CER: 0.6350, WER: 0.7954
+Validation - Loss: 2.4978, CER: 0.6022, WER: 0.7764
+New best model saved with validation CER: 0.6022
+
+Epoch 10 Results:
+Training - Loss: 2.5177, CER: 0.6293, WER: 0.7900
+Validation - Loss: 2.4745, CER: 0.5990, WER: 0.7696
+New best model saved with validation CER: 0.5990
+
+Epoch 11 Results:
+Training - Loss: 2.5008, CER: 0.6250, WER: 0.7840
+Validation - Loss: 2.4544, CER: 0.5992, WER: 0.7721
+No improvement in validation CER for 1 epochs. Best CER: 0.5990 at epoch 10
+
+Epoch 12 Results:
+Training - Loss: 2.4845, CER: 0.6197, WER: 0.7798
+Validation - Loss: 2.4576, CER: 0.6005, WER: 0.7632
+No improvement in validation CER for 2 epochs. Best CER: 0.5990 at epoch 10
+
+Epoch 13 Results:
+Training - Loss: 2.4702, CER: 0.6158, WER: 0.7741
+Validation - Loss: 2.4568, CER: 0.5950, WER: 0.7705
+New best model saved with validation CER: 0.5950
+
+Epoch 14 Results:
+Training - Loss: 2.4515, CER: 0.6087, WER: 0.7669
+Validation - Loss: 2.4511, CER: 0.5978, WER: 0.7646
+No improvement in validation CER for 1 epochs. Best CER: 0.5950 at epoch 13
+
+Epoch 15 Results:
+Training - Loss: 2.4419, CER: 0.6067, WER: 0.7659
+Validation - Loss: 2.4335, CER: 0.5904, WER: 0.7568
+New best model saved with validation CER: 0.5904
+
+Epoch 16 Results:
+Training - Loss: 2.4295, CER: 0.6032, WER: 0.7612
+Validation - Loss: 2.4414, CER: 0.5887, WER: 0.7570
+New best model saved with validation CER: 0.5887
+Training interrupted by user.
+Model saved as cnn_lstm_ctc_handwritten_v0_word_17ep_CNN-BiLSTM-CTC_resnet18.pth
+Time elapsed: 23643.891502141953
+Start time: 1745994144.5009937
+End time: 1746017788.3924959

@@ -20,9 +20,9 @@
         xlabel={Епоха},
         ylabel={Loss},
         ylabel style={yshift=-0.15cm},
-        xmin=0.5, xmax=5.5,
-        ymin=0.2, ymax=1.9,
-        xtick={1,2,3,4,5},
+        xmin=0.5, xmax=10.5,
+        ymin=0.1, ymax=2.0,
+        xtick={1,2,3,4,5,6,7,8,9,10},
         grid=both,
         grid style={line width=.1pt, draw=gray!10},
         major grid style={line width=.2pt,draw=gray!30},
@@ -41,22 +41,26 @@
     ]
         % 1 Layer Train
         \addplot[color=config1Color, thick] coordinates {
-            (1,1.30183) (2,0.60721) (3,0.47900) (4,0.40525) (5,0.34270)
+            (1,1.30325) (2,0.61001) (3,0.48036) (4,0.40305) (5,0.34551)
+            (6,0.29490) (7,0.25085) (8,0.20823) (9,0.17529) (10,0.14389)
         };
 
         % 1 Layer Validation
         \addplot[color=config1Color, thick, dashed] coordinates {
-            (1,0.84384) (2,0.57365) (3,0.50587) (4,0.43817) (5,0.44595)
+            (1,0.81097) (2,0.56893) (3,0.51426) (4,0.46391) (5,0.42534)
+            (6,0.43002) (7,0.41572) (8,0.44945) (9,0.40641) (10,0.57220)
         };
 
         % 2 Layers Train
         \addplot[color=config2Color, thick] coordinates {
             (1,1.78137) (2,0.64947) (3,0.46367) (4,0.36630) (5,0.29745)
+            (6,0.24258) (7,0.19815) (8,0.15957) (9,0.13137) (10,0.10826)
         };
 
         % 2 Layers Validation
         \addplot[color=config2Color, thick, dashed] coordinates {
             (1,0.97440) (2,0.77302) (3,0.48328) (4,0.71315) (5,0.42349)
+            (6,0.41958) (7,0.41412) (8,0.41822) (9,1.44058) (10,0.45796)
         };
 
         \legend{1 Layer Tr, 1 Layer Val, 2 Layers Tr, 2 Layers Val}
@@ -72,9 +76,10 @@
         xlabel={Епоха},
         ylabel={CER},
         ylabel style={yshift=-0.15cm},
-        xmin=0.5, xmax=5.5,
+        xmin=0.5, xmax=10.5,
         ymin=0.0, ymax=0.6,
-        ytick={0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6},
+        xtick={1,2,3,4,5,6,7,8,9,10},
+        ytick={0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7},
         grid=both,
         grid style={line width=.1pt, draw=gray!10},
         major grid style={line width=.2pt,draw=gray!30},
@@ -90,22 +95,26 @@
     ]
         % 1 Layer Train
         \addplot[color=config1Color, thick] coordinates {
-            (1,0.37741) (2,0.17794) (3,0.14158) (4,0.12177) (5,0.10492)
+            (1,0.37752) (2,0.17848) (3,0.14178) (4,0.12026) (5,0.10524)
+            (6,0.09181) (7,0.08055) (8,0.06967) (9,0.06171) (10,0.05339)
         };
 
         % 1 Layer Validation
         \addplot[color=config1Color, thick, dashed] coordinates {
-            (1,0.26913) (2,0.16426) (3,0.14789) (4,0.12431) (5,0.12672)
+            (1,0.24825) (2,0.16286) (3,0.14818) (4,0.12979) (5,0.11991)
+            (6,0.12095) (7,0.11164) (8,0.11781) (9,0.10515) (10,0.14887)
         };
 
         % 2 Layers Train
         \addplot[color=config2Color, thick] coordinates {
             (1,0.58923) (2,0.19422) (3,0.13764) (4,0.11079) (5,0.09240)
+            (6,0.07778) (7,0.06704) (8,0.05704) (9,0.05008) (10,0.04471)
         };
 
         % 2 Layers Validation
         \addplot[color=config2Color, thick, dashed] coordinates {
             (1,0.29736) (2,0.18879) (3,0.13784) (4,0.16483) (5,0.11549)
+            (6,0.11710) (7,0.10711) (8,0.10438) (9,0.22761) (10,0.10437)
         };
     \end{axis}
 
@@ -119,9 +128,10 @@
         xlabel={Епоха},
         ylabel={WER},
         ylabel style={yshift=-0.15cm},
-        xmin=0.5, xmax=5.5,
-        ymin=0.2, ymax=0.8,
-        ytick={0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8},
+        xtick={1,2,3,4,5,6,7,8,9,10},
+        xmin=0.5, xmax=10.5,
+        ymin=0.1, ymax=0.75,
+        ytick={0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8},
         grid=both,
         grid style={line width=.1pt, draw=gray!10},
         major grid style={line width=.2pt,draw=gray!30},
@@ -137,22 +147,26 @@
     ]
         % 1 Layer Train
         \addplot[color=config1Color, thick] coordinates {
-            (1,0.61969) (2,0.41742) (3,0.35393) (4,0.31551) (5,0.28171)
+            (1,0.62058) (2,0.41781) (3,0.35487) (4,0.31411) (5,0.28232)
+            (6,0.25524) (7,0.23119) (8,0.20796) (9,0.18823) (10,0.16886)
         };
 
         % 1 Layer Validation
         \addplot[color=config1Color, thick, dashed] coordinates {
-            (1,0.54339) (2,0.40326) (3,0.37340) (4,0.33254) (5,0.33485)
+            (1,0.51527) (2,0.40314) (3,0.37777) (4,0.34366) (5,0.32117)
+            (6,0.33198) (7,0.30762) (8,0.32192) (9,0.29137) (10,0.38427)
         };
 
         % 2 Layers Train
         \addplot[color=config2Color, thick] coordinates {
             (1,0.70747) (2,0.42426) (3,0.33720) (4,0.28874) (5,0.25206)
+            (6,0.22257) (7,0.19992) (8,0.17561) (9,0.15998) (10,0.14674)
         };
 
         % 2 Layers Validation
         \addplot[color=config2Color, thick, dashed] coordinates {
             (1,0.55238) (2,0.44537) (3,0.34897) (4,0.41663) (5,0.30587)
+            (6,0.30899) (7,0.29275) (8,0.28356) (9,0.57537) (10,0.28625)
         };
     \end{axis}
 

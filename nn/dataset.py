@@ -70,6 +70,13 @@ class LabelConverter:
             prev = idx
         return ''.join(decoded)
 
+    def decode_gt(self, targets):
+        """
+        Decodes ground truth labels (indices) into text without applying CTC postprocessing.
+        Just maps indices directly to characters.
+        """
+        return ''.join([self.index_to_char.get(idx, '') for idx in targets])
+
 
 class IAMDataset(Dataset):
     def __init__(self, mapping_file: str, paths: ProjectPaths, transform=None, label_converter=None):
