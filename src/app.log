@@ -1,0 +1,238 @@
+2025-05-09 14:42:06,800 - main - INFO - Using device: cuda
+2025-05-09 14:42:07,502 - main - INFO - Model initialized successfully
+2025-05-09 14:42:30,231 - main - INFO - Processing file: 05_gaussian_added_gray.png, saved as: 217db37355cb4f4381e0690b009a1de5.png
+2025-05-09 14:42:30,239 - main - ERROR - Unexpected error: argument of type 'NoneType' is not iterable
+2025-05-09 14:42:30,240 - main - ERROR - Traceback (most recent call last):
+  File "C:\uni\Diploma\src\main.py", line 364, in recognize_handwriting
+    if 'contrast' in techniques:
+       ^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: argument of type 'NoneType' is not iterable
+
+2025-05-09 14:42:41,721 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 830b1dce0c8346c48763e4e2eaa53d41.png
+2025-05-09 14:42:41,728 - main - ERROR - Unexpected error: argument of type 'NoneType' is not iterable
+2025-05-09 14:42:41,728 - main - ERROR - Traceback (most recent call last):
+  File "C:\uni\Diploma\src\main.py", line 364, in recognize_handwriting
+    if 'contrast' in techniques:
+       ^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: argument of type 'NoneType' is not iterable
+
+2025-05-09 14:42:53,240 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 94e3c1282a5648ac8e99fc5c54730d92.png
+2025-05-09 14:42:53,241 - main - ERROR - Unexpected error: argument of type 'NoneType' is not iterable
+2025-05-09 14:42:53,241 - main - ERROR - Traceback (most recent call last):
+  File "C:\uni\Diploma\src\main.py", line 364, in recognize_handwriting
+    if 'contrast' in techniques:
+       ^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: argument of type 'NoneType' is not iterable
+
+2025-05-09 14:44:50,777 - main - INFO - Using device: cuda
+2025-05-09 14:44:51,508 - main - INFO - Model initialized successfully
+2025-05-09 14:45:01,324 - __main__ - INFO - Using device: cuda
+2025-05-09 14:45:09,709 - main - INFO - Processing file: g06-042r-04-05.png, saved as: f4998f163bcc48f9a5364fba3a2b1fe4.png
+2025-05-09 14:45:09,727 - main - INFO - Original image dimensions: 434x73
+2025-05-09 14:45:09,728 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 14:45:09,728 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 14:45:09,769 - main - INFO - Running prediction
+2025-05-09 14:45:10,245 - main - INFO - Prediction result: 'omoepath'
+2025-05-09 14:45:52,360 - main - INFO - Using device: cuda
+2025-05-09 14:45:53,126 - main - INFO - Model initialized successfully
+2025-05-09 14:45:53,133 - main - INFO - Processing file: 05_gaussian_added_gray.png, saved as: 72fe1b8bba2b4142a5c4e6ebaccda4b0.png
+2025-05-09 14:45:53,156 - main - INFO - Original image dimensions: 537x168
+2025-05-09 14:45:53,157 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 14:45:53,158 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 14:45:53,168 - main - INFO - Running prediction
+2025-05-09 14:45:53,337 - main - INFO - Prediction result: ''
+2025-05-09 14:45:53,337 - main - WARNING - Empty prediction result
+2025-05-09 14:46:00,707 - main - INFO - Processing file: g06-042r-04-05.png, saved as: bb0dad5119c646bb860fa1880043a088.png
+2025-05-09 14:46:00,715 - main - INFO - Original image dimensions: 434x73
+2025-05-09 14:46:00,716 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 14:46:00,716 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 14:46:00,718 - main - INFO - Running prediction
+2025-05-09 14:46:01,013 - main - INFO - Prediction result: 'omoepath'
+2025-05-09 15:00:33,053 - main - INFO - Processing file: 05_gaussian_added_gray.png, saved as: 7696a77d021d484782259ffc9ff0aa6a.png
+2025-05-09 15:00:33,071 - main - INFO - Original image dimensions: 537x168
+2025-05-09 15:00:33,071 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:00:33,072 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:00:33,075 - main - INFO - Running prediction
+2025-05-09 15:00:33,325 - main - INFO - Prediction result: ''
+2025-05-09 15:00:33,326 - main - WARNING - Empty prediction result
+2025-05-09 15:01:31,153 - main - INFO - Processing file: 05_gaussian_added_gray.png, saved as: 74a1e329dc184aa18195abc75f9953f6.png
+2025-05-09 15:01:31,163 - main - INFO - Original image dimensions: 537x168
+2025-05-09 15:01:31,164 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:01:31,164 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:01:31,165 - main - INFO - Running prediction
+2025-05-09 15:01:31,182 - main - INFO - Prediction result: 'e'
+2025-05-09 15:16:06,851 - main - INFO - Using device: cuda
+2025-05-09 15:16:07,525 - main - INFO - Model initialized successfully
+2025-05-09 15:16:22,539 - main - INFO - Processing file: 05_gaussian_added_gray.png, saved as: 04adf84f7e1244ad828d229ece7a295b.png
+2025-05-09 15:16:22,566 - main - INFO - Original image dimensions: 537x168
+2025-05-09 15:16:22,566 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:16:22,566 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:16:22,575 - main - INFO - Running prediction
+2025-05-09 15:16:23,020 - main - INFO - Prediction result: 'e'
+2025-05-09 15:17:03,793 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 44d8cf4e9a36467c8b62d5de01578caa.png
+2025-05-09 15:17:03,798 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:17:03,799 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:17:03,799 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:17:03,802 - main - INFO - Running prediction
+2025-05-09 15:17:03,994 - main - INFO - Prediction result: 'omoepath'
+2025-05-09 15:17:32,137 - main - INFO - Using device: cuda
+2025-05-09 15:17:32,828 - main - INFO - Model initialized successfully
+2025-05-09 15:21:55,637 - main - INFO - Using device: cuda
+2025-05-09 15:21:56,366 - main - INFO - Model initialized successfully
+2025-05-09 15:22:01,590 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 3ed29d437a414c9db22818b04a4b7403.png
+2025-05-09 15:22:01,603 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:22:01,603 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:22:01,603 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:22:01,619 - main - INFO - Running prediction
+2025-05-09 15:22:01,790 - main - INFO - Prediction result: 'omoepath'
+2025-05-09 15:22:13,484 - main - INFO - Processing file: g06-042r-04-05.png, saved as: c9e829ed65f744dfabad67e3321d5863.png
+2025-05-09 15:22:13,489 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:22:13,489 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:22:13,490 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:22:13,490 - main - INFO - Running prediction
+2025-05-09 15:22:13,692 - main - INFO - Prediction result: 'omoepath'
+2025-05-09 15:26:40,024 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 34b156aec1c644b0b000a92eccdcc730.png
+2025-05-09 15:26:40,027 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:26:40,028 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:26:40,028 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:26:40,030 - main - INFO - Running prediction
+2025-05-09 15:26:40,405 - main - INFO - Prediction result: 'omoepath'
+2025-05-09 15:26:53,754 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 49617198591d4cfcbdbeac8eb3547391.png
+2025-05-09 15:26:53,756 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:26:53,757 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:26:53,758 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:26:53,759 - main - INFO - Running prediction
+2025-05-09 15:26:54,003 - main - INFO - Prediction result: 'omoepath'
+2025-05-09 15:27:11,888 - main - INFO - Processing file: g06-042r-04-05.png, saved as: da60a77e0c0844d2af4c3bec152d441c.png
+2025-05-09 15:27:11,891 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:27:11,891 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:27:11,891 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:27:11,894 - main - INFO - Running prediction
+2025-05-09 15:27:12,191 - main - INFO - Prediction result: 'omoepath'
+2025-05-09 15:29:15,096 - main - INFO - Processing file: 05_gaussian_added_gray.png, saved as: e0c1e466cc1a447a865b574060f33398.png
+2025-05-09 15:29:15,109 - main - INFO - Original image dimensions: 537x168
+2025-05-09 15:29:15,109 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:29:15,110 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:29:15,112 - main - INFO - Running prediction
+2025-05-09 15:29:15,357 - main - INFO - Prediction result: ''
+2025-05-09 15:29:15,358 - main - WARNING - Empty prediction result
+2025-05-09 15:29:24,356 - main - INFO - Processing file: g06-042r-04-05.png, saved as: f778f34afc0c488fa7c1da38777ce769.png
+2025-05-09 15:29:24,359 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:29:24,360 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:29:24,360 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:29:24,364 - main - INFO - Running prediction
+2025-05-09 15:29:24,547 - main - INFO - Prediction result: 'omoepath'
+2025-05-09 15:30:03,562 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 3cbe61d6015b4d5b80b1ddc4314fad2d.png
+2025-05-09 15:30:03,565 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:30:03,566 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:30:03,566 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:30:03,567 - main - INFO - Running prediction
+2025-05-09 15:30:03,584 - main - INFO - Prediction result: 'omoepath'
+2025-05-09 15:30:20,830 - main - INFO - Processing file: g06-042r-04-05.png, saved as: bf0b1d0c55e449149612db4ef2f16e15.png
+2025-05-09 15:30:20,834 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:30:20,834 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:30:20,836 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:30:20,840 - main - INFO - Running prediction
+2025-05-09 15:30:21,132 - main - INFO - Prediction result: 'omoepath'
+2025-05-09 15:30:44,406 - main - INFO - Processing file: g06-042r-04-05.png, saved as: f67c2f497c76435ebbd1245dfe25c873.png
+2025-05-09 15:30:44,409 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:30:44,410 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:30:44,410 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:30:44,411 - main - INFO - Running prediction
+2025-05-09 15:30:44,428 - main - INFO - Prediction result: 'omoepath'
+2025-05-09 15:30:56,970 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 859f0cc420384193bbb3bef3a0750aa6.png
+2025-05-09 15:30:56,973 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:30:56,974 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:30:56,974 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:30:56,975 - main - INFO - Running prediction
+2025-05-09 15:30:57,317 - main - INFO - Prediction result: 'omoepath'
+2025-05-09 15:32:13,920 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 62723651e0ef43158c6e2b3effd241b9.png
+2025-05-09 15:32:13,923 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:32:13,923 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:32:13,924 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:32:13,927 - main - INFO - Running prediction
+2025-05-09 15:32:14,177 - main - INFO - Prediction result: 'omoepath'
+2025-05-09 15:35:59,083 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 04ecd2b318164561a28769788650fa31.png
+2025-05-09 15:35:59,086 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:35:59,087 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:35:59,087 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:35:59,090 - main - INFO - Running prediction
+2025-05-09 15:35:59,169 - main - INFO - Prediction result: 'omoepath'
+2025-05-09 15:38:59,255 - main - INFO - Processing file: g06-042r-04-05.png, saved as: d4877b7fc81e4b249feb287f826dd3c8.png
+2025-05-09 15:38:59,258 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:38:59,258 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:38:59,259 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:38:59,259 - main - INFO - Running prediction
+2025-05-09 15:38:59,563 - main - INFO - Prediction result: 'Kinaspath'
+2025-05-09 15:39:10,653 - main - INFO - Processing file: 05_gaussian_added_gray.png, saved as: 8609b10112ce4d0d9b64b7a9074598ad.png
+2025-05-09 15:39:10,663 - main - INFO - Original image dimensions: 537x168
+2025-05-09 15:39:10,663 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:39:10,664 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:39:10,664 - main - INFO - Running prediction
+2025-05-09 15:39:10,681 - main - INFO - Prediction result: 'louugghing'
+2025-05-09 15:46:39,344 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 4bfa3d1ea8f543d4b7951e168d12e366.png
+2025-05-09 15:46:39,347 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:46:39,347 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:46:39,347 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:46:39,351 - main - INFO - Running prediction
+2025-05-09 15:46:39,605 - main - INFO - Prediction result: 'KIncpath'
+2025-05-09 15:46:54,991 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 1666ccba39294aeab8aa5363b7dfe506.png
+2025-05-09 15:46:54,994 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:46:54,994 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:46:54,996 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:46:54,999 - main - INFO - Running prediction
+2025-05-09 15:46:55,197 - main - INFO - Prediction result: 'winpath'
+2025-05-09 15:46:59,295 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 5beb283964b6482087edbac2578a548d.png
+2025-05-09 15:46:59,298 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:46:59,298 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:46:59,299 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:46:59,302 - main - INFO - Running prediction
+2025-05-09 15:46:59,602 - main - INFO - Prediction result: 'winpath'
+2025-05-09 15:52:18,819 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 4bdc61a2791b44ac9aad8822c2f8d644.png
+2025-05-09 15:52:18,822 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:52:18,822 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:52:18,823 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:52:18,827 - main - INFO - Running prediction
+2025-05-09 15:52:19,091 - main - INFO - Prediction result: 'winpath'
+2025-05-09 15:55:13,909 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 2235201c58974ec38a8233e0406cf4ab.png
+2025-05-09 15:55:13,918 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:55:13,918 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:55:13,919 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:55:13,920 - main - INFO - Running prediction
+2025-05-09 15:55:14,231 - main - INFO - Prediction result: 'omoeepath'
+2025-05-09 15:55:56,097 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 08f9360ef3744587b74623e658620640.png
+2025-05-09 15:55:56,101 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:55:56,101 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:55:56,102 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:55:56,106 - main - INFO - Running prediction
+2025-05-09 15:55:56,422 - main - INFO - Prediction result: 'omoeepath'
+2025-05-09 15:57:25,521 - main - INFO - Processing file: g06-042r-04-05.png, saved as: a468e7e84dce4b9098d5a33fed420b9a.png
+2025-05-09 15:57:25,524 - main - INFO - Original image dimensions: 434x73
+2025-05-09 15:57:25,525 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 15:57:25,525 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 15:57:25,526 - main - INFO - Running prediction
+2025-05-09 15:57:25,787 - main - INFO - Prediction result: 'Kinaspath'
+2025-05-09 16:01:44,728 - main - INFO - Processing file: g06-042r-04-05.png, saved as: 8da534723af14c839eab42b849bd6f8e.png
+2025-05-09 16:01:44,731 - main - INFO - Original image dimensions: 434x73
+2025-05-09 16:01:44,732 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 16:01:44,733 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 16:01:44,738 - main - INFO - Running prediction
+2025-05-09 16:01:45,102 - main - INFO - Prediction result: 'umoeepath'
+2025-05-09 16:01:45,104 - main - INFO - Processing file: g06-042r-04-05.png, saved as: ed205370e20c4b50aa425e67badaacb0.png
+2025-05-09 16:01:45,108 - main - INFO - Original image dimensions: 434x73
+2025-05-09 16:01:45,108 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 16:01:45,108 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 16:01:45,109 - main - INFO - Running prediction
+2025-05-09 16:01:45,121 - main - INFO - Prediction result: 'umoeepath'
+2025-05-09 16:01:57,448 - main - INFO - Processing file: 05_gaussian_added_gray.png, saved as: e78974e363594a898b42f543ac07bbc6.png
+2025-05-09 16:01:57,453 - main - INFO - Original image dimensions: 537x168
+2025-05-09 16:01:57,453 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 16:01:57,454 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 16:01:57,454 - main - INFO - Running prediction
+2025-05-09 16:01:57,468 - main - INFO - Prediction result: '"'
+2025-05-09 16:02:12,393 - main - INFO - Processing file: 05_gaussian_added_gray.png, saved as: 504cceb4c1094d7db1b8797e9ec2e6f3.png
+2025-05-09 16:02:12,397 - main - INFO - Original image dimensions: 537x168
+2025-05-09 16:02:12,397 - main - INFO - Resized image dimensions: 300x64
+2025-05-09 16:02:12,399 - main - INFO - Tensor shape: torch.Size([1, 1, 64, 300])
+2025-05-09 16:02:12,400 - main - INFO - Running prediction
+2025-05-09 16:02:12,696 - main - INFO - Prediction result: '"'

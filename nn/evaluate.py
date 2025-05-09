@@ -293,9 +293,11 @@ def evaluate():
     os.makedirs(eval_dir, exist_ok=True)
 
     # Load test dataset
-    test_self_wr_mapping_file = "tests/test_self_wr_base/dataset/dataset.txt"
+    # test_self_wr_mapping_file = "tests/test_self_wr_base/dataset/dataset.txt"
     # test_online_wr_mapping_file = "tests/test_online_handwriting/dataset.txt"
     # test_mapping_file = "dataset/writer_independent_word_splits/preprocessed/test_word_mappings.txt"
+
+    style_comparison_wr_x_mapping = "tests/test_g_42/w_17.txt"
 
     label_converter_mapping = "dataset/writer_independent_word_splits/preprocessed/train_word_mappings.txt"
 
@@ -303,7 +305,7 @@ def evaluate():
     n_classes = 80
 
     test_dataset = IAMDataset(
-        mapping_file=test_self_wr_mapping_file,
+        mapping_file=style_comparison_wr_x_mapping,
         paths=paths,
         transform=get_validation_transform(),
         label_converter=label_converter

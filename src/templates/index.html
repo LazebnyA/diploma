@@ -7,70 +7,140 @@
     <title>Handwritten Text Recognition</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            line-height: 1.6;
+          font-family: Arial, sans-serif;
+          max-width: 900px;
+          margin: 0 auto;
+          padding: 20px;
+          line-height: 1.6;
         }
         h1, h2 {
-            color: #333;
-            text-align: center;
+          color: #333;
+          text-align: center;
         }
         .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
         }
         .upload-form {
-            width: 100%;
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .form-group input[type="file"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+          width: 100%;
+          border: 1px solid #ddd;
+          padding: 20px;
+          border-radius: 8px;
+          background-color: #f9f9f9;
         }
         .preprocessing-options {
-            margin-top: 20px;
-            padding: 15px;
-            border-top: 1px solid #ddd;
+          margin-top: 20px;
+          padding: 15px;
+          border-top: 1px solid #ddd;
         }
         .preprocessing-title {
-            font-weight: bold;
-            margin-bottom: 10px;
+          font-weight: bold;
+          margin-bottom: 10px;
         }
+
+        .selected-techniques-title {
+            margin-top: 20px;
+        }
+
         .preprocessing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 10px;
         }
-        .preprocessing-option {
+        .preprocessing-grid .preprocessing-option {
+          display: flex;
+          align-items: center;
+          padding: 8px;
+        }
+        .preprocessing-option input[type="checkbox"] {
+          margin-right: 8px;
+        }
+
+        /* Sortable list базові стилі та hover */
+        .sortable-list {
+          border: 1px solid #ddd;
+          background-color: #fff;
+          border-radius: 4px;
+          padding: 10px;
+          margin-top: 15px;
+        }
+        .sortable-list .preprocessing-option {
+          display: flex;
+          align-items: center;
+          padding: 8px;
+          border-radius: 4px;
+          cursor: grab;
+          transition: all 0.2s ease;
+          margin-bottom: 5px;
+        }
+        .sortable-list .preprocessing-option:last-child {
+          border-bottom: none;
+        }
+        .sortable-list .preprocessing-option:hover {
+          background-color: #f0f0f0;
+          border-color: #ccc;
+        }
+        .dragging {
+          opacity: 0.7;
+          background-color: #e9e9e9;
+        }
+        .draghandle {
+          cursor: move;
+          color: #888;
+          margin-right: 10px;
+          font-size: 18px;
+        }
+
+        .param-panel-wrapper {
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .technique-header {
             display: flex;
             align-items: center;
-            padding: 5px;
+            width: 100%;
         }
-        .preprocessing-option input {
-            margin-right: 8px;
+
+        .technique-header strong {
+            margin-right: 10px;
         }
-        .preprocessing-info {
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: #555;
+
+        .default-toggle {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
         }
+
+        .default-toggle input {
+            margin-right: 5px;
+        }
+
+        /* Параметри стилів */
+        .param-panel {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-left: 28px;
+          align-items: center;
+          margin-top: 5px;
+        }
+        .param-panel label {
+          gap: 5px;
+          font-size: 0.9em;
+        }
+        .param-panel input[type="number"] {
+          width: 60px;
+          padding: 4px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          margin-bottom: 4px;
+        }
+
         .btn-submit {
             background-color: #4CAF50;
             color: white;
@@ -84,6 +154,7 @@
         .btn-submit:hover {
             background-color: #45a049;
         }
+
         .result {
             width: 100%;
             border: 1px solid #ddd;
@@ -135,173 +206,43 @@
             padding-left: 20px;
             margin: 5px 0;
         }
-        /* Show sort handles and highlight rows on hover */
-        .preprocessing-option {
-            cursor: grab;
-            border: 1px solid transparent;
-            border-radius: 4px;
-            transition: all 0.2s ease;
+        .error-message {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border: 1px solid #ffcdd2;
+            font-weight: 500;
         }
-        .preprocessing-option:hover {
-            background-color: #f0f0f0;
-            border-color: #ccc;
-        }
-        /* Style for when an item is being dragged */
-        .dragging {
-            opacity: 0.7;
-            background-color: #e9e9e9;
-        }
-        /* Sortable list container */
-        .sortable-list {
-            border: 1px solid #ddd;
-            background-color: #fff;
+        .default-section {
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
             border-radius: 4px;
             padding: 10px;
-            margin-top: 15px;
+            margin-bottom: 15px;
         }
-        .draghandle {
-            cursor: move;
-            color: #888;
-            margin-right: 10px;
-            font-size: 18px;
+        .default-section-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2e7d32;
+        }
+        .default-technique {
+            background-color: #f1f8e9;
+            border-left: 3px solid #7cb342;
         }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Handle file input change to show preview
-            const fileInput = document.getElementById('file');
-            const previewContainer = document.getElementById('preview-container');
 
-            if (fileInput) {
-                fileInput.addEventListener('change', function() {
-                    if (fileInput.files && fileInput.files[0]) {
-                        const reader = new FileReader();
-
-                        reader.onload = function(e) {
-                            previewContainer.innerHTML = `
-                                <div class="image-wrapper">
-                                    <img src="${e.target.result}" alt="Preview" class="image-preview">
-                                    <div class="image-caption">Preview</div>
-                                </div>
-                            `;
-                            previewContainer.style.display = 'block';
-                        }
-
-                        reader.readAsDataURL(fileInput.files[0]);
-                    }
-                });
-            }
-
-            // Sortable functionality for preprocessing options
-            const sortableList = document.getElementById('selected-techniques');
-
-            if (sortableList) {
-                // Track which item is being dragged
-                let draggedItem = null;
-
-                // Add event listeners to all items
-                document.querySelectorAll('.preprocessing-option').forEach(item => {
-                    // When drag starts
-                    item.addEventListener('dragstart', function() {
-                        draggedItem = this;
-                        setTimeout(() => {
-                            this.classList.add('dragging');
-                        }, 0);
-                    });
-
-                    // When drag ends
-                    item.addEventListener('dragend', function() {
-                        this.classList.remove('dragging');
-                        draggedItem = null;
-                    });
-
-                    // Allow items to be draggable
-                    item.setAttribute('draggable', 'true');
-                });
-
-                // When item is dragged over another item
-                sortableList.addEventListener('dragover', function(e) {
-                    e.preventDefault();
-                    if (!draggedItem) return;
-
-                    // Get the item below the cursor
-                    const afterElement = getDragAfterElement(sortableList, e.clientY);
-
-                    // Insert the dragged item
-                    if (afterElement == null) {
-                        sortableList.appendChild(draggedItem);
-                    } else {
-                        sortableList.insertBefore(draggedItem, afterElement);
-                    }
-                });
-
-                // Function to find the element below the cursor
-                function getDragAfterElement(container, y) {
-                    const draggableElements = [...container.querySelectorAll('.preprocessing-option:not(.dragging)')];
-
-                    return draggableElements.reduce((closest, child) => {
-                        const box = child.getBoundingClientRect();
-                        const offset = y - box.top - box.height / 2;
-
-                        if (offset < 0 && offset > closest.offset) {
-                            return { offset: offset, element: child };
-                        } else {
-                            return closest;
-                        }
-                    }, { offset: Number.NEGATIVE_INFINITY }).element;
-                }
-            }
-
-            // Handle checkbox selection to add/remove from sortable list
-            const checkboxes = document.querySelectorAll('.technique-checkbox');
-            if (checkboxes.length > 0) {
-                checkboxes.forEach(checkbox => {
-                    checkbox.addEventListener('change', function() {
-                        const techId = this.value;
-                        const techName = this.dataset.name;
-                        const selectedList = document.getElementById('selected-techniques');
-
-                        if (this.checked) {
-                            // Add to selected list
-                            const option = document.createElement('div');
-                            option.classList.add('preprocessing-option');
-                            option.setAttribute('draggable', 'true');
-                            option.innerHTML = `
-                                <span class="draghandle">≡</span>
-                                <input type="checkbox" name="techniques" value="${techId}" checked>
-                                <label>${techName}</label>
-                            `;
-
-                            // Add drag events
-                            option.addEventListener('dragstart', function() {
-                                setTimeout(() => {
-                                    this.classList.add('dragging');
-                                }, 0);
-                            });
-
-                            option.addEventListener('dragend', function() {
-                                this.classList.remove('dragging');
-                            });
-
-                            selectedList.appendChild(option);
-                        } else {
-                            // Remove from selected list
-                            const selectedOptions = selectedList.querySelectorAll('input[type="checkbox"]');
-                            selectedOptions.forEach(opt => {
-                                if (opt.value === techId) {
-                                    opt.closest('.preprocessing-option').remove();
-                                }
-                            });
-                        }
-                    });
-                });
-            }
-        });
-    </script>
 </head>
 <body>
     <div class="container">
         <h1>Handwritten Text Recognition</h1>
+
+        {% if error_message %}
+        <div class="error-message">
+            <strong>Error:</strong> {{ error_message }}
+        </div>
+        {% endif %}
 
         <div class="upload-form">
             <form action="/recognize" method="post" enctype="multipart/form-data">
@@ -313,24 +254,33 @@
                 <div id="preview-container" style="display: none; margin-top: 15px;"></div>
 
                 <div class="preprocessing-options">
-                    <div class="preprocessing-title">Image Preprocessing Options</div>
-                    <p class="preprocessing-info">Select and order the preprocessing techniques to apply to your image. The order matters - techniques will be applied from top to bottom.</p>
-
-                    <div class="preprocessing-grid">
-                        {% for key, technique in preprocessing_techniques.items() %}
-                        <div class="preprocessing-option">
-                            <input type="checkbox" id="{{ key }}" class="technique-checkbox" value="{{ key }}" data-name="{{ technique.display_name }}">
-                            <label for="{{ key }}">{{ technique.display_name }}</label>
-                        </div>
-                        {% endfor %}
+                  <div class="preprocessing-title">Image Preprocessing Options</div>
+                  <p class="preprocessing-info">
+                    Select techniques to apply and configure them below.
+                    Mark techniques as default to always apply them to every image.
+                  </p>
+                  <div class="preprocessing-grid">
+                    {% for key, technique in preprocessing_techniques.items() %}
+                    <div class="preprocessing-option">
+                      <input type="checkbox"
+                             id="{{ key }}"
+                             class="technique-checkbox"
+                             value="{{ key }}"
+                             data-name="{{ technique.display_name }}">
+                      <label for="{{ key }}">{{ technique.display_name }}</label>
                     </div>
-
+                    {% endfor %}
+                  </div>
+                    <div class="preprocessing-title selected-techniques-title" style="display: flex; justify-content: space-between; align-items: center;">
+                      <div>Selected Techniques (Drag to Reorder & Configure)</div>
+                      <button type="button" id="update-defaults-btn" class="btn btn-secondary">
+                        Update Default
+                      </button>
+                    </div>
                     <div class="sortable-list" id="selected-techniques">
-                        <div class="preprocessing-title">Selected Techniques (Drag to Reorder)</div>
-                        <!-- Selected techniques will appear here -->
+                      <!-- Тут будуть вибрані елементи з панелями параметрів -->
                     </div>
                 </div>
-
                 <button type="submit" class="btn-submit">Recognize Text</button>
             </form>
         </div>
@@ -338,14 +288,6 @@
         {% if prediction %}
         <div class="result">
             <div class="result-text">Recognized Text: {{ prediction }}</div>
-
-            {% if metrics and metrics.available %}
-            <div class="metrics-container" style="margin-top: 15px; padding: 10px; background-color: #f5f5f5; border-radius: 5px;">
-                <div style="font-weight: bold; margin-bottom: 5px;">Recognition Metrics:</div>
-                <div>Character Error Rate (CER): {{ "%.2f"|format(metrics.cer * 100) }}%</div>
-                <div>Word Error Rate (WER): {{ "%.2f"|format(metrics.wer * 100) }}%</div>
-            </div>
-            {% endif %}
 
             {% if applied_steps %}
             <div class="applied-steps">
@@ -378,5 +320,233 @@
         </div>
         {% endif %}
     </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const fileInput = document.getElementById('file');
+    const previewContainer = document.getElementById('preview-container');
+    const selectedList = document.getElementById('selected-techniques');
+
+    const STORAGE_KEY = 'userDefaultTechniques';
+
+    const defaultTechniques = {
+      'noise_removal': {
+        params: {
+          median_kernel_size: 3,
+          gaussian_kernel_size: 3,
+          gaussian_sigma: 0.5
+        }
+      },
+      'contrast': {
+        params: {
+          contrast_factor: 1.3
+        }
+      },
+      'brightness': {
+        params: {
+          brightness_factor: 1.2
+        }
+      },
+      'sharpness': {
+        params: {
+          sharpness_factor: 1.5
+        }
+      },
+      'adaptive_binarization': {
+        params: {
+          block_size: 11,
+          constant: 2
+        }
+      }
+    };
+
+    // Завантажити збережені параметри з localStorage
+    function loadUserDefaults() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      return stored ? JSON.parse(stored) : {};
+    }
+
+    // Зберегти параметри в localStorage
+    function saveUserDefaults(userDefaults) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(userDefaults));
+    }
+
+    const userDefaults = loadUserDefaults();
+
+    function createSelectedOption(id, name, isDefault = false) {
+      const wrapper = document.createElement('div');
+      wrapper.classList.add('preprocessing-option');
+      if (isDefault) wrapper.classList.add('default-technique');
+      wrapper.setAttribute('draggable', 'true');
+      wrapper.dataset.id = id;
+
+      let paramsHtml = '';
+      const params = userDefaults[id]?.params || defaultTechniques[id]?.params || {};
+
+      switch(id) {
+        case 'contrast':
+          paramsHtml = `<label>Factor: <input type="number" step="0.1" min="0.1" name="contrast_factor" value="${params.contrast_factor || 1.0}"></label>`;
+          break;
+        case 'brightness':
+          paramsHtml = `<label>Factor: <input type="number" step="0.1" min="0.1" name="brightness_factor" value="${params.brightness_factor || 1.0}"></label>`;
+          break;
+        case 'sharpness':
+          paramsHtml = `<label>Factor: <input type="number" step="0.1" min="0.1" name="sharpness_factor" value="${params.sharpness_factor || 1.0}"></label>`;
+          break;
+        case 'noise_removal':
+          paramsHtml = `
+            <label>Median kernel: <input type="number" step="2" min="1" name="median_kernel_size" value="${params.median_kernel_size || 3}"></label>
+            <label>Gaussian kernel: <input type="number" step="2" min="1" name="gaussian_kernel_size" value="${params.gaussian_kernel_size || 3}"></label>
+            <label>Sigma: <input type="number" step="0.1" min="0" name="gaussian_sigma" value="${params.gaussian_sigma || 0.5}"></label>
+          `;
+          break;
+        case 'adaptive_binarization':
+          paramsHtml = `
+            <label>Block size: <input type="number" step="2" min="1" name="block_size" value="${params.block_size || 11}"></label>
+            <label>Constant: <input type="number" step="1" name="constant" value="${params.constant || 2}"></label>
+          `;
+          break;
+      }
+
+      wrapper.innerHTML = `
+        <div class="param-panel-wrapper">
+            <div class="technique-header">
+                <span class="draghandle">≡</span>
+                <input type="hidden" name="techniques" value="${id}">
+                <strong>${name}</strong>
+                <div class="default-toggle">
+                    <input type="checkbox" id="default_${id}" name="default_techniques" value="${id}" ${isDefault ? 'checked' : ''}>
+                    <label for="default_${id}">Set as default</label>
+                </div>
+            </div>
+            <div class="param-panel">
+              ${paramsHtml}
+            </div>
+        </div>
+      `;
+
+      // Save changes to parameters
+      wrapper.querySelectorAll('.param-panel input').forEach(input => {
+        input.addEventListener('change', () => {
+          if (!userDefaults[id]) userDefaults[id] = { params: {} };
+          userDefaults[id].params[input.name] = parseFloat(input.value);
+          saveUserDefaults(userDefaults);
+        });
+      });
+
+      const toggleInput = wrapper.querySelector(`#default_${id}`);
+      if (toggleInput) {
+        toggleInput.addEventListener('change', function() {
+          if (this.checked) {
+            wrapper.classList.add('default-technique');
+          } else {
+            wrapper.classList.remove('default-technique');
+          }
+        });
+      }
+
+      addDragEvents(wrapper);
+      return wrapper;
+    }
+
+    function addDragEvents(item) {
+      item.addEventListener('dragstart', () => item.classList.add('dragging'));
+      item.addEventListener('dragend', () => item.classList.remove('dragging'));
+    }
+
+    selectedList.addEventListener('dragover', e => {
+      e.preventDefault();
+      const dragging = document.querySelector('.dragging');
+      const after = getDragAfterElement(selectedList, e.clientY);
+      if (!after) selectedList.appendChild(dragging);
+      else selectedList.insertBefore(dragging, after);
+    });
+
+    function getDragAfterElement(container, y) {
+      const elements = [...container.querySelectorAll('.preprocessing-option:not(.dragging)')];
+      return elements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) return { offset, element: child };
+        else return closest;
+      }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
+    document.querySelectorAll('.technique-checkbox').forEach(cb => {
+      cb.addEventListener('change', function() {
+        const id = this.value;
+        const name = this.dataset.name;
+        const exists = selectedList.querySelector(`[data-id="${id}"]`);
+        if (this.checked && !exists) {
+          const isDefault = Object.keys(defaultTechniques).includes(id);
+          selectedList.appendChild(createSelectedOption(id, name, isDefault));
+        } else if (!this.checked && exists) {
+          exists.remove();
+        }
+      });
+    });
+
+    function initializeDefaultTechniques() {
+      const techniquesToAdd = { ...defaultTechniques, ...userDefaults };
+      Object.keys(techniquesToAdd).forEach(id => {
+        const checkbox = document.getElementById(id);
+        if (checkbox) {
+          checkbox.checked = true;
+          const name = checkbox.dataset.name;
+          const exists = selectedList.querySelector(`[data-id="${id}"]`);
+          if (!exists) {
+            selectedList.appendChild(createSelectedOption(id, name, true));
+          }
+        }
+      });
+    }
+
+    if (fileInput) {
+      fileInput.addEventListener('change', () => {
+        if (fileInput.files[0]) {
+          const reader = new FileReader();
+          reader.onload = e => {
+            previewContainer.innerHTML = `
+
+              <div class="image-wrapper">
+                <img src="${e.target.result}" class="image-preview">
+                <div class="image-caption">Preview</div>
+              </div>`;
+            previewContainer.style.display = 'block';
+          };
+          reader.readAsDataURL(fileInput.files[0]);
+        }
+      });
+    }
+
+    document.getElementById("update-defaults-btn").addEventListener("click", () => {
+        const selectedBlocks = document.querySelectorAll("#selected-techniques .preprocessing-option");
+
+        selectedBlocks.forEach(block => {
+            const techniqueId = block.dataset.id;
+            const params = block.querySelectorAll("input");
+
+            // Оновлюємо значення параметрів у локальному сховищі
+            params.forEach(param => {
+                const paramName = param.name;
+                const paramValue = parseFloat(param.value);
+
+                // Перевіряємо, чи техніка вже є в userDefaults, якщо ні - додаємо
+                if (!userDefaults[techniqueId]) {
+                    userDefaults[techniqueId] = { params: {} };
+                }
+                userDefaults[techniqueId].params[paramName] = paramValue;
+            });
+        });
+
+        // Зберігаємо оновлені значення в localStorage
+        saveUserDefaults(userDefaults);
+
+        alert("Default parameters updated.");
+    });
+
+    initializeDefaultTechniques();
+  });
+</script>
 </body>
 </html>
