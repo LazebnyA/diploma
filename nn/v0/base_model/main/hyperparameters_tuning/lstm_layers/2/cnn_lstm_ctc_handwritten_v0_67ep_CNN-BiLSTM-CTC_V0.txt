@@ -1,0 +1,386 @@
+Device: cuda
+No checkpoint found. Starting training from scratch.
+
+Neural Network Architecture:
+CNN_LSTM_CTC_V0(
+  (cnn): Sequential(
+    (0): Conv2d(1, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ReLU(inplace=True)
+    (2): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (3): ReLU(inplace=True)
+    (4): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (5): Conv2d(48, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (6): ReLU(inplace=True)
+    (7): Conv2d(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (8): ReLU(inplace=True)
+    (9): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (10): Conv2d(96, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (11): ReLU(inplace=True)
+    (12): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (13): ReLU(inplace=True)
+  )
+  (lstm): LSTM(3072, 512, num_layers=2, batch_first=True, bidirectional=True)
+  (fc): Linear(in_features=1024, out_features=80, bias=True)
+)
+
+Hyperparameters:
+img_height: 64
+num_channels: 1
+n_classes: 80
+n_h: 512
+optimizer: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0001
+    maximize: False
+    weight_decay: 0
+)
+learning_rate: 0.0001
+criterion: CTCLoss()
+num_epochs: 100
+batch_size: 8
+transform: Resize with aspect ratio. Data Preprocessing + Augmentation
+dataset: IAM Lines Dataset (writer-independent split). Cleaned dataset
+Starting training process: 
+
+
+Epoch 1 Results:
+Training - Loss: 2.6747, CER: 0.8030, WER: 0.8352
+Validation - Loss: 1.7095, CER: 0.6094, WER: 0.7023
+New best model saved with validation CER: 0.6094
+
+Epoch 2 Results:
+Training - Loss: 1.2416, CER: 0.4264, WER: 0.6099
+Validation - Loss: 0.9313, CER: 0.2923, WER: 0.5259
+New best model saved with validation CER: 0.2923
+
+Epoch 3 Results:
+Training - Loss: 0.7260, CER: 0.2244, WER: 0.4450
+Validation - Loss: 0.6791, CER: 0.2000, WER: 0.4250
+New best model saved with validation CER: 0.2000
+
+Epoch 4 Results:
+Training - Loss: 0.5302, CER: 0.1571, WER: 0.3502
+Validation - Loss: 0.5843, CER: 0.1627, WER: 0.3722
+New best model saved with validation CER: 0.1627
+
+Epoch 5 Results:
+Training - Loss: 0.4107, CER: 0.1191, WER: 0.2868
+Validation - Loss: 0.5535, CER: 0.1522, WER: 0.3555
+New best model saved with validation CER: 0.1522
+
+Epoch 6 Results:
+Training - Loss: 0.3209, CER: 0.0917, WER: 0.2348
+Validation - Loss: 0.5331, CER: 0.1377, WER: 0.3283
+New best model saved with validation CER: 0.1377
+
+Epoch 7 Results:
+Training - Loss: 0.2484, CER: 0.0690, WER: 0.1861
+Validation - Loss: 0.5464, CER: 0.1423, WER: 0.3409
+No improvement in validation CER for 1 epochs. Best CER: 0.1377 at epoch 6
+
+Epoch 8 Results:
+Training - Loss: 0.1902, CER: 0.0521, WER: 0.1482
+Validation - Loss: 0.5514, CER: 0.1325, WER: 0.3245
+New best model saved with validation CER: 0.1325
+
+Epoch 9 Results:
+Training - Loss: 0.1499, CER: 0.0402, WER: 0.1184
+Validation - Loss: 0.5703, CER: 0.1320, WER: 0.3215
+New best model saved with validation CER: 0.1320
+
+Epoch 10 Results:
+Training - Loss: 0.1202, CER: 0.0319, WER: 0.0970
+Validation - Loss: 0.6135, CER: 0.1332, WER: 0.3232
+No improvement in validation CER for 1 epochs. Best CER: 0.1320 at epoch 9
+
+Epoch 11 Results:
+Training - Loss: 0.0975, CER: 0.0257, WER: 0.0804
+Validation - Loss: 0.6266, CER: 0.1324, WER: 0.3234
+No improvement in validation CER for 2 epochs. Best CER: 0.1320 at epoch 9
+
+Epoch 12 Results:
+Training - Loss: 0.0817, CER: 0.0219, WER: 0.0693
+Validation - Loss: 0.6638, CER: 0.1360, WER: 0.3269
+No improvement in validation CER for 3 epochs. Best CER: 0.1320 at epoch 9
+
+Epoch 13 Results:
+Training - Loss: 0.0685, CER: 0.0187, WER: 0.0609
+Validation - Loss: 0.7021, CER: 0.1375, WER: 0.3383
+No improvement in validation CER for 4 epochs. Best CER: 0.1320 at epoch 9
+
+Epoch 14 Results:
+Training - Loss: 0.0610, CER: 0.0165, WER: 0.0550
+Validation - Loss: 0.7013, CER: 0.1311, WER: 0.3231
+New best model saved with validation CER: 0.1311
+
+Epoch 15 Results:
+Training - Loss: 0.0517, CER: 0.0145, WER: 0.0491
+Validation - Loss: 0.7126, CER: 0.1327, WER: 0.3226
+No improvement in validation CER for 1 epochs. Best CER: 0.1311 at epoch 14
+
+Epoch 16 Results:
+Training - Loss: 0.0462, CER: 0.0134, WER: 0.0457
+Validation - Loss: 0.7521, CER: 0.1323, WER: 0.3244
+No improvement in validation CER for 2 epochs. Best CER: 0.1311 at epoch 14
+
+Epoch 17 Results:
+Training - Loss: 0.0406, CER: 0.0119, WER: 0.0411
+Validation - Loss: 0.7508, CER: 0.1305, WER: 0.3195
+New best model saved with validation CER: 0.1305
+
+Epoch 18 Results:
+Training - Loss: 0.0361, CER: 0.0108, WER: 0.0377
+Validation - Loss: 0.7727, CER: 0.1327, WER: 0.3223
+No improvement in validation CER for 1 epochs. Best CER: 0.1305 at epoch 17
+
+Epoch 19 Results:
+Training - Loss: 0.0333, CER: 0.0101, WER: 0.0355
+Validation - Loss: 0.7842, CER: 0.1344, WER: 0.3261
+No improvement in validation CER for 2 epochs. Best CER: 0.1305 at epoch 17
+
+Epoch 20 Results:
+Training - Loss: 0.0291, CER: 0.0088, WER: 0.0317
+Validation - Loss: 0.7866, CER: 0.1278, WER: 0.3116
+New best model saved with validation CER: 0.1278
+
+Epoch 21 Results:
+Training - Loss: 0.0285, CER: 0.0086, WER: 0.0309
+Validation - Loss: 0.8346, CER: 0.1337, WER: 0.3237
+No improvement in validation CER for 1 epochs. Best CER: 0.1278 at epoch 20
+
+Epoch 22 Results:
+Training - Loss: 0.0266, CER: 0.0085, WER: 0.0303
+Validation - Loss: 0.8336, CER: 0.1313, WER: 0.3219
+No improvement in validation CER for 2 epochs. Best CER: 0.1278 at epoch 20
+
+Epoch 23 Results:
+Training - Loss: 0.0252, CER: 0.0080, WER: 0.0290
+Validation - Loss: 0.8402, CER: 0.1305, WER: 0.3215
+No improvement in validation CER for 3 epochs. Best CER: 0.1278 at epoch 20
+
+Epoch 24 Results:
+Training - Loss: 0.0232, CER: 0.0076, WER: 0.0277
+Validation - Loss: 0.8374, CER: 0.1306, WER: 0.3212
+No improvement in validation CER for 4 epochs. Best CER: 0.1278 at epoch 20
+
+Epoch 25 Results:
+Training - Loss: 0.0215, CER: 0.0071, WER: 0.0256
+Validation - Loss: 0.8619, CER: 0.1306, WER: 0.3234
+No improvement in validation CER for 5 epochs. Best CER: 0.1278 at epoch 20
+
+Epoch 26 Results:
+Training - Loss: 0.0219, CER: 0.0070, WER: 0.0259
+Validation - Loss: 0.8620, CER: 0.1294, WER: 0.3167
+No improvement in validation CER for 6 epochs. Best CER: 0.1278 at epoch 20
+
+Epoch 27 Results:
+Training - Loss: 0.0190, CER: 0.0062, WER: 0.0228
+Validation - Loss: 0.8580, CER: 0.1296, WER: 0.3177
+No improvement in validation CER for 7 epochs. Best CER: 0.1278 at epoch 20
+
+Epoch 28 Results:
+Training - Loss: 0.0186, CER: 0.0063, WER: 0.0231
+Validation - Loss: 0.8934, CER: 0.1341, WER: 0.3255
+No improvement in validation CER for 8 epochs. Best CER: 0.1278 at epoch 20
+
+Epoch 29 Results:
+Training - Loss: 0.0180, CER: 0.0060, WER: 0.0216
+Validation - Loss: 0.8889, CER: 0.1270, WER: 0.3170
+New best model saved with validation CER: 0.1270
+
+Epoch 30 Results:
+Training - Loss: 0.0172, CER: 0.0055, WER: 0.0202
+Validation - Loss: 0.8811, CER: 0.1282, WER: 0.3170
+No improvement in validation CER for 1 epochs. Best CER: 0.1270 at epoch 29
+
+Epoch 31 Results:
+Training - Loss: 0.0155, CER: 0.0051, WER: 0.0190
+Validation - Loss: 0.8948, CER: 0.1271, WER: 0.3141
+No improvement in validation CER for 2 epochs. Best CER: 0.1270 at epoch 29
+
+Epoch 32 Results:
+Training - Loss: 0.0148, CER: 0.0050, WER: 0.0185
+Validation - Loss: 0.9328, CER: 0.1285, WER: 0.3165
+No improvement in validation CER for 3 epochs. Best CER: 0.1270 at epoch 29
+
+Epoch 33 Results:
+Training - Loss: 0.0148, CER: 0.0048, WER: 0.0181
+Validation - Loss: 0.9213, CER: 0.1268, WER: 0.3091
+New best model saved with validation CER: 0.1268
+
+Epoch 34 Results:
+Training - Loss: 0.0145, CER: 0.0050, WER: 0.0188
+Validation - Loss: 0.9207, CER: 0.1293, WER: 0.3181
+No improvement in validation CER for 1 epochs. Best CER: 0.1268 at epoch 33
+
+Epoch 35 Results:
+Training - Loss: 0.0146, CER: 0.0046, WER: 0.0172
+Validation - Loss: 0.9034, CER: 0.1251, WER: 0.3087
+New best model saved with validation CER: 0.1251
+
+Epoch 36 Results:
+Training - Loss: 0.0137, CER: 0.0045, WER: 0.0169
+Validation - Loss: 0.9241, CER: 0.1248, WER: 0.3123
+New best model saved with validation CER: 0.1248
+
+Epoch 37 Results:
+Training - Loss: 0.0129, CER: 0.0044, WER: 0.0168
+Validation - Loss: 0.9725, CER: 0.1299, WER: 0.3158
+No improvement in validation CER for 1 epochs. Best CER: 0.1248 at epoch 36
+
+Epoch 38 Results:
+Training - Loss: 0.0118, CER: 0.0041, WER: 0.0156
+Validation - Loss: 0.9472, CER: 0.1264, WER: 0.3108
+No improvement in validation CER for 2 epochs. Best CER: 0.1248 at epoch 36
+
+Epoch 39 Results:
+Training - Loss: 0.0127, CER: 0.0043, WER: 0.0164
+Validation - Loss: 0.9462, CER: 0.1262, WER: 0.3111
+No improvement in validation CER for 3 epochs. Best CER: 0.1248 at epoch 36
+
+Epoch 40 Results:
+Training - Loss: 0.0126, CER: 0.0042, WER: 0.0160
+Validation - Loss: 0.9760, CER: 0.1291, WER: 0.3182
+No improvement in validation CER for 4 epochs. Best CER: 0.1248 at epoch 36
+
+Epoch 41 Results:
+Training - Loss: 0.0120, CER: 0.0040, WER: 0.0156
+Validation - Loss: 0.9815, CER: 0.1280, WER: 0.3152
+No improvement in validation CER for 5 epochs. Best CER: 0.1248 at epoch 36
+
+Epoch 42 Results:
+Training - Loss: 0.0102, CER: 0.0036, WER: 0.0137
+Validation - Loss: 0.9807, CER: 0.1236, WER: 0.3069
+New best model saved with validation CER: 0.1236
+
+Epoch 43 Results:
+Training - Loss: 0.0113, CER: 0.0038, WER: 0.0145
+Validation - Loss: 0.9871, CER: 0.1279, WER: 0.3132
+No improvement in validation CER for 1 epochs. Best CER: 0.1236 at epoch 42
+
+Epoch 44 Results:
+Training - Loss: 0.0098, CER: 0.0034, WER: 0.0130
+Validation - Loss: 0.9862, CER: 0.1262, WER: 0.3085
+No improvement in validation CER for 2 epochs. Best CER: 0.1236 at epoch 42
+
+Epoch 45 Results:
+Training - Loss: 0.0096, CER: 0.0033, WER: 0.0127
+Validation - Loss: 0.9894, CER: 0.1247, WER: 0.3088
+No improvement in validation CER for 3 epochs. Best CER: 0.1236 at epoch 42
+
+Epoch 46 Results:
+Training - Loss: 0.0091, CER: 0.0032, WER: 0.0125
+Validation - Loss: 0.9967, CER: 0.1230, WER: 0.3054
+New best model saved with validation CER: 0.1230
+
+Epoch 47 Results:
+Training - Loss: 0.0090, CER: 0.0031, WER: 0.0119
+Validation - Loss: 1.0057, CER: 0.1264, WER: 0.3113
+No improvement in validation CER for 1 epochs. Best CER: 0.1230 at epoch 46
+
+Epoch 48 Results:
+Training - Loss: 0.0100, CER: 0.0034, WER: 0.0131
+Validation - Loss: 0.9950, CER: 0.1252, WER: 0.3074
+No improvement in validation CER for 2 epochs. Best CER: 0.1230 at epoch 46
+
+Epoch 49 Results:
+Training - Loss: 0.0105, CER: 0.0034, WER: 0.0132
+Validation - Loss: 1.0166, CER: 0.1228, WER: 0.3037
+New best model saved with validation CER: 0.1228
+
+Epoch 50 Results:
+Training - Loss: 0.0092, CER: 0.0030, WER: 0.0111
+Validation - Loss: 1.0013, CER: 0.1235, WER: 0.3064
+No improvement in validation CER for 1 epochs. Best CER: 0.1228 at epoch 49
+
+Epoch 51 Results:
+Training - Loss: 0.0085, CER: 0.0030, WER: 0.0115
+Validation - Loss: 1.0417, CER: 0.1280, WER: 0.3172
+No improvement in validation CER for 2 epochs. Best CER: 0.1228 at epoch 49
+
+Epoch 52 Results:
+Training - Loss: 0.0089, CER: 0.0030, WER: 0.0116
+Validation - Loss: 1.0202, CER: 0.1245, WER: 0.3077
+No improvement in validation CER for 3 epochs. Best CER: 0.1228 at epoch 49
+
+Epoch 53 Results:
+Training - Loss: 0.0098, CER: 0.0030, WER: 0.0114
+Validation - Loss: 1.0431, CER: 0.1273, WER: 0.3139
+No improvement in validation CER for 4 epochs. Best CER: 0.1228 at epoch 49
+
+Epoch 54 Results:
+Training - Loss: 0.0098, CER: 0.0031, WER: 0.0120
+Validation - Loss: 1.0159, CER: 0.1239, WER: 0.3097
+No improvement in validation CER for 5 epochs. Best CER: 0.1228 at epoch 49
+
+Epoch 55 Results:
+Training - Loss: 0.0076, CER: 0.0026, WER: 0.0103
+Validation - Loss: 1.0416, CER: 0.1255, WER: 0.3096
+No improvement in validation CER for 6 epochs. Best CER: 0.1228 at epoch 49
+
+Epoch 56 Results:
+Training - Loss: 0.0079, CER: 0.0029, WER: 0.0111
+Validation - Loss: 1.0126, CER: 0.1216, WER: 0.2995
+New best model saved with validation CER: 0.1216
+
+Epoch 57 Results:
+Training - Loss: 0.0092, CER: 0.0030, WER: 0.0115
+Validation - Loss: 1.0276, CER: 0.1238, WER: 0.3057
+No improvement in validation CER for 1 epochs. Best CER: 0.1216 at epoch 56
+
+Epoch 58 Results:
+Training - Loss: 0.0086, CER: 0.0028, WER: 0.0109
+Validation - Loss: 1.0393, CER: 0.1259, WER: 0.3096
+No improvement in validation CER for 2 epochs. Best CER: 0.1216 at epoch 56
+
+Epoch 59 Results:
+Training - Loss: 0.0071, CER: 0.0027, WER: 0.0105
+Validation - Loss: 1.0501, CER: 0.1246, WER: 0.3085
+No improvement in validation CER for 3 epochs. Best CER: 0.1216 at epoch 56
+
+Epoch 60 Results:
+Training - Loss: 0.0079, CER: 0.0029, WER: 0.0113
+Validation - Loss: 1.0466, CER: 0.1243, WER: 0.3088
+No improvement in validation CER for 4 epochs. Best CER: 0.1216 at epoch 56
+
+Epoch 61 Results:
+Training - Loss: 0.0080, CER: 0.0027, WER: 0.0106
+Validation - Loss: 1.0401, CER: 0.1245, WER: 0.3095
+No improvement in validation CER for 5 epochs. Best CER: 0.1216 at epoch 56
+
+Epoch 62 Results:
+Training - Loss: 0.0067, CER: 0.0023, WER: 0.0089
+Validation - Loss: 1.0578, CER: 0.1234, WER: 0.3002
+No improvement in validation CER for 6 epochs. Best CER: 0.1216 at epoch 56
+
+Epoch 63 Results:
+Training - Loss: 0.0079, CER: 0.0024, WER: 0.0097
+Validation - Loss: 1.0789, CER: 0.1248, WER: 0.3097
+No improvement in validation CER for 7 epochs. Best CER: 0.1216 at epoch 56
+
+Epoch 64 Results:
+Training - Loss: 0.0075, CER: 0.0026, WER: 0.0102
+Validation - Loss: 1.0468, CER: 0.1240, WER: 0.3039
+No improvement in validation CER for 8 epochs. Best CER: 0.1216 at epoch 56
+
+Epoch 65 Results:
+Training - Loss: 0.0070, CER: 0.0024, WER: 0.0096
+Validation - Loss: 1.0531, CER: 0.1237, WER: 0.3045
+No improvement in validation CER for 9 epochs. Best CER: 0.1216 at epoch 56
+
+Epoch 66 Results:
+Training - Loss: 0.0069, CER: 0.0023, WER: 0.0092
+Validation - Loss: 1.0581, CER: 0.1256, WER: 0.3070
+No improvement in validation CER for 10 epochs. Best CER: 0.1216 at epoch 56
+
+Early stopping triggered! No improvement in validation CER for 10 consecutive epochs.
+Best validation CER: 0.1216 achieved at epoch 56
+Model saved as cnn_lstm_ctc_handwritten_v0_word_66ep_CNN-BiLSTM-CTC_V0.pth
+Loaded best model from epoch 56

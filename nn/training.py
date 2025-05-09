@@ -10,7 +10,7 @@ from tqdm import tqdm
 
 from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.logger import logger_model_training
-from nn.transform_2 import get_training_transform, get_validation_transform
+from nn.transform import get_simple_train_transform_v0, get_validation_transform
 from nn.utils import execution_time_decorator, greedy_decoder, calculate_metrics
 from nn.v0.models import CNN_LSTM_CTC_V0
 from nn.v1.models import CNN_LSTM_CTC_V1_CNN_deeper_vgg16like
@@ -35,7 +35,7 @@ def main(version, additional):
     dataset = IAMDataset(
         mapping_file=mapping_file,
         paths=paths,
-        transform=get_training_transform(),
+        transform=get_simple_train_transform_v0(),
         label_converter=label_converter
     )
 
@@ -48,12 +48,12 @@ def main(version, additional):
                             collate_fn=collate_fn,
                             )
 
-    validation_mapping_file = "dataset/writer_independent_word_splits/preprocessed_80_10_10/val_word_mappings.txt"
+    validation_mapping_file = "dataset/writer_independent_word_splits/preprocessed/val_word_mappings.txt"
 
     validation_dataset = IAMDataset(
         mapping_file=validation_mapping_file,
         paths=paths,
-        transform=get_validation_transform(),
+        transform=get_simple_train_transform_v0(),
         label_converter=label_converter
     )
 
@@ -76,7 +76,7 @@ def main(version, additional):
         n_classes=n_classes,
         n_h=n_h,
         out_channels=48,
-        lstm_layers=1
+        lstm_layers=2
     )
 
     # Device configuration.
@@ -90,15 +90,15 @@ def main(version, additional):
     torch.save(model.state_dict(), model_filename)
 
     # Load initial random weights (hardcoded path)
-    weights_path = "parameters/CNN-BiLSTM-CTC_V0_initial_weights.pth"
-    model.load_state_dict(torch.load(weights_path, map_location=device))
-    print(f"Loaded initial random weights from {weights_path}")
+    # weights_path = "parameters/CNN-BiLSTM-CTC_V0_initial_weights.pth"
+    # model.load_state_dict(torch.load(weights_path, map_location=device))
+    # print(f"Loaded initial random weights from {weights_path}")
 
     # Define the CTCLoss and optimizer.
     criterion = nn.CTCLoss(blank=0, zero_infinity=True)
 
     lr = 0.0001
-    optimizer = optim.RMSprop(model.parameters(), lr=lr)
+    optimizer = optim.Adam(model.parameters(), lr=lr)
 
     start_epoch = 0
     checkpoint_path = 'checkpoint.pth'

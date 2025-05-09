@@ -8,6 +8,8 @@ import random
 from PIL import ImageEnhance, Image, ImageOps
 from PIL.Image import Resampling
 
+from nn.check_transform_funcs import adjust_contrast_brightness
+
 TARGET_WIDTH = 300
 
 
@@ -76,7 +78,7 @@ def random_distortion(image):
     return image
 
 
-def get_simple_train_transform_v0(img_height):
+def get_simple_train_transform_v0():
     transform = transforms.Compose([
         # transforms.Lambda(lambda img: resize_height_aspect_ratio(img, img_height)),
         transforms.ToTensor()
@@ -86,7 +88,7 @@ def get_simple_train_transform_v0(img_height):
 
 def get_simple_recognize_transform():
     transform = transforms.Compose([
-        transforms.Lambda(lambda img: resize_aspect_ratio_add_padding(img)),
+        # transforms.Lambda(lambda img: resize_aspect_ratio_add_padding(img)),
         transforms.ToTensor()
     ])
     return transform
