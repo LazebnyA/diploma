@@ -447,8 +447,8 @@ def get_validation_transform() -> transforms.Compose:
         # transforms.Lambda(deskew_image),  # Виправлення нахилу
         # transforms.Lambda(remove_ruled_lines),  # Видалення ліній
         transforms.Lambda(lambda img: remove_noise(img, median_kernel_size=3, gaussian_kernel_size=3)),
-        transforms.Lambda(lambda img: enhance_document(img, contrast_factor=1.5, brightness_factor=3)),
-        # transforms.Lambda(adaptive_binarization),  # Адаптивна бінаризація краще для рукописного тексту
+        transforms.Lambda(lambda img: enhance_document(img, contrast_factor=1.5, brightness_factor=1.2)),
+        transforms.Lambda(adaptive_binarization),  # Адаптивна бінаризація краще для рукописного тексту
         transforms.Lambda(resize_with_padding),
         transforms.ToTensor()
     ])
