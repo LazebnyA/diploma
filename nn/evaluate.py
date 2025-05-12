@@ -15,7 +15,7 @@ import pandas as pd
 
 from nn.dataset import ProjectPaths, LabelConverter, IAMDataset, collate_fn
 from nn.transform import get_simple_train_transform_v0, get_simple_recognize_transform
-from nn.transform_2 import get_validation_transform
+from nn.transform import get_validation_transform
 from nn.utils import execution_time_decorator, calculate_metrics
 from nn.logger import evaluation_logger  # Assuming you have this
 from nn.v0.models import CNN_LSTM_CTC_V0

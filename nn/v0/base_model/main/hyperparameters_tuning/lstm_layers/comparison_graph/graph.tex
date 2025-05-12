@@ -1,15 +1,165 @@
-%! Author = Professional
-%! Date = 4/29/2025
+\documentclass[border=5pt]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
 
-% Preamble
-\documentclass[11pt]{article}
+% Define colors for different configurations
+\definecolor{OneLayerColor}{RGB}{31,119,180}   % Blue for 1 layer
+\definecolor{TwoLayersColor}{RGB}{214,39,40}   % Red for 2 layers
 
-% Packages
-\usepackage{amsmath}
-
-% Document
 \begin{document}
+\begin{tikzpicture}[remember picture]
 
+    % Plot 1: Loss
+    \begin{axis}[
+        name=plot1,
+        width=6cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={Loss},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=10.5,
+        ymin=0.0, ymax=3.0,
+        xtick={1,2,3,4,5,6,7,8,9,10},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={Loss},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers},
+        legend to name=commonlegend,
+        legend columns=2,
+        legend style={draw=none, fill=none, font=\footnotesize, column sep=0.1cm}
+    ]
+        % 1 layer Train
+        \addplot[color=OneLayerColor, thick] coordinates {
+            (1,2.39169) (2,1.03621) (3,0.69029) (4,0.52457) (5,0.41086)
+            (6,0.31620) (7,0.23583) (8,0.17298) (9,0.12572) (10,0.09318)
+        };
+        % 1 layer Validation
+        \addplot[color=OneLayerColor, thick, dashed] coordinates {
+            (1,1.40679) (2,0.88079) (3,0.68604) (4,0.60970) (5,0.59528)
+            (6,0.58348) (7,0.59412) (8,0.62128) (9,0.67025) (10,0.70132)
+        };
+        % 2 layers Train
+        \addplot[color=TwoLayersColor, thick] coordinates {
+            (1,2.67475) (2,1.24160) (3,0.72600) (4,0.53016) (5,0.41073)
+            (6,0.32089) (7,0.24839) (8,0.19024) (9,0.14985) (10,0.12018)
+        };
+        % 2 layers Validation
+        \addplot[color=TwoLayersColor, thick, dashed] coordinates {
+            (1,1.70952) (2,0.93129) (3,0.67909) (4,0.58427) (5,0.55353)
+            (6,0.53311) (7,0.54643) (8,0.55141) (9,0.57035) (10,0.61350)
+        };
+        \legend{1 layer Tr, 1 layer Val, 2 layers Tr, 2 layers Val}
+    \end{axis}
 
+    % Plot 2: CER
+    \begin{axis}[
+        name=plot2,
+        at={($(plot1.east)+(2cm,0)$)},
+        anchor=west,
+        width=6cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={CER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=10.5,
+        ymin=0.0, ymax=0.7,
+        xtick={1,2,3,4,5,6,7,8,9,10},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={CER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % 1 layer Train
+        \addplot[color=OneLayerColor, thick] coordinates {
+            (1,0.70355) (2,0.32973) (3,0.21134) (4,0.15865) (5,0.12247)
+            (6,0.09290) (7,0.06775) (8,0.04721) (9,0.03185) (10,0.02184)
+        };
+        % 1 layer Validation
+        \addplot[color=OneLayerColor, thick, dashed] coordinates {
+            (1,0.47387) (2,0.27114) (3,0.20112) (4,0.17388) (5,0.16729)
+            (6,0.15541) (7,0.15389) (8,0.15427) (9,0.15841) (10,0.15811)
+        };
+        % 2 layers Train
+        \addplot[color=TwoLayersColor, thick] coordinates {
+            (1,0.80299) (2,0.42638) (3,0.22444) (4,0.15705) (5,0.11913)
+            (6,0.09174) (7,0.06903) (8,0.05212) (9,0.04020) (10,0.03194)
+        };
+        % 2 layers Validation
+        \addplot[color=TwoLayersColor, thick, dashed] coordinates {
+            (1,0.60936) (2,0.29226) (3,0.19998) (4,0.16270) (5,0.15223)
+            (6,0.13772) (7,0.14232) (8,0.13251) (9,0.13201) (10,0.13318)
+        };
+    \end{axis}
 
+    % Plot 3: WER
+    \begin{axis}[
+        name=plot3,
+        at={($(plot2.east)+(2cm,0)$)},
+        anchor=west,
+        width=6cm,
+        height=6cm,
+        xlabel={Епоха},
+        ylabel={WER},
+        ylabel style={yshift=-0.15cm},
+        xmin=0.5, xmax=10.5,
+        ymin=0.1, ymax=0.9,
+        xtick={1,2,3,4,5,6,7,8,9,10},
+        grid=both,
+        grid style={line width=.1pt, draw=gray!10},
+        major grid style={line width=.2pt,draw=gray!30},
+        title={WER},
+        axis background/.style={fill=gray!3},
+        title style={yshift=3mm, font=\small\bfseries},
+        label style={font=\small},
+        tick label style={font=\footnotesize},
+        line width=1pt,
+        enlarge x limits=0.05,
+        enlarge y limits=0.05,
+        every axis plot/.append style={no markers}
+    ]
+        % 1 layer Train
+        \addplot[color=OneLayerColor, thick] coordinates {
+            (1,0.80697) (2,0.56916) (3,0.43703) (4,0.35711) (5,0.29527)
+            (6,0.23728) (7,0.18423) (8,0.13646) (9,0.09734) (10,0.06962)
+        };
+        % 1 layer Validation
+        \addplot[color=OneLayerColor, thick, dashed] coordinates {
+            (1,0.68889) (2,0.51702) (3,0.43493) (4,0.39620) (5,0.38877)
+            (6,0.36921) (7,0.36609) (8,0.36828) (9,0.37908) (10,0.37646)
+        };
+        % 2 layers Train
+        \addplot[color=TwoLayersColor, thick] coordinates {
+            (1,0.83516) (2,0.60994) (3,0.44499) (4,0.35024) (5,0.28677)
+            (6,0.23481) (7,0.18610) (8,0.14821) (9,0.11844) (10,0.09700)
+        };
+        % 2 layers Validation
+        \addplot[color=TwoLayersColor, thick, dashed] coordinates {
+            (1,0.70226) (2,0.52589) (3,0.42500) (4,0.37221) (5,0.35553)
+            (6,0.32829) (7,0.34085) (8,0.32448) (9,0.32148) (10,0.32317)
+        };
+    \end{axis}
+
+    % Legend
+    \node at ($(plot1.south)!0.5!(plot3.south)+(0,-2cm)$) {\pgfplotslegendfromname{commonlegend}};
+
+\end{tikzpicture}
 \end{document}

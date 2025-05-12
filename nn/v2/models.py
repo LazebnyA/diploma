@@ -116,21 +116,6 @@ class ResNet_BiLSTM_CTC(nn.Module):
         return x
 
 
-# Додавання додаткових компонентів для глибших моделей
-def make_layer(block, in_channels, out_channels, num_blocks, stride=1):
-    """
-    Допоміжна функція для створення шару з декількох резидуальних блоків.
-    """
-    layers = []
-    # Перший блок може мати stride відмінний від 1
-    layers.append(block(in_channels, out_channels, stride))
-
-    # Решта блоків мають stride=1
-    for _ in range(1, num_blocks):
-        layers.append(block(out_channels, out_channels))
-
-    return nn.Sequential(*layers)
-
 
 def resnet18_htr_sequential(img_height, num_channels=1, n_classes=80, n_h=256, out_channels=24, lstm_layers=2):
     """
@@ -218,22 +203,6 @@ class ResNet_BiLSTM_CTC_v2(nn.Module):
         return x
 
 
-# Додавання додаткових компонентів для глибших моделей
-def make_layer(block, in_channels, out_channels, num_blocks, stride=1):
-    """
-    Допоміжна функція для створення шару з декількох резидуальних блоків.
-    """
-    layers = []
-    # Перший блок може мати stride відмінний від 1
-    layers.append(block(in_channels, out_channels, stride))
-
-    # Решта блоків мають stride=1
-    for _ in range(1, num_blocks):
-        layers.append(block(out_channels, out_channels))
-
-    return nn.Sequential(*layers)
-
-
 def resnet18_htr_sequential_v2(img_height, num_channels=1, n_classes=80, n_h=256, out_channels=24, lstm_layers=2):
     """
     Створює ResNet18 для HTR з послідовною CNN архітектурою.
@@ -242,35 +211,3 @@ def resnet18_htr_sequential_v2(img_height, num_channels=1, n_classes=80, n_h=256
                                  lstm_layers=lstm_layers)
     return model
 
-
-def resnet34_htr_sequential_v2(img_height, num_channels=1, n_classes=80, n_h=256, out_channels=24, lstm_layers=2):
-    """
-    Створює глибшу версію ResNet34 для HTR з послідовною CNN архітектурою.
-    """
-    # Створюємо базову модель
-    model = ResNet_BiLSTM_CTC_v2(img_height, num_channels, n_classes, n_h, out_channels=out_channels,
-                                 lstm_layers=lstm_layers)
-
-    # Замінюємо CNN частину на глибшу версію
-    model.cnn = nn.Sequential(
-        # Початковий шар
-        nn.Conv2d(num_channels, out_channels, kernel_size=3, stride=1, padding=1, bias=False),
-        nn.BatchNorm2d(64),
-        nn.ReLU(inplace=True),
-
-        # Шари з більшою кількістю блоків
-        *make_layer(ResidualBlock, out_channels, out_channels, 3),
-        *make_layer(ResidualBlock, out_channels, out_channels * 2, 4, stride=1),
-
-        *make_layer(ResidualBlock, out_channels * 2, out_channels * 4, 6, stride=1),
-        nn.MaxPool2d(kernel_size=2, stride=(2, 2)),
-
-        *make_layer(ResidualBlock, out_channels * 4, out_channels * 8, 3, stride=1),
-    )
-
-    return model
-
-# Приклад використання:
-# model = resnet18_htr_sequential(img_height=64, num_channels=1, n_classes=100)
-# або
-# model = resnet34_htr_sequential(img_height=64, num_channels=1, n_classes=100)

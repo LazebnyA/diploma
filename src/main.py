@@ -2,8 +2,8 @@ import os
 import torch
 import torch.nn.functional as F
 from torchvision import transforms
-from PIL import Image, ImageEnhance, ImageOps, ImageFilter, UnidentifiedImageError
-from fastapi import FastAPI, File, UploadFile, Request, Form, HTTPException
+from PIL import Image, ImageEnhance, UnidentifiedImageError
+from fastapi import FastAPI, File, UploadFile, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -12,7 +12,7 @@ import io
 import numpy as np
 import uuid
 import cv2
-from typing import List, Optional
+from typing import List
 import traceback
 import logging
 
